@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Text, StyleSheet } from 'react-native';
 import Loading from './loading';
 import User from './user';
 import { searchUser, addFriend } from '../actions/FriendActions';
@@ -35,7 +35,8 @@ class UserList extends Component {
             return <Loading color='#3498db' />
         return (
             <View style={{padding: 10, flex:1}}>
-                {this.props.foundItems!='' &&
+                {this.props.error != '' ?
+                    <Text style={styles.noContent}>{this.props.error}</Text> :
                     <FlatList
                         data={this.props.foundItems}
                         renderItem={this.renderItem}
@@ -46,9 +47,21 @@ class UserList extends Component {
   }
 }
 
+const styles = StyleSheet.create({
+  noContent: {
+    fontFamily: 'Pacifico',
+    alignSelf: 'center',
+    fontSize: 18,
+    alignItems: 'center',
+    color: '#34495e',
+    paddingTop: 50,
+  }
+});
+
 
 const mapStateToProps = state => ({
   foundItems : state.friend.foundItems,
+  error: state.friend.error,
   loading: state.friend.loading
 });
 

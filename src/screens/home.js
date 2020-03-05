@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableHighlight, View, Text} from 'react-native';
+import { StyleSheet, TouchableHighlight, View, Text, TouchableWithoutFeedback} from 'react-native';
 import { Button, Icon} from 'native-base';
 import { logout } from '../actions/AuthActions';
 import UserPicture from '../components/userPicture';
@@ -15,13 +15,14 @@ class HomeScreen extends Component {
           <TouchableHighlight onPress={() => this.props.navigation.navigate("Info")}>
             <CustomHeader type="home" color="#1abc9c" />
           </TouchableHighlight>
-          <View style={{flex: 1, paddingTop: 50, alignItems: 'center', backgroundColor:'#1abc9c'}}>
-              <UserPicture large color='#ecf0f1' />
-              <Text style={styles.welcome}>{this.props.user.displayName ?
-                this.props.user.displayName.toUpperCase() :
-                this.props.user.email ? this.props.user.email.substring(0, this.props.user.email.indexOf('@')).toUpperCase() : this.props.user.email }
-              </Text>
-              <Text uppercase={false} style={styles.logout} onPress={()=>this.props.logout()}>Esci</Text>
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-around', backgroundColor:'#1abc9c'}}>
+            <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("Avatar")}>
+              <Animatable.View animation="pulse" duration={800} iterationCount="infinite" iterationDelay={5000}>
+                <UserPicture style={{width: 110, height: 110, borderRadius: 55, borderWidth: 2}} large color='#ecf0f1' />
+              </Animatable.View>
+            </TouchableWithoutFeedback>
+            <Text style={styles.welcome}>{this.props.user.displayName}</Text>
+            <Text uppercase={false} style={styles.logout} onPress={()=>this.props.logout()}>Esci</Text>
           </View>
           <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
             <Button vertical style={styles.button} onPress={() => this.props.navigation.navigate("NewSurvey")}>
@@ -44,15 +45,15 @@ const styles = StyleSheet.create({
   welcome: {
     color: '#ecf0f1',
     fontSize: 20,
-    marginTop: 20,
     textAlign:'center',
     fontFamily: 'Quicksand',
+    paddingHorizontal: 10
   },
   logout: {
     fontFamily: 'Quicksand',
     textDecorationLine: 'underline',
     color: '#ecf0f1',
-    fontSize: 16,
+    fontSize: 18,
     padding: 10
   },
 });

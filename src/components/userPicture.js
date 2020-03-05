@@ -4,22 +4,20 @@ import { connect } from 'react-redux';
 
 class UserPicture extends Component {
   render() {
-    if(this.props.user.photoURL)
+    if(this.props.user.image)
     {
       return(
-        <Thumbnail {...this.props} style={{borderColor: this.props.color, borderWidth: 1}} source={{uri: this.props.user.photoURL+"?type=large"}} />
+        <Thumbnail {...this.props} style={[this.props.style, {backgroundColor: '#fdfdfd', borderColor: this.props.color}]} source={{uri: this.props.user.image}} />
       )
     }
     return (
-        <Thumbnail {...this.props} style={{borderColor: this.props.color, borderWidth: 1}} source={require('../assets/images/user.png')} />
+        <Thumbnail {...this.props} style={[this.props.style, {backgroundColor: '#fdfdfd', borderColor: this.props.color}]} source={require('../assets/images/user.png')} />
     )
   }
 }
 
 const mapStateToProps = state => ({
   user : state.auth.user,
-  loading: state.auth.loading,
-  error: state.auth.error
 });
 
 export default connect(mapStateToProps) (UserPicture);

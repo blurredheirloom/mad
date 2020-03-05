@@ -31,10 +31,12 @@ const getAuthor = (author) => {
   const currentUser =  firebase.auth().currentUser.uid;
   return (dispatch) => {
     dispatch({ type: GET_AUTHOR_START });
-    firebase.database().ref('users/'+author).once('value', snap => {
+    firebase.database().ref('users/'+author).on('value', snap => {
       var data = snap.val();
       if(author==currentUser)
         data.name="Te"
+      else
+        data.name=(data.name+" "+data.surname).trim();
       dispatch({ type: GET_AUTHOR_SUCCESS, payload: data});
     })
   }
@@ -60,7 +62,7 @@ const vote = (survey, answers) => {
     });
     for (let i=0; i<answers.length; i++)
     {
-      firebase.database().ref("surveys/"+survey+'/questions/'+i+'/answers/'+answers[0]).child('votes').transaction(function(votes) {
+      firebase.database().ref("surveys/"+survey+'/questions/'+i+'/answers/'+answers[i]).child('votes').transaction(function(votes) {
         return votes + 1;
       });
     }

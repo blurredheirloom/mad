@@ -54,7 +54,7 @@ class FriendList extends Component {
             {
                 return(
                    <View style={{flex: 1, padding: 15}}>
-                        {this.props.friends=='' ? 
+                        {this.props.friends.length==0 ? 
                             <View style={{flex:1, alignItems: 'center', justifyContent: 'space-evenly'}}>
                                 <Text style={[styles.noContent, {color: '#fdfdfd'}]}>Non hai aggiunto amici</Text>
                                 <Button style={{backgroundColor: '#fdfdfd'}} onPress={() => this.props.navigation.navigate("NewFriend")}>
@@ -74,7 +74,7 @@ class FriendList extends Component {
             {
                 return (
                     <View style={{padding: 15}}>
-                        {this.props.friends=='' ? <Text style={styles.noContent}>Non hai aggiunto amici</Text> :
+                        {this.props.friends.length==0 ? <Text style={styles.noContent}>Non hai aggiunto amici</Text> :
                             <FlatList
                                 data={this.props.friends}
                                 renderItem={this.renderItem}

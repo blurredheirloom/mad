@@ -26,24 +26,6 @@ class CustomHeader extends Component {
         </View>
       )
     }
-    else if (this.props.type=="info")
-    {
-      return(
-        <View style={[styles.header, {justifyContent: 'flex-start', alignItems:'center', flexDirection:'row', backgroundColor: this.props.color}]}>
-            <Button 
-              style={{flex: 0.2}}
-              transparent
-              onPress={this.props.linkBackward}
-              >
-              <Icon style={{color: '#fdfdfd', marginLeft: 0, fontSize: 32}} type="FontAwesome" name={"chevron-circle-left"} />
-            </Button>
-            <View style={{flex:0.6, alignItems:'stretch', flexDirection:'column'}}>
-              <Text style={styles.titleHome}>mad</Text>
-              <Text style={styles.subtitleHome}>make a decision</Text>
-            </View>
-        </View>
-      )
-    }
     return (
       <View style={[styles.header, {backgroundColor: this.props.color}]}>
         {this.props.type!='menu' ?
@@ -56,7 +38,12 @@ class CustomHeader extends Component {
                 <Icon style={{color:'#fdfdfd', marginLeft: 0, fontSize: 32}} type="FontAwesome" name="chevron-circle-left" />
               </Button>
               <View style={{flex: 1, justifyContent:'flex-start'}}>
-                <Text style={styles.titleLogged}>{this.props.title}</Text>
+                {this.props.type=='info' ? 
+                <View style={{alignItems:'stretch', flexDirection:'column'}}>
+                  <Text style={styles.titleHome}>mad</Text>
+                  <Text style={styles.subtitleHome}>make a decision</Text>
+                </View> :
+                <Text style={styles.titleLogged}>{this.props.title}</Text>}
                 {this.props.span ? <Text style={styles.titleLogged}>{this.props.span+" con"}</Text> : null }
               </View>
               <Button

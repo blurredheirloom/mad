@@ -2,7 +2,7 @@
 
 import {
   FRIENDS_FETCH_START, FRIENDS_FETCH_SUCCESS,
-  USER_SEARCH_START, USER_SEARCH_SUCCESS,
+  USER_SEARCH_START, USER_SEARCH_SUCCESS, USER_SEARCH_FAIL,
   SENDING_REQUEST, SENT_REQUEST,
 } from './types';
 import registerForPushNotificationsAsync from '../api/notifications';
@@ -21,14 +21,18 @@ const friendsFetch = () => {
       var keys = Object.keys(data);
       var newItems = [];
       keys.forEach(key => {
-        newItems.push({
+        firebase.database().ref('users/'+key).on('value', snap => {
+          var data2 = snap.val();
+          newItems.push({
             "key" : key,
-            "name": data[key].name,
-            "image" : data[key].image,
+            "name": (data2.name+" "+data2.surname).trim(),
+            "image" : data2.image,
             "state" : data[key].state,
-        });
+          });
+          if(newItems.length==keys.length)
+            dispatch({ type: FRIENDS_FETCH_SUCCESS, payload: newItems})
+        })
       })
-      dispatch({ type: FRIENDS_FETCH_SUCCESS, payload: newItems})
     })
   }
 }
@@ -39,25 +43,40 @@ const searchUser = (value) => {
   const currentUser =  firebase.auth().currentUser.uid;
   return (dispatch) => {
     dispatch({ type: USER_SEARCH_START });
-    firebase.database().ref('users/').orderByChild('name').startAt(value).endAt(value+'\uf8ff').once('value', (snapshot) => {
+    if(value.length<3)
+      return dispatch({ type: USER_SEARCH_FAIL, payload: "Inserire almeno 3 caratteri" });
+    firebase.database().ref('users/').orderByChild('name').startAt(value).endAt(value+'\uf8ff').on('value', (snapshot) => {
       var data = snapshot.val();
-      if (!data){
-          return dispatch({ type: USER_SEARCH_SUCCESS, payload: []})
-      }
-      var keys = Object.keys(data);
+      var keys = data ? Object.keys(data) : [];
       var newItems = [];
       keys.forEach(key => {
         if(key!=currentUser)
         {
           newItems.push({
               "key" : key,
-              "name": data[key].name,
+              "name": (data[key].name+" "+data[key].surname).trim(),
               "image" : data[key].image,
               "token" : data[key].token
           })
         }
       });
-      dispatch({ type: USER_SEARCH_SUCCESS, payload: newItems})
+      firebase.database().ref('users/').orderByChild('surname').startAt(value).endAt(value+'\uf8ff').on('value', (snap) => {
+        var data2 = snap.val();
+        var keys = data2 ? Object.keys(data2) : [];
+        keys.forEach(key => {
+          if(key!=currentUser)
+          {
+            newItems.push({
+                "key" : key,
+                "name": data2[key].name+" "+data2[key].surname,
+                "image" : data2[key].image,
+                "token" : data2[key].token
+            })
+          }
+        });
+        newItems.length==0 ? dispatch({ type: USER_SEARCH_FAIL, payload: "Nessun utente trovato"}) :
+        dispatch({ type: USER_SEARCH_SUCCESS, payload: newItems})
+      });
     });
   }
 }
@@ -84,8 +103,6 @@ const addFriend = (key, name, image) => {
         if(!currentData)
         {
           return {
-            "name": name,
-            "image": image,
             "state": "sent"
           }
         }
@@ -95,8 +112,6 @@ const addFriend = (key, name, image) => {
         if(!currentData)
         {
           return {
-            "name": currentUser.displayName ? currentUser.displayName.toUpperCase() : currentUser.email.substring(0, currentUser.email.indexOf("@")).toUpperCase(),
-            "image": currentUser.photoURL ? currentUser.photoURL : false,
             "state": "received"
           }
         }

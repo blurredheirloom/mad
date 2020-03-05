@@ -36,7 +36,17 @@ const login = ({ email, password }) => {
    return (dispatch) => {
     dispatch({ type: LOGIN_USER_START });
     firebase.auth().signInWithEmailAndPassword(email.trim(), password)
-      .then(user => dispatch({ type: LOGIN_USER_SUCCESS, payload: user }))
+      .then(user => {
+        firebase.database().ref('users/'+user.user.uid).once('value', snapshot => {
+          var data = snapshot.val();
+          var out = {
+            "uid" : user.uid,
+            "displayName" : (data.name+" "+data.surname).trim(),
+            "image": data.image
+          }
+          dispatch({ type: LOGIN_USER_SUCCESS, payload: out });
+        });
+      })
       .catch(error => 
         {
           Toast.show({
@@ -54,32 +64,54 @@ const login = ({ email, password }) => {
 
 /*Crea o aggiorna utente nel database di firebase aggiungendo alcuni dati come immagine, token per notifiche, ...*/
 
-const updateUser = async(user) => {
+const updateToken = async(user) => {
   const token = await Notifications.getExpoPushTokenAsync();
   const uid = user.uid;
-  const name = user.displayName ? user.displayName.toUpperCase() :
-  user.email.substring(0, user.email.indexOf("@")).toUpperCase();
-  const image = user.photoURL ? user.photoURL+"?type=large" : false;
   firebase.database().ref('users/'+uid).update({
-    "name": name,
-    "image" : image,
     "token" : token
   })
 }
+
+const addUser = async(user) => {
+  const uid = user.uid;
+  const displayName = user.displayName ? user.displayName.toUpperCase() :
+  user.email.substring(0, user.email.indexOf("@")).toUpperCase();
+  const array = displayName.split(" ");
+  const name = array[0];
+  const surname = array.length>1 ? array[array.length-1] : "";
+  const image = user.photoURL ? user.photoURL+"?type=large" : false;
+  firebase.database().ref('users/'+uid).update({
+    "name": name,
+    "surname": surname,
+    "image" : image,
+  })
+}
+
 
 /* Verifica se l'utente è loggato o no */
 const loadingUser = () => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER_START });
     firebase.auth().onAuthStateChanged((user) => 
+    {
+      if(user)
       {
-        if(user)
-          updateUser(user)
-        dispatch({ type: LOGIN_USER_SUCCESS, payload: user })
+        firebase.database().ref('users/'+user.uid).on('value', snapshot => {
+          var data = snapshot.val();
+          var out = {
+            "uid" : user.uid,
+            "displayName" : (data.name+" "+data.surname).trim(),
+            "image": data.image
+          }
+          dispatch({ type: LOGIN_USER_SUCCESS, payload: out });
+        });
       }
-    )
+      else
+        dispatch({ type: LOGIN_USER_SUCCESS, payload: user });
+    })
   }
 }
+
 
 
 /* Accesso con Facebook */
@@ -88,7 +120,7 @@ const signInWithFacebook = (facebookToken) => {
       dispatch({ type: LOGIN_USER_START });
       const credential = firebase.auth.FacebookAuthProvider.credential(facebookToken);
       firebase.auth().signInWithCredential(credential)
-      .then((user) =>  addUser(user.user, dispatch) )
+      .then((user) =>  user.additionalUserInfo.isNewUser ? addUser(user.user) : updateToken(user.user) )
       .catch((error) =>  dispatch({ type: LOGIN_USER_FAIL, payload: error }));
     }
 }
@@ -99,7 +131,7 @@ const signInWithGoogle = (googleToken) => {
       dispatch({ type: LOGIN_USER_START });
       const credential = firebase.auth.GoogleAuthProvider.credential(null, googleToken);
       firebase.auth().signInWithCredential(credential)
-      .then((user) =>  addUser(user.user, dispatch) )
+      .then((user) =>  user.additionalUserInfo.isNewUser ? addUser(user.user) : updateToken(user.user))
       .catch((error) => dispatch({ type: LOGIN_USER_FAIL, payload: error }));
     }
 }
@@ -150,7 +182,7 @@ const register = ({ email, password }) => {
     dispatch({type: REGISTER_USER_START });
     firebase.auth().createUserWithEmailAndPassword(email.trim(), password)
     .then((user) => {
-      updateUser(user.user)
+      addUser(user.user)
       dispatch({ type: REGISTER_USER_SUCCESS })
     })
     .catch((error) =>  {
@@ -169,4 +201,4 @@ const register = ({ email, password }) => {
 
 
 
-export {login, signInWithFacebook, logout, signInWithGoogle, register, loadingUser, updateUser, resetPassword}
+export {login, signInWithFacebook, logout, signInWithGoogle, register, loadingUser, addUser, resetPassword}

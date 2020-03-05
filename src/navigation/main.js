@@ -16,7 +16,8 @@ import SurveyVoteScreen from '../screens/surveyVoteScreen';
 import FriendListScreen from '../screens/friends/friendListScreen';
 import NewFriendScreen from '../screens/friends/newFriendScreen';
 import UserPicture from '../components/userPicture';
-
+import AddAvatarScreen from '../screens/addAvatarScreen';
+import CameraScreen from '../screens/camera';
 
 const MainNavigation = createBottomTabNavigator(
   {
@@ -27,7 +28,18 @@ const MainNavigation = createBottomTabNavigator(
           NewSurvey: { screen: NewSurveyScreen },
           AddItems: { screen: AddItemsScreen },
           ShareWith: { screen: ShareWithScreen },
-          Info: {screen: InfoScreen}
+          Info: {screen: InfoScreen},
+          Avatar: {
+            screen: createStackNavigator(
+            {
+              Avatar: { screen: AddAvatarScreen },
+              Camera: { screen: CameraScreen }
+            },
+            {
+              headerMode: 'none',
+              initialRouteName: 'Avatar',
+            })
+          }
         },
         {
           headerMode: 'none',
@@ -37,7 +49,7 @@ const MainNavigation = createBottomTabNavigator(
             tabBarIcon: ({ focused }) => {
               if(!focused)
                 return (
-                    <UserPicture small color='#bdc3c7' />
+                    <UserPicture style={{borderWidth: 1}} small color='#bdc3c7' />
                 );
               else {
                 return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Platform } from 'react-native';
+import { StyleSheet, View, Platform, TouchableWithoutFeedback} from 'react-native';
 import { Item, Input, Button, Text, Icon } from 'native-base';
 import { login, signInWithFacebook, signInWithGoogle} from '../../actions/AuthActions';
 import { connect } from 'react-redux';
@@ -12,6 +12,7 @@ class LoginScreen extends Component {
   state = {
     email: '',
     password: '',
+    visible: false
   };
  
 
@@ -72,15 +73,18 @@ class LoginScreen extends Component {
           <View>
             <Item>
               <Input style={styles.text} autoCorrect={true} placeholder='Email'
-                value={this.state.email} onChangeText={(email) => this.setState({email})}
+                value={this.state.email} maxLength={48} onChangeText={(email) => this.setState({email})}
               />
-              <Icon style={styles.text} active name='mail' />
+              <Icon style={[styles.text,{paddingLeft: 15}]} active name='mail' />
             </Item>
             <Item last>
-              <Input style={styles.text} secureTextEntry placeholder='Password'
+              <Input style={styles.text} secureTextEntry={!this.state.visible} placeholder='Password'
                 value={this.state.password} onChangeText={(password) => this.setState({password})}
               />
-              <Icon style={styles.text} active name='key' />
+              <TouchableWithoutFeedback onPressIn={() => {this.state.password.length ? this.setState({visible: true}) : null}} 
+                onPressOut={() => {this.state.password.length ? this.setState({visible: false}) : null}}>
+              <Icon style={[styles.text,{paddingLeft: 15}]} active name={this.state.visible ? 'eye' : 'key'} />
+              </TouchableWithoutFeedback>
             </Item>
             <Button disabled={!this.state.email || !this.state.password} full
             style={[styles.button, (this.state.email && this.state.password) ? {backgroundColor: '#1abc9c'} : {backgroundColor: '#bdc3c7'}]}

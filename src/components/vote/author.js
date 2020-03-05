@@ -14,10 +14,10 @@ class Author extends Component {
 
     render() {
         return(
-            <View style={{flexDirection: 'row', paddingTop: 15, paddingBottom: 5, alignItems: 'center', justifyContent: 'center', marginHorizontal: 50, borderBottomWidth: 1, borderBottomColor: '#fdfdfd'}}>
+            <View style={{flexDirection: 'row', paddingTop: 15, paddingBottom: 5, alignItems: 'center', justifyContent: 'center', marginHorizontal: 50, borderBottomWidth: 1, borderBottomColor: '#fdfbfb'}}>
               <Text style={styles.owner}>creato da:</Text>
-              {this.props.author.image ? <Thumbnail small source={{ uri: this.props.author.image }} />
-              : <Thumbnail small source={require('../../assets/images/user.png')} />}
+              {this.props.author.image ? <Thumbnail style={{backgroundColor: '#fdfdfd', borderWidth: 1, borderColor: '#fdfbfb'}} small source={{ uri: this.props.author.image }} />
+              : <Thumbnail style={{backgroundColor: '#fdfdfd', borderWidth: 1, borderColor: '#fdfbfb'}} small source={require('../../assets/images/user.png')} />}
               <Text style={[styles.owner, {padding: 5, textTransform: 'uppercase'}]}>{this.props.author.name}</Text>
             </View>
         );

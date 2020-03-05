@@ -8,9 +8,9 @@ class InfoScreen extends Component {
   render() {
     return(
       <View style={{flex: 1}}>
-      <View style={{flex: 2, paddingHorizontal: 15, justifyContent:'space-around', backgroundColor: '#1abc9c'}}>
-        <CustomHeader type="info" color="#1abc9c" linkBackward={() => this.props.navigation.pop()} />
-          <View style={{paddingHorizontal: 15, justifyContent:'space-between'}}>
+      <View style={{flex: 2,  backgroundColor: '#1abc9c', paddingHorizontal: 15}}>
+          <CustomHeader type="info" color="#1abc9c" linkBackward={() => this.props.navigation.pop()} />
+          <View style={{flex:1, padding: 15, justifyContent:'space-between'}}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
               <Text style={{fontFamily: 'ColorTube', fontSize: 10, color: '#ecf0f1'}}>mad </Text>
               <Text style={styles.text}>(</Text>
@@ -23,21 +23,15 @@ class InfoScreen extends Component {
                 aggiungere le scelte possibili e condividerlo con gli amici.{"\n"}
                 Ogni utente invitato a partecipare al sondaggio può esprimere la propria preferenza, votando.
             </Text>
-          </View>
-          <View style={{paddingHorizontal: 15}}>
-            <View style={styles.description}>
-              <Text style={{fontFamily: 'ColorTube', color: '#34495e', fontSize: 8}}>Progetto per</Text>
-              <Text style={[styles.text, {textAlign: 'right', flex:1, flexWrap: 'wrap'}]}>Laboratorio Avanzato di Programmazione II</Text>
-            </View>
             <View style={styles.description}>
               <Text style={{fontFamily: 'ColorTube', color: '#34495e', fontSize: 8}}>Realizzato da</Text>
-              <Text style={[styles.text, {textAlign: 'right'}]}>Matteo Stracquadanio</Text>
+              <Text style={[styles.text, {flex:1, textAlign: 'right'}]}>Matteo Stracquadanio</Text>
             </View>
           </View>
       </View>
-      <View style={{flex:1, flexDirection:'column', backgroundColor: '#ffffff', paddingHorizontal: 30}}> 
-        <Text style={{fontFamily: 'ColorTube', color: '#34495e', paddingVertical: 10, fontSize: 8}}>Realizzato con</Text>
-        <View style={{flex:1, justifyContent:'space-around'}}>
+      <View style={{flex:1, backgroundColor: '#fdfbfb', justifyContent:'space-between', paddingHorizontal: 30, paddingVertical: 15}}> 
+        <Text style={{fontFamily: 'ColorTube', color: '#34495e', fontSize: 8}}>Realizzato con</Text>
+        <View style={{flex:1, justifyContent:'space-evenly'}}>
           <View style={styles.row}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
               <Thumbnail small square source={require('../assets/images/react.png')} />
@@ -55,8 +49,9 @@ class InfoScreen extends Component {
             <Text style={[styles.text, {textAlign: 'right', color: '#34495e'}]}>Redux</Text>
           </View>
         </View>
+        <Text style={{fontFamily: 'Quicksand', textAlign: 'center',  color: '#34495e', fontSize: 12}}>Copyright {'\u00A9'} {new Date().getFullYear()}</Text>
       </View>
-    </View>
+      </View>
     );
   }
 }
@@ -70,34 +65,16 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignItems:'center',
       justifyContent:'space-between',
-      paddingVertical: 5
-    },
-    title: {
-      marginBottom: -24,
-      fontSize: 32,
-      color: '#ecf0f1',
-      fontFamily: 'ColorTube',
-      textAlign: 'center',
+      borderColor: '#34495e',
+      borderTopWidth: 0.8,
+      paddingTop: 10,
+      marginTop: 5
     },
     text: {
       fontFamily: 'Quicksand',
       fontSize: 14,
       color: '#ecf0f1',
       lineHeight: 20,
-      textAlign: 'left',
-    },
-    subtitle: {
-      fontSize: 18,
-      color: '#34495e',
-      fontFamily: 'Pacifico',
-      textAlign: 'center',
-    },
-    header: {
-      backgroundColor: '#1abc9c',
-      paddingTop: 40,
-      paddingBottom: 20,
-      height: 100,
-      borderBottomWidth: 0,
     }
   });
 

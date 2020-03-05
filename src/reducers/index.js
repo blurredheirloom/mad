@@ -4,6 +4,7 @@ import surveyReducer from './surveyReducer';
 import shareReducer from './shareReducer';
 import friendReducer from './friendReducer';
 import voteReducer from './voteReducer';
+import userReducer from './userReducer';
 import ReduxThunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
 
@@ -13,6 +14,7 @@ const appReducer = combineReducers({
   friend: friendReducer,
   vote: voteReducer,
   share: shareReducer,
+  user: userReducer
 });
 
 const initialState = {};
