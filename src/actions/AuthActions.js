@@ -96,6 +96,7 @@ const loadingUser = () => {
     {
       if(user)
       {
+        updateToken(user);
         firebase.database().ref('users/'+user.uid).on('value', snapshot => {
           var data = snapshot.val();
           var out = {
