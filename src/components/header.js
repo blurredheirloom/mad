@@ -44,7 +44,6 @@ class CustomHeader extends Component {
                   <Text style={styles.subtitleHome}>make a decision</Text>
                 </View> :
                 <Text style={styles.titleLogged}>{this.props.title}</Text>}
-                {this.props.span ? <Text style={styles.titleLogged}>{this.props.span+" con"}</Text> : null }
               </View>
               <Button
                 transparent

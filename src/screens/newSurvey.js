@@ -25,17 +25,17 @@ class NewSurveyScreen extends Component {
     if(this.props.loading)
       return (<Loading color='#2c3e50' />);
     return(
-      <View style={{flex: 1, padding: 15, flexDirection:'column', backgroundColor: "#2c3e50"}}>
+      <View style={{flex: 1, flexDirection:'column', backgroundColor: "#2c3e50"}}>
         <CustomHeader color='#2c3e50' title="Nuovo sondaggio" type='back' 
         linkBackward={() => this.props.navigation.navigate("Home")} 
         forward={this.state.inputValue!=''} linkForward={() => this.makeSurvey(this.state.inputValue)}/>
-        <View style={{alignItems:'center', justifyContent:'center'}}>
+        <View style={{paddingHorizontal: 15, paddingVertical: 20}}>
           <Text style={styles.title}>Scegli un titolo per il tuo sondaggio</Text>
           <Text style={styles.example}>Ad esempio: 'Pasqua {new Date().getFullYear()}', 'I miei 18 anni', 'Festa Mario', ...</Text>
           <View style={{flexDirection:'row', justifyContent:'space-between', paddingHorizontal: 20}}>
             <Icon type="FontAwesome" style={styles.icon} name="quote-left" />
             <Item style={{flex:1}}>
-              <Input style={styles.input} disabled = {this.props.loading} placeholderTextColor="#fff"
+              <Input maxLength={36} style={styles.input} disabled = {this.props.loading} placeholderTextColor="#fff"
               value={this.state.inputValue} onChangeText={(inputValue) => this.setState({inputValue})}
               onSubmitEditing={()=>this.makeSurvey(this.state.inputValue)}
               />
@@ -51,10 +51,10 @@ class NewSurveyScreen extends Component {
 const styles = StyleSheet.create({
   title: {
     fontFamily: 'ColorTube' ,
-    fontSize: 14,
+    fontSize: 13,
     color: '#ecf0f1',
     textAlign: 'center',
-    padding: 20
+    lineHeight: 26
   },
   icon: {
     fontSize: 18,

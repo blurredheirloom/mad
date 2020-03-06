@@ -16,6 +16,7 @@ import SurveyVoteScreen from '../screens/surveyVoteScreen';
 import FriendListScreen from '../screens/friends/friendListScreen';
 import NewFriendScreen from '../screens/friends/newFriendScreen';
 import UserPicture from '../components/userPicture';
+import Badge from '../components/badge';
 import AddAvatarScreen from '../screens/addAvatarScreen';
 import CameraScreen from '../screens/camera';
 
@@ -104,11 +105,7 @@ const MainNavigation = createBottomTabNavigator(
           navigationOptions: { 
             tabBarIcon: ({ focused }) => {
               return (
-                <Icon
-                  type="FontAwesome"
-                  name='comment'
-                  style={focused ? {color: '#2ecc71'} : {color: '#bdc3c7'}}
-                />
+                <Badge type="surveys" style={focused ? {color: '#2ecc71'} : {color: '#bdc3c7'}}/>
               );
             },
             tabBarLabel: () => {}
@@ -128,11 +125,7 @@ const MainNavigation = createBottomTabNavigator(
           navigationOptions: { 
             tabBarIcon: ({ focused }) => {
               return (
-                <Icon
-                  type="FontAwesome"
-                  name='users'
-                  style={focused ? {color: '#3498db'} : {color: '#bdc3c7'}}
-                />
+                <Badge type="friends" style={focused ? {color: '#3498db'} : {color: '#bdc3c7'}}/>
               );
             },
             tabBarLabel: () => {}

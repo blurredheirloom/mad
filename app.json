@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MAD",
-    "description": "Progetto per LAP2",
+    "name": "mad",
+    "description": "make a decision",
     "slug": "mad",
     "privacy": "unlisted",
     "sdkVersion": "36.0.0",
@@ -20,7 +20,7 @@
       "**/*"
     ],
     "notification": {
-      "icon": "./assets/notification_icon.png",
+      "icon": "./assets/notification.png",
       "androidMode": "default"
     },
     "ios": {
@@ -29,7 +29,8 @@
     },
     "android": {
       "package": "com.emme.mad",
-      "googleServicesFile": "./src/api/google-services.json"
+      "googleServicesFile": "./src/api/google-services.json",
+      "versionCode": 3
     }
   }
 }

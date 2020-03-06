@@ -85,7 +85,7 @@ const indicatorStyles = {
     currentStepStrokeWidth: 0,
     stepStrokeCurrentColor: '#8e44ad',
     stepStrokeFinishedColor: '#8e44ad',
-    stepStrokeUnFinishedColor: '#efefef',
+    stepStrokeUnFinishedColor: '#fdfbfb',
     separatorFinishedColor: '#8e44ad',
     separatorUnFinishedColor: '#8e44ad',
     stepIndicatorFinishedColor: '#8e44ad',

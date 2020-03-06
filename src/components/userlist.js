@@ -16,8 +16,8 @@ class UserList extends Component {
     }
   }
 
-  addFriend(key, name, image) {
-    this.props.addFriend(key, name, image);
+  addFriend(key) {
+    this.props.addFriend(key);
     this.props.navigation.pop();
   }
 
@@ -25,7 +25,7 @@ class UserList extends Component {
     return(
         <User 
             data={item}
-            onPress={() => this.addFriend(item.key, item.name, item.image)}
+            onPress={() => this.addFriend(item.key)}
         />
     )
   }

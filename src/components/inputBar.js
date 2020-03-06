@@ -22,7 +22,7 @@ class InputBar extends Component
           onChangeText={(inputValue) => this.setState({inputValue})}
           onSubmitEditing={() => this.onSubmit(this.state.inputValue)}
           underlineColorAndroid='transparent'
-          maxLength={50}
+          maxLength={36}
           />
           <Button rounded style={[styles.button, this.state.inputValue=='' ? styles.disabled : styles.enabled]}
             disabled = {this.state.inputValue==''}

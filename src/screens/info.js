@@ -8,9 +8,9 @@ class InfoScreen extends Component {
   render() {
     return(
       <View style={{flex: 1}}>
-      <View style={{flex: 2,  backgroundColor: '#1abc9c', paddingHorizontal: 15}}>
+      <View style={{flex: 2,  backgroundColor: '#1abc9c'}}>
           <CustomHeader type="info" color="#1abc9c" linkBackward={() => this.props.navigation.pop()} />
-          <View style={{flex:1, padding: 15, justifyContent:'space-between'}}>
+          <View style={{flex:1, paddingVertical: 15, paddingHorizontal: 20, justifyContent:'space-between'}}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
               <Text style={{fontFamily: 'ColorTube', fontSize: 10, color: '#ecf0f1'}}>mad </Text>
               <Text style={styles.text}>(</Text>
@@ -29,7 +29,7 @@ class InfoScreen extends Component {
             </View>
           </View>
       </View>
-      <View style={{flex:1, backgroundColor: '#fdfbfb', justifyContent:'space-between', paddingHorizontal: 30, paddingVertical: 15}}> 
+      <View style={{flex:1, backgroundColor: '#fdfbfb', justifyContent:'space-between', paddingHorizontal: 20, paddingVertical: 15}}> 
         <Text style={{fontFamily: 'ColorTube', color: '#34495e', fontSize: 8}}>Realizzato con</Text>
         <View style={{flex:1, justifyContent:'space-evenly'}}>
           <View style={styles.row}>

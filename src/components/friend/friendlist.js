@@ -47,7 +47,7 @@ class FriendList extends Component {
     render()
     {
         if(this.props.loading) 
-            return <Loading color='#3498db' />
+            return <Loading negative={this.props.share} color='#3498db' />
         else
         {
             if(this.props.share)
@@ -73,7 +73,7 @@ class FriendList extends Component {
             else
             {
                 return (
-                    <View style={{padding: 15}}>
+                    <View style={{flex: 1, padding: 15}}>
                         {this.props.friends.length==0 ? <Text style={styles.noContent}>Non hai aggiunto amici</Text> :
                             <FlatList
                                 data={this.props.friends}

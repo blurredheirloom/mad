@@ -3,7 +3,7 @@
 import {
   FRIENDS_FETCH_START, FRIENDS_FETCH_SUCCESS,
   USER_SEARCH_START, USER_SEARCH_SUCCESS, USER_SEARCH_FAIL,
-  SENDING_REQUEST, SENT_REQUEST,
+  SENDING_REQUEST, SENT_REQUEST, GET_PENDING_REQUESTS
 } from './types';
 import registerForPushNotificationsAsync from '../api/notifications';
 import firebase from 'firebase';
@@ -95,29 +95,21 @@ const NotifyNewFriend = (user) => {
 }
 
 /* Aggiungi amico*/
-const addFriend = (key, name, image) => {
-  const currentUser =  firebase.auth().currentUser;
+const addFriend = (key) => {
+  const currentUser =  firebase.auth().currentUser.uid;
   return (dispatch) => {
     dispatch({ type: SENDING_REQUEST })
-    firebase.database().ref('friends/'+currentUser.uid+"/"+key).transaction(function(currentData) {
-        if(!currentData)
-        {
-          return {
-            "state": "sent"
-          }
-        }
+    firebase.database().ref('friends/'+currentUser+"/"+key).child('state').transaction(function(currentData){
+      if(currentData)
         return;
+      NotifyNewFriend(key);
+      return "sent";
     });
-    firebase.database().ref('friends/'+key+'/'+currentUser.uid).transaction(function(currentData) {
-        if(!currentData)
-        {
-          return {
-            "state": "received"
-          }
-        }
-        return;
+    firebase.database().ref('friends/'+key+'/'+currentUser).child('state').transaction(function(currentData2){
+      if(currentData2)
+        return
+      return "received";
     });
-    NotifyNewFriend(key);
     dispatch({ type: SENT_REQUEST })
   }
 }
@@ -145,6 +137,15 @@ const NotifyAcceptFriend = (user) => {
   });
 }
 
+const getPendingRequests = () => {
+  const currentUser =  firebase.auth().currentUser ? firebase.auth().currentUser.uid : null;
+  return (dispatch) => {
+    firebase.database().ref('friends/'+currentUser).orderByChild('state').equalTo('received').on('value', snapshot => {
+      dispatch({ type: GET_PENDING_REQUESTS, payload: snapshot.numChildren()});
+    });
+  }
+}
+
 /* Elimina amico o rifiuta amicizia*/
 const deleteFriend = (value) => {
   const currentUser =  firebase.auth().currentUser.uid;
@@ -154,4 +155,4 @@ const deleteFriend = (value) => {
   }
 }
 
-export {friendsFetch, searchUser, addFriend, acceptFriend, deleteFriend}
+export {friendsFetch, searchUser, addFriend, acceptFriend, deleteFriend, getPendingRequests}

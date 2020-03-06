@@ -42,7 +42,8 @@ const login = ({ email, password }) => {
           var out = {
             "uid" : user.uid,
             "displayName" : (data.name+" "+data.surname).trim(),
-            "image": data.image
+            "image": data.image,
+            "tutorial": data.tutorial,
           }
           dispatch({ type: LOGIN_USER_SUCCESS, payload: out });
         });
@@ -55,7 +56,7 @@ const login = ({ email, password }) => {
             type: 'danger',
             duration: 2000,
             style: { backgroundColor: "#e74c3c" },
-            textStyle: { fontFamily: "Quicksand", fontSize: 12, textAlign:'center' }
+            textStyle: { fontFamily: "Quicksand", fontSize: 14, textAlign:'center' }
           });
           dispatch({ type: LOGIN_USER_FAIL, payload: error });
         });
@@ -84,6 +85,7 @@ const addUser = async(user) => {
     "name": name,
     "surname": surname,
     "image" : image,
+    "tutorial": true
   })
 }
 
@@ -102,7 +104,8 @@ const loadingUser = () => {
           var out = {
             "uid" : user.uid,
             "displayName" : (data.name+" "+data.surname).trim(),
-            "image": data.image
+            "image": data.image,
+            "tutorial": data.tutorial
           }
           dispatch({ type: LOGIN_USER_SUCCESS, payload: out });
         });
@@ -160,7 +163,7 @@ const resetPassword = (email) => {
         type: 'success',
         duration: 2000,
         style: { backgroundColor: "#1abc9c" },
-        textStyle: { fontFamily: "Quicksand", fontSize: 12, textAlign:'center' }
+        textStyle: { fontFamily: "Quicksand", fontSize: 14, textAlign:'center' }
       });
       dispatch({type: RESET_PASSWORD_SUCCESS });
     }).catch(function(error) {
@@ -170,7 +173,7 @@ const resetPassword = (email) => {
         type: 'danger',
         duration: 2000,
         style: { backgroundColor: "#e74c3c" },
-        textStyle: { fontFamily: "Quicksand", fontSize: 12, textAlign:'center' }
+        textStyle: { fontFamily: "Quicksand", fontSize: 14, textAlign:'center' }
       });
       dispatch({type: RESET_PASSWORD_FAIL, payload: error });
     });
@@ -193,7 +196,7 @@ const register = ({ email, password }) => {
         type: 'danger',
         duration: 2000,
         style: { backgroundColor: "#e74c3c" },
-        textStyle: { fontFamily: "Quicksand", fontSize: 12, textAlign:'center' }
+        textStyle: { fontFamily: "Quicksand", fontSize: 14, textAlign:'center' }
       })
       dispatch({ type: REGISTER_USER_FAIL, payload: error })
     })

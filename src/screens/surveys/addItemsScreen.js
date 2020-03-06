@@ -153,7 +153,7 @@ class AddItemsScreen extends Component {
     {
       return(
         <View style={{flex: 1, flexDirection:'column', backgroundColor: "#8e44ad"}}>
-          <CustomHeader color='#8e44ad' title="Aggiungi scelte" type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} forward={this.state.ready} linkForward={() => this.share()} />
+          <CustomHeader color={this.state.modalVisible ? '#2980b9' : '#8e44ad'} title="Aggiungi scelte" type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} forward={this.state.ready} linkForward={() => this.share()} />
           <InputBar full={this.state.items.length==10} color='#8e44ad' loading={this.props.loading} placeholder='Aggiungi scelta' icon='plus' 
           onSubmit={(value)=>this.addItem(value)}/>
           <Animatable.View style={{flex:1, padding: 10}} duration={1500} easing='ease-out-back' animation="flipInY">
@@ -195,19 +195,21 @@ class AddItemsScreen extends Component {
           </Animatable.View>
           <Modal
               animationType="none"
-              transparent={false}
+              transparent={true}
               visible={this.state.modalVisible}
               onRequestClose={()=>this.setState({modalVisible: false})}>
-              <View style={{flex: 1, paddingHorizontal: 15, justifyContent:'flex-start',  alignItems:'stretch', backgroundColor:'#2980b9'}}>
+              <View style={{flex: 1, marginTop: -25, justifyContent:'flex-start',  alignItems:'stretch', backgroundColor:'#2980b9'}}>
                 <CustomHeader color='#2980b9' title="Aggiungi domanda a" forward={this.state.inputValue!=''} type='link' linkForward={()=>this.addQuestion(this.state.inputValue)} linkBackward={() => {this.state.questions.length>0 ? this.setState({modalVisible: false}) : this.props.navigation.navigate("NewSurvey")}} />
-                <Text style={[styles.title, {color: '#efefef'}]}>{this.props.navigation.state.params.surveyTitle}</Text>
-                <Text style={styles.example}>Ad esempio: 'Che film guardiamo?', 'Chi compra il regalo?', 'A che ora ci incontriamo?', ...</Text>
-                <View style={{flexDirection:'row', justifyContent:'space-between', paddingHorizontal: 20}}>
-                  <Icon type="FontAwesome" style={styles.icon} name="quote-left" />
-                  <Input style={{fontFamily: 'Quicksand', color: '#ecf0f1', borderBottomColor: '#ecf0f1', borderBottomWidth: 1}} disabled = {this.props.loading} placeholderTextColor="#fff"
-                  value={this.state.inputValue} onChangeText={(inputValue) => this.setState({inputValue})} onSubmitEditing={() => this.addQuestion(this.state.inputValue)}
-                  />
-                  <Icon type="FontAwesome" style={styles.icon} name="quote-right" />
+                <View style={{paddingHorizontal: 15}}>
+                  <Text style={[styles.title, {color: '#fdfbfb'}]}>{this.props.navigation.state.params.surveyTitle}</Text>
+                  <Text style={styles.example}>Ad esempio: 'Che film guardiamo?', 'Chi compra il regalo?', 'A che ora ci incontriamo?', ...</Text>
+                  <View style={{flexDirection:'row', justifyContent:'space-between', paddingHorizontal: 20}}>
+                    <Icon type="FontAwesome" style={styles.icon} name="quote-left" />
+                    <Input maxLength={36} style={{fontFamily: 'Quicksand', color: '#ecf0f1', borderBottomColor: '#ecf0f1', borderBottomWidth: 1}} disabled = {this.props.loading} placeholderTextColor="#fff"
+                    value={this.state.inputValue} onChangeText={(inputValue) => this.setState({inputValue})} onSubmitEditing={() => this.addQuestion(this.state.inputValue)}
+                    />
+                    <Icon type="FontAwesome" style={styles.icon} name="quote-right" />
+                  </View>
                 </View>
               </View>
           </Modal>

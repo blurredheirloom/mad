@@ -1,12 +1,13 @@
 import {
   SHARE_SURVEY_START, SHARE_SURVEY_SUCCESS,
-  SHARED_SURVEYLIST_FETCH_START, SHARED_SURVEYLIST_FETCH_SUCCESS
+  SHARED_SURVEYLIST_FETCH_START, SHARED_SURVEYLIST_FETCH_SUCCESS, GET_PENDING_SURVEYS
 } from '../actions/types';
 
 const initialState = {
   error: '',
   loading: false,
   sharedsurveys: [],
+  pendingSurveys: 0
 }
 
 export default function shareReducer(state = initialState, action) {
@@ -18,7 +19,7 @@ export default function shareReducer(state = initialState, action) {
     case SHARED_SURVEYLIST_FETCH_START:
       return {...state, loading: true, sharedsurveys: []}
     case SHARED_SURVEYLIST_FETCH_SUCCESS:
-      return {...state, loading: false, sharedsurveys: action.payload }
+      return {...state, loading: false, sharedsurveys: action.payload, pendingSurveys: action.pending }
     default:
       return state;
   }
