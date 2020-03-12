@@ -39,8 +39,9 @@ const login = ({ email, password }) => {
       .then(user => {
         firebase.database().ref('users/'+user.user.uid).once('value', snapshot => {
           var data = snapshot.val();
+          console.log(data)
           var out = {
-            "uid" : user.uid,
+            "uid" : user.user.uid,
             "displayName" : (data.name+" "+data.surname).trim(),
             "image": data.image,
             "tutorial": data.tutorial,

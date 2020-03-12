@@ -13,6 +13,7 @@ import StepIndicator from '../../components/survey/stepindicator';
 
 class AddItemsScreen extends Component {
   
+
   state = {
     active: false,
     inputValue: '',
@@ -27,6 +28,7 @@ class AddItemsScreen extends Component {
 
   async componentDidMount()
   {
+    this.rows = {}
     if(this.props.navigation.state.params.survey)
     {
       await this.props.questionsFetch(this.props.navigation.state.params.survey);
@@ -49,7 +51,6 @@ class AddItemsScreen extends Component {
     }
     this.setState({ready: true})
   }
-
  
   addItem = (value) => {
     if(value!='')
@@ -127,11 +128,12 @@ class AddItemsScreen extends Component {
     if(this.props.navigation.state.params.noVotes)
       return(
         <SwipeRow
+          ref={(ref) => {this.rows[index] = ref }}
           disableRightSwipe
           rightOpenValue={-100}
         >
           <View style={{height: 48, flexDirection:'row', justifyContent:'flex-end', alignItems:'center', borderBottomColor: '#eee', borderBottomWidth: 1}}>
-              <Button style={{backgroundColor: '#e74c3c', width: 48, height: 48, justifyContent: 'center'}} onPress={() => this.deleteItem(item)}>
+              <Button style={{backgroundColor: '#e74c3c', width: 48, height: 48, justifyContent: 'center'}} onPress={() => {this.rows[index].closeRow(); this.deleteItem(item)}}>
                   <Icon style={{fontSize: 18}} type="FontAwesome" active name="trash" />
               </Button>
           </View>
@@ -160,11 +162,11 @@ class AddItemsScreen extends Component {
             <Card style={{flex:1, borderRadius: 5, padding: 20, backgroundColor:'#fdfbfb'}}>
                 <View style={{flexDirection:'row', marginBottom: 10, justifyContent: 'space-between', alignItems:'center'}}>
                   <Button disabled={this.state.questions.length<2} style={[this.state.questions.length<2 ? styles.disabled : styles.enabled, {width: 32, height: 32, borderRadius: 2, justifyContent: 'center', backgroundColor: '#8e44ad'}]} onPress={() => this.removeQuestion(this.state.currQuestion)}>
-                    <Icon style={{color: '#fdfdfd', fontSize: 14, marginLeft: 0, marginRight: 0}} type="FontAwesome" name="minus" />
+                    <Icon style={{color: '#fdfbfb', fontSize: 14, marginLeft: 0, marginRight: 0}} type="FontAwesome" name="minus" />
                   </Button>
                   <Text style={[styles.title, {flex:1, fontSize: 22}]}>{this.props.navigation.state.params.surveyTitle}</Text>
                   <Button disabled={!this.state.ready} style={[this.state.ready ? styles.enabled : styles.disabled,{width: 32, height: 32, borderRadius: 2, justifyContent: 'center', backgroundColor: '#8e44ad'}]} onPress={() => this.setState({modalVisible: true})}>
-                    <Icon style={{color: '#fdfdfd', fontSize: 14, marginLeft: 0, marginRight: 0}} type="FontAwesome" name="plus" />
+                    <Icon style={{color: '#fdfbfb', fontSize: 14, marginLeft: 0, marginRight: 0}} type="FontAwesome" name="plus" />
                   </Button>
                 </View>
                 {this.props.loading ? <Loading color='#8e44ad'/> :
@@ -205,7 +207,7 @@ class AddItemsScreen extends Component {
                   <Text style={styles.example}>Ad esempio: 'Che film guardiamo?', 'Chi compra il regalo?', 'A che ora ci incontriamo?', ...</Text>
                   <View style={{flexDirection:'row', justifyContent:'space-between', paddingHorizontal: 20}}>
                     <Icon type="FontAwesome" style={styles.icon} name="quote-left" />
-                    <Input maxLength={36} style={{fontFamily: 'Quicksand', color: '#ecf0f1', borderBottomColor: '#ecf0f1', borderBottomWidth: 1}} disabled = {this.props.loading} placeholderTextColor="#fff"
+                    <Input maxLength={48} style={{fontFamily: 'Quicksand', fontSize: 18, color: '#ecf0f1', borderBottomColor: '#ecf0f1', borderBottomWidth: 1}} disabled = {this.props.loading} placeholderTextColor="#fff"
                     value={this.state.inputValue} onChangeText={(inputValue) => this.setState({inputValue})} onSubmitEditing={() => this.addQuestion(this.state.inputValue)}
                     />
                     <Icon type="FontAwesome" style={styles.icon} name="quote-right" />
@@ -220,7 +222,7 @@ class AddItemsScreen extends Component {
       return(
         <View style={{flex: 1, flexDirection:'column', backgroundColor: "#8e44ad"}}>
           <CustomHeader color='#8e44ad' title="Aggiungi scelte" type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} />
-          <Text style={{fontFamily: 'Quicksand', color: '#fdfdfd', padding: 20, textAlign: 'center'}}>Non puoi modificare il sondaggio perchè già votato da qualcuno</Text>
+          <Text style={{fontFamily: 'Quicksand', color: '#fdfbfb', padding: 20, textAlign: 'center'}}>Non puoi modificare il sondaggio perchè già votato da qualcuno</Text>
           <Animatable.View style={{flex:1, padding: 10, justifyContent: 'center'}} duration={1500} easing='ease-out-back' animation="flipInY">
             <Card style={{flex:1, borderRadius: 5, padding: 20, backgroundColor:'#fdfbfb'}}>
               <Text style={[styles.title, {fontSize: 22}]}>{this.props.navigation.state.params.surveyTitle}</Text>
@@ -268,8 +270,8 @@ const indicatorStyles = {
   stepIndicatorFinishedColor: '#8e44ad',
   stepIndicatorUnFinishedColor: '#b075c9',
   stepIndicatorCurrentColor: '#8e44ad',
-  stepIndicatorLabelCurrentColor: '#fdfdfd',
-  stepIndicatorLabelUnFinishedColor: '#fdfdfd',
+  stepIndicatorLabelCurrentColor: '#fdfbfb',
+  stepIndicatorLabelUnFinishedColor: '#fdfbfb',
 }
 
 const styles = StyleSheet.create({
@@ -279,24 +281,18 @@ const styles = StyleSheet.create({
     color: '#34495e',
     textAlign: 'center',
   },
-  modalTitle: {
-    fontFamily: 'ColorTube' ,
-    fontSize: 12,
-    color: '#ecf0f1', 
-    textAlign: 'center',
-  },
   example: {
     fontFamily: 'Quicksand',
     padding: 20,
-    paddingBottom: 40,
-    fontSize: 14,
+    paddingBottom: 48,
+    fontSize: 16,
     color: '#ecf0f1',
     lineHeight: 25,
     textAlign: 'justify'
   },
   item: {
-    fontFamily: 'ColorTube',
-    fontSize: 10,
+    fontFamily: 'Blogger',
+    fontSize: 18,
     color: '#34495e',
   },
   icon: {
@@ -305,9 +301,9 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   noContent: {
-    fontFamily: 'ColorTube',
+    fontFamily: 'Blogger',
     textAlign: 'center',
-    fontSize: 10,
+    fontSize: 18,
     color: '#34495e',
     paddingTop: 20,
     paddingBottom: 20

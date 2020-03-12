@@ -33,13 +33,13 @@ const styles = StyleSheet.create({
   },
   activeText: {
     color: '#34495e',
-    fontFamily: 'ColorTube',
-    fontSize: 10
+    fontFamily: 'Blogger',
+    fontSize: 16
   },
   inactiveText: {
     color: '#8e44ad',
-    fontFamily: 'ColorTube',
-    fontSize: 10
+    fontFamily: 'Blogger',
+    fontSize: 16
   }
 });
 

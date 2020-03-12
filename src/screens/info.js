@@ -24,13 +24,13 @@ class InfoScreen extends Component {
                 Ogni utente invitato a partecipare al sondaggio può esprimere la propria preferenza, votando.
             </Text>
             <View style={styles.description}>
-              <Text style={{fontFamily: 'ColorTube', color: '#34495e', fontSize: 8}}>Realizzato da</Text>
+              <Text style={{fontFamily: 'Blogger', color: '#34495e', fontSize: 14}}>Realizzato da</Text>
               <Text style={[styles.text, {flex:1, textAlign: 'right'}]}>Matteo Stracquadanio</Text>
             </View>
           </View>
       </View>
       <View style={{flex:1, backgroundColor: '#fdfbfb', justifyContent:'space-between', paddingHorizontal: 20, paddingVertical: 15}}> 
-        <Text style={{fontFamily: 'ColorTube', color: '#34495e', fontSize: 8}}>Realizzato con</Text>
+        <Text style={{fontFamily: 'Blogger', color: '#34495e', fontSize: 14}}>Realizzato con</Text>
         <View style={{flex:1, justifyContent:'space-evenly'}}>
           <View style={styles.row}>
             <View style={{flexDirection:'row', alignItems:'center'}}>

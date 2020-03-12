@@ -7,8 +7,10 @@ import {
 } from '../actions/types';
 
 const initialState = {
-    surveys: '',
-    questions: '',
+    surveys: [],
+    questions: [],
+    numMembers: 0,
+    hasToVote: 0,
     id: null,
     loading: false,
 }
@@ -30,7 +32,7 @@ export default function surveyReducer(state = initialState, action) {
     case ITEMS_FETCH_START:
         return {...state, loading: true}
     case ITEMS_FETCH_SUCCESS:
-        return {...state, loading: false, questions: action.payload}
+        return {...state, loading: false, questions: action.payload.questions, hasToVote: action.payload.hasToVote, numMembers: action.payload.numMembers }
     case DELETE_USER_SURVEYS_START:
         return {...state, loading: true}
     case DELETE_USER_SURVEYS_SUCCESS:

@@ -20,6 +20,8 @@ import Badge from '../components/badge';
 import AddAvatarScreen from '../screens/addAvatarScreen';
 import CameraScreen from '../screens/camera';
 
+
+
 const MainNavigation = createBottomTabNavigator(
   {
     Home: {
@@ -33,12 +35,12 @@ const MainNavigation = createBottomTabNavigator(
           Avatar: {
             screen: createStackNavigator(
             {
-              Avatar: { screen: AddAvatarScreen },
+              AvatarChoose: { screen: AddAvatarScreen },
               Camera: { screen: CameraScreen }
             },
             {
               headerMode: 'none',
-              initialRouteName: 'Avatar',
+              initialRouteName: 'AvatarChoose',
             })
           }
         },
@@ -137,7 +139,7 @@ const MainNavigation = createBottomTabNavigator(
   {
     tabBarOptions: {
       style: {
-  			backgroundColor: '#fdfdfd',
+  			backgroundColor: '#fdfbfb',
         borderTopColor: "#eaeaea",
         borderTopWidth: 1, 
         borderRadius: 50
@@ -148,3 +150,4 @@ const MainNavigation = createBottomTabNavigator(
 )
 
 export default createAppContainer(MainNavigation);
+

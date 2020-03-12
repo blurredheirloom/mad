@@ -28,7 +28,7 @@ class LostPassScreen extends Component {
             <Button disabled={!this.state.email} block
             style={[styles.button, (this.state.email) ? {backgroundColor: '#1abc9c'} : {backgroundColor: '#bdc3c7'}]}
               onPress={() => this.props.resetPassword(this.state.email)}>
-              <Text style={{fontFamily: "ColorTube", fontSize: 9}}>Recupera</Text>
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>Recupera</Text>
             </Button>
           </View>
           <View style={{flex:1, justifyContent:'flex-end'}}>

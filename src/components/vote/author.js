@@ -14,12 +14,16 @@ class Author extends Component {
 
     render() {
         return(
-            <View style={{flexDirection: 'row', paddingTop: 15, paddingBottom: 5, alignItems: 'center', justifyContent: 'center', marginHorizontal: 50, borderBottomWidth: 1, borderBottomColor: '#fdfbfb'}}>
-              <Text style={styles.owner}>creato da:</Text>
-              {this.props.author.image ? <Thumbnail style={{backgroundColor: '#fdfdfd', borderWidth: 1, borderColor: '#fdfbfb'}} small source={{ uri: this.props.author.image }} />
-              : <Thumbnail style={{backgroundColor: '#fdfdfd', borderWidth: 1, borderColor: '#fdfbfb'}} small source={require('../../assets/images/user.png')} />}
-              <Text style={[styles.owner, {padding: 5, textTransform: 'uppercase'}]}>{this.props.author.name}</Text>
+          <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginHorizontal: 40, borderBottomWidth: 1, borderBottomColor: '#8e44ad'}}>
+            <View style={{flex: 0.3, flexDirection : 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 10}}>
+              <Text style={styles.owner}>creato da</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start'}}>
+                  {this.props.author.image ? <Thumbnail style={{backgroundColor: '#fdfbfb', borderWidth: 1, borderColor: '#fdfbfb'}} small source={{ uri: this.props.author.image }} />
+                  : <Thumbnail style={{backgroundColor: '#fdfbfb', borderWidth: 1, borderColor: '#fdfbfb'}} small source={require('../../assets/images/user.png')} />}
+                  <Text style={[styles.owner, { marginLeft: 5, fontFamily: 'Blogger', letterSpacing: 1, textTransform: 'uppercase'}]}>{this.props.author.name}</Text>
+              </View>
             </View>
+          </View>
         );
     }
 }
@@ -27,9 +31,9 @@ class Author extends Component {
 const styles = StyleSheet.create({
   owner: {
     fontFamily: 'Quicksand',
-    padding: 15,
-    fontSize: 13,
-    color: '#ecf0f1'
+    fontSize: 12,
+    color: '#ecf0f1',
+    marginRight: 10
   }
 });
 

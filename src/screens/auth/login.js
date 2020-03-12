@@ -18,7 +18,7 @@ class LoginScreen extends Component {
 
   loginWithFB = async() => {
     try {
-      await Facebook.initializeAsync('172003210086289');
+      Facebook.initializeAsync('172003210086289');
       const { type, token } = await Facebook.logInWithReadPermissionsAsync(
         { permissions: ['public_profile', 'email'] }
       );
@@ -89,21 +89,21 @@ class LoginScreen extends Component {
             <Button disabled={!this.state.email || !this.state.password} full
             style={[styles.button, (this.state.email && this.state.password) ? {backgroundColor: '#1abc9c'} : {backgroundColor: '#bdc3c7'}]}
               onPress={() => this.props.login({email: this.state.email, password: this.state.password})}>
-              <Text style={{fontFamily: "ColorTube", fontSize: 9}}>Accedi</Text>
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>Accedi</Text>
             </Button>
             <Text style={[styles.label, {color: '#3498db'}]} onPress={() => this.props.navigation.navigate("LostPass")}>
               Password dimenticata?
             </Text>
             <Text style={styles.label}>oppure accedi con</Text>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <Button iconLeft full style={[styles.button, { flex:1, marginRight: 10, backgroundColor: '#3b5999'}]} onPress={() => this.loginWithFB()}>
-              <Icon type="FontAwesome" name='facebook' />
-              <Text style={{fontFamily: "ColorTube", fontSize: 8}}>Facebook</Text>
+          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Button iconLeft full style={[styles.button, {backgroundColor: '#3b5999'}]} onPress={() => this.loginWithFB()}>
+              <Icon type="FontAwesome" name='facebook' style={{marginRight: 0}}/>
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>Facebook</Text>
             </Button>
-            <Button iconLeft full style={[styles.button, { flex:1, marginLeft: 10, flex:1, backgroundColor: '#dd4b39'}]} onPress={() => this.loginWithGoogle()}>
-              <Icon type="FontAwesome" name='google' />
-              <Text style={{fontFamily: "ColorTube", fontSize: 8}}>Google</Text>
+            <Button iconLeft full style={[styles.button, { backgroundColor: '#dd4b39'}]} onPress={() => this.loginWithGoogle()}>
+              <Icon type="FontAwesome" name='google' style={{marginRight: 0}} />
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>Google</Text>
             </Button>
           </View>
           <View style={{flex:1, justifyContent:'flex-end'}}>

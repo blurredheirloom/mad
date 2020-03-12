@@ -22,7 +22,7 @@ class InputBar extends Component
           onChangeText={(inputValue) => this.setState({inputValue})}
           onSubmitEditing={() => this.onSubmit(this.state.inputValue)}
           underlineColorAndroid='transparent'
-          maxLength={36}
+          maxLength={48}
           />
           <Button rounded style={[styles.button, this.state.inputValue=='' ? styles.disabled : styles.enabled]}
             disabled = {this.state.inputValue==''}
@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
   input: {
     flex: 0.95,
     height: 48,
-    fontFamily: 'ColorTube',
-    fontSize: 10,
+    fontFamily: 'Blogger',
+    fontSize: 18,
     backgroundColor: '#ecf0f1',
     color: '#34495e',
     borderRadius: 50,

@@ -20,15 +20,20 @@ class SharedList extends Component {
         />
       )
     }
+
+    _keyExtractor = (item, index) => index.toString();
+
   
     render() {
       if(this.props.loading) 
         return <Loading color='#2ecc71' /> 
       return ( 
-        <View style={{flex:1, padding: 15}}>
-          {this.props.sharedsurveys=='' ? <Text style={styles.noContent}>Non stai partecipando a sondaggi</Text> :
-            <FlatList data={this.props.sharedsurveys}
+        <View style={{flex:1, padding: 15, marginHorizontal: 5}}>
+          {this.props.sharedsurveys.length==0 ? <Text style={styles.noContent}>Non stai partecipando a sondaggi</Text> :
+            <FlatList 
+              data={this.props.sharedsurveys}
               renderItem={this.renderItem}
+              keyExtractor={this._keyExtractor}
             />}
         </View>
       );

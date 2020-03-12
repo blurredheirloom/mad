@@ -7,11 +7,11 @@ class UserPicture extends Component {
     if(this.props.user.image)
     {
       return(
-        <Thumbnail {...this.props} style={[this.props.style, {backgroundColor: '#fdfdfd', borderColor: this.props.color}]} source={{uri: this.props.user.image}} />
+        <Thumbnail {...this.props} style={[this.props.style, {backgroundColor: '#fdfbfb', borderColor: this.props.color}]} source={{uri: this.props.user.image}} />
       )
     }
     return (
-        <Thumbnail {...this.props} style={[this.props.style, {backgroundColor: '#fdfdfd', borderColor: this.props.color}]} source={require('../assets/images/user.png')} />
+        <Thumbnail {...this.props} style={[this.props.style, {backgroundColor: '#fdfbfb', borderColor: this.props.color}]} source={require('../assets/images/user.png')} />
     )
   }
 }

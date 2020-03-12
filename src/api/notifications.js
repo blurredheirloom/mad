@@ -1,6 +1,6 @@
 import * as Permissions from 'expo-permissions';
 
-async function registerForPushNotificationsAsync(token, title, body) {
+async function registerForPushNotificationsAsync(token, title, body, data) {
   const { status: existingStatus } = await Permissions.getAsync(
     Permissions.NOTIFICATIONS
   );
@@ -24,13 +24,16 @@ async function registerForPushNotificationsAsync(token, title, body) {
       to: token,
       title: title,
       body: body,
-      channelId: 'mad-notification'
+      channelId: 'mad-notification',
+      data: data,
     }),
     headers: {
       'Content-Type': 'application/json',
     },
     method: 'POST'
-  });
+  }).then((response) => response.json())   
+  .then((responseJson) => {  })
+  .catch((error) => { console.log(error) });;
 }
 
 export default registerForPushNotificationsAsync;

@@ -27,7 +27,7 @@ class NewSurveyScreen extends Component {
     return(
       <View style={{flex: 1, flexDirection:'column', backgroundColor: "#2c3e50"}}>
         <CustomHeader color='#2c3e50' title="Nuovo sondaggio" type='back' 
-        linkBackward={() => this.props.navigation.navigate("Home")} 
+        linkBackward={() => this.props.navigation.popToTop()} 
         forward={this.state.inputValue!=''} linkForward={() => this.makeSurvey(this.state.inputValue)}/>
         <View style={{paddingHorizontal: 15, paddingVertical: 20}}>
           <Text style={styles.title}>Scegli un titolo per il tuo sondaggio</Text>
@@ -50,11 +50,11 @@ class NewSurveyScreen extends Component {
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: 'ColorTube' ,
-    fontSize: 13,
+    fontFamily: 'Blogger' ,
+    fontSize: 24,
     color: '#ecf0f1',
     textAlign: 'center',
-    lineHeight: 26
+    lineHeight: 32
   },
   icon: {
     fontSize: 18,
@@ -63,13 +63,14 @@ const styles = StyleSheet.create({
   },
   input: {
     fontFamily: 'Quicksand',
+    fontSize: 18,
     color: '#ecf0f1'
   },
   example: {
     fontFamily: 'Quicksand',
     padding: 20,
-    paddingBottom: 40,
-    fontSize: 14,
+    paddingBottom: 48,
+    fontSize: 16,
     color: '#ecf0f1',
     lineHeight: 25,
     textAlign: 'justify'

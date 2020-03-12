@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 import { getAvatars, setAvatar, defaultAvatar } from '../actions/UserActions';
 import StepIndicator from '../components/survey/stepindicator';
 
-
-
 class AddAvatarScreen extends Component {
   
   state = {
@@ -77,11 +75,11 @@ class AddAvatarScreen extends Component {
                   </View>                     
                 }
                 </Card>
-                <Text style={{fontFamily: 'ColorTube', color: '#fdfbfb', fontSize: 6, textAlign: 'center'}}>Avatars made by Freepik from www.flaticon.com</Text>
+                <Text style={{fontFamily: 'Blogger', color: '#fdfbfb', fontSize: 10, textAlign: 'center'}}>Avatars made by Freepik from www.flaticon.com</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10}}>
                   <Button vertical onPress={() => this.defaultAvatar()} style={{backgroundColor: 'transparent', elevation: 0, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 5}}>
                     <Icon type="FontAwesome" name="user-circle" style={{color: '#fdfbfb'}}/>
-                    <Text style={{fontFamily: 'ColorTube', fontSize: 10, color: '#fdfbfb', paddingTop: 5}}>Ripristina</Text>
+                    <Text style={{fontFamily: 'Blogger', fontSize: 16, letterSpacing: 1, color: '#fdfbfb', paddingTop: 5}}>Ripristina</Text>
                   </Button>
                   <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingHorizontal: 5}}>
                     <Button onPress={() => this.props.navigation.navigate("Camera", {gallery: true})} style={{backgroundColor: '#2c3e50', marginLeft: 25, borderRadius: 50, width: 64, height: 64, justifyContent: 'center', alignItems: 'center'}}>
@@ -111,8 +109,8 @@ const indicatorStyles = {
   stepIndicatorFinishedColor: '#1abc9c',
   stepIndicatorUnFinishedColor: '#1abc9c',
   stepIndicatorCurrentColor: '#1abc9c',
-  stepIndicatorLabelCurrentColor: '#fdfdfd',
-  stepIndicatorLabelUnFinishedColor: '#fdfdfd',
+  stepIndicatorLabelCurrentColor: '#fdfbfb',
+  stepIndicatorLabelUnFinishedColor: '#fdfbfb',
 }
 
 const styles = StyleSheet.create({
@@ -137,23 +135,10 @@ const styles = StyleSheet.create({
     lineHeight: 25,
     textAlign: 'justify'
   },
-  item: {
-    fontFamily: 'ColorTube',
-    fontSize: 10,
-    color: '#34495e',
-  },
   icon: {
     fontSize: 18,
     color:'#ecf0f1',
     textAlign:'center'
-  },
-  noContent: {
-    fontFamily: 'ColorTube',
-    textAlign: 'center',
-    fontSize: 10,
-    color: '#34495e',
-    paddingTop: 20,
-    paddingBottom: 20
   },
   enabled: {
     backgroundColor: '#1abc9c',

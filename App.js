@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import { Notifications } from 'expo';
 import firebase from 'firebase';
 import { Provider } from 'react-redux';
 import store from './src/reducers';
@@ -18,25 +17,7 @@ const firebaseConfig = {
 !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : null;
 
 class App extends Component {
-  state = {
-    notification: {},
-  }
-
-  componentDidMount() {
-     /*Channel per Notifiche Android 8+ */
-     Notifications.createChannelAndroidAsync('mad-notification', {
-      name: 'MAD Notification',
-      sound: true,
-      priority: 'high'
-    });
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
-  }
-
-  _handleNotification = (notification) => {
-    this.setState({ notification: notification });
-  };
   
-
   render() {
     return (
       <Provider store={store}>

@@ -42,7 +42,7 @@ class RegisterScreen extends Component {
                 email: this.state.email,
                 password: this.state.password,
               })}>
-              <Text style={{fontFamily: "ColorTube", fontSize: 9}}>Registrati</Text>
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>Registrati</Text>
             </Button>
           </View>
           <View style={{flex:1, justifyContent:'flex-end'}}>

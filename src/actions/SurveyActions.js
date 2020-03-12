@@ -8,6 +8,8 @@ import {
   ITEMS_FETCH_START, ITEMS_FETCH_SUCCESS
 } from './types';
 import firebase from 'firebase';
+import registerForPushNotificationsAsync from '../api/notifications';
+
 
 /* Carica i sondaggi creati dall'utente corrente */
 const surveysFetch = () => {
@@ -15,21 +17,21 @@ const surveysFetch = () => {
   return (dispatch) => {
     dispatch({ type: SURVEYLIST_FETCH_START });
     firebase.database().ref('surveys/').orderByChild('owner').equalTo(currentUser).on('value', snapshot => {
-       var data = snapshot.val();
-       if(!data)
-       {
-         return dispatch({ type: SURVEYLIST_FETCH_SUCCESS, payload: []})
-       }
-       var keys = Object.keys(data);
-       var newItems = [];
-       keys.forEach(key => {
-           newItems.push({
-               "surveyTitle": data[key].surveyTitle,
-               "noVotes": data[key].numMembers === data[key].hasToVote,
-               "key": key,
-           });
-       });
-      dispatch({ type: SURVEYLIST_FETCH_SUCCESS, payload: newItems})
+      var data = snapshot.val();
+      if(!data)
+      {
+        return dispatch({ type: SURVEYLIST_FETCH_SUCCESS, payload: []})
+      }
+      var keys = Object.keys(data);
+      var newItems = [];
+      keys.forEach(key => {
+          newItems.push({
+              "surveyTitle": data[key].surveyTitle,
+              "noVotes": data[key].numMembers === data[key].hasToVote,
+              "key": key,
+          });
+      });
+      dispatch({ type: SURVEYLIST_FETCH_SUCCESS, payload: newItems.reverse()})
     })
   }
 }
@@ -45,28 +47,48 @@ const questionsFetch = (survey) => {
       {
         return dispatch({ type: ITEMS_FETCH_SUCCESS, payload: []});
       }    
-      dispatch({ type: ITEMS_FETCH_SUCCESS, payload: data.questions});
+      dispatch({ type: ITEMS_FETCH_SUCCESS, payload: {questions: data.questions, numMembers: data.numMembers, hasToVote: data.hasToVote}});
     });
   }
 }
 
 /* Crea sondaggio*/
-const createSurvey = (value, questions) => {
-  const currentUser =  firebase.auth().currentUser.uid;
+const createSurvey = (value, questions, friends) => {
   return (dispatch) => {
     dispatch({ type: CREATE_SURVEY_START})
-    let members = [{id: currentUser, votes: false}];
-    const survey = firebase.database().ref('surveys/').push({"surveyTitle": value, "owner" : currentUser, "hasToVote" : 1, "numMembers" : 1, "members": members, "questions": questions}).getKey();
+    const currentUser =  firebase.auth().currentUser;
+    let members = [...friends, {id: currentUser.uid, votes: false}];
+    const survey = firebase.database().ref('surveys/').push({"surveyTitle": value, "owner" : currentUser.uid, "hasToVote" : members.length, "numMembers" : members.length, "members": members, "questions": questions}).getKey();
+    const name = currentUser.displayName ? currentUser.displayName.toUpperCase() : currentUser.email.substring(0, currentUser.email.indexOf("@")).toUpperCase();
+    friends.forEach(friend => {
+      firebase.database().ref('users/'+friend.id).once('value', (snapshot) => {
+        var data = snapshot.val();
+        if (!data){
+            return;
+        }
+        registerForPushNotificationsAsync(data.token, "Nuovo sondaggio", name+" ti ha invitato a partecipare ad un sondaggio", {"vote": true, "key": survey, "surveyTitle": value, "owner": currentUser.uid});
+      });
+    });
     dispatch({ type: CREATE_SURVEY_SUCCESS, payload: survey});
   }
 }
 
 /*Aggiorna sondaggio */
-const updateSurvey = (survey, questions) => {
+const updateSurvey = (survey, questions, friends) => {
   return (dispatch) => {
     dispatch({ type: UPDATE_SURVEY_START})
+    const currentUser =  firebase.auth().currentUser.uid;
     firebase.database().ref('surveys/'+survey).update({"questions": questions}).then(() =>
+      {
+        firebase.database().ref("surveys/"+survey+'/members').transaction(function(members){
+          return [...friends, {id: currentUser, votes: false}];
+        })
+        firebase.database().ref("surveys/"+survey).update({
+          "hasToVote": friends.length+1,
+          "numMembers": friends.length+1
+        })
         dispatch({ type: UPDATE_SURVEY_SUCCESS})
+      }
     )
   }
 }

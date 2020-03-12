@@ -21,7 +21,7 @@ const friendsFetch = () => {
       var keys = Object.keys(data);
       var newItems = [];
       keys.forEach(key => {
-        firebase.database().ref('users/'+key).on('value', snap => {
+        firebase.database().ref('users/'+key).once('value', snap => {
           var data2 = snap.val();
           newItems.push({
             "key" : key,
@@ -30,7 +30,7 @@ const friendsFetch = () => {
             "state" : data[key].state,
           });
           if(newItems.length==keys.length)
-            dispatch({ type: FRIENDS_FETCH_SUCCESS, payload: newItems})
+            dispatch({ type: FRIENDS_FETCH_SUCCESS, payload: newItems.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))})
         })
       })
     })
@@ -45,40 +45,73 @@ const searchUser = (value) => {
     dispatch({ type: USER_SEARCH_START });
     if(value.length<3)
       return dispatch({ type: USER_SEARCH_FAIL, payload: "Inserire almeno 3 caratteri" });
-    firebase.database().ref('users/').orderByChild('name').startAt(value).endAt(value+'\uf8ff').on('value', (snapshot) => {
-      var data = snapshot.val();
-      var keys = data ? Object.keys(data) : [];
-      var newItems = [];
+    if(value.split(" ").length==1)
+      searchBySingle(value, currentUser, dispatch);
+    else
+      searchByMulti(value.split(" ")[0], value.split(" ")[1], currentUser, dispatch);
+  }
+}
+
+
+const searchBySingle = (value, currentUser, dispatch) => {
+  firebase.database().ref('users/').orderByChild('name').startAt(value).endAt(value+'\uf8ff').on('value', (snapshot) => {
+    var data = snapshot.val();
+    var keys = data ? Object.keys(data) : [];
+    var newItems = [];
+    keys.forEach(key => {
+      if(key!=currentUser)
+      {
+        newItems.push({
+            "key" : key,
+            "name": (data[key].name+" "+data[key].surname).trim(),
+            "image" : data[key].image,
+            "token" : data[key].token
+        })
+      }
+    });
+    firebase.database().ref('users/').orderByChild('surname').startAt(value).endAt(value+'\uf8ff').on('value', (snap) => {
+      var data2 = snap.val();
+      var keys = data2 ? Object.keys(data2) : [];
       keys.forEach(key => {
         if(key!=currentUser)
         {
           newItems.push({
               "key" : key,
-              "name": (data[key].name+" "+data[key].surname).trim(),
-              "image" : data[key].image,
-              "token" : data[key].token
+              "name": data2[key].name+" "+data2[key].surname,
+              "image" : data2[key].image,
+              "token" : data2[key].token
           })
         }
       });
-      firebase.database().ref('users/').orderByChild('surname').startAt(value).endAt(value+'\uf8ff').on('value', (snap) => {
-        var data2 = snap.val();
-        var keys = data2 ? Object.keys(data2) : [];
-        keys.forEach(key => {
-          if(key!=currentUser)
-          {
-            newItems.push({
-                "key" : key,
-                "name": data2[key].name+" "+data2[key].surname,
-                "image" : data2[key].image,
-                "token" : data2[key].token
-            })
-          }
-        });
-        newItems.length==0 ? dispatch({ type: USER_SEARCH_FAIL, payload: "Nessun utente trovato"}) :
-        dispatch({ type: USER_SEARCH_SUCCESS, payload: newItems})
-      });
+      newItems.length==0 ? dispatch({ type: USER_SEARCH_FAIL, payload: "Nessun utente trovato"}) :
+      dispatch({ type: USER_SEARCH_SUCCESS, payload: newItems})
     });
-  }
+  });
+}
+
+const searchByMulti = (value1, value2, currentUser, dispatch) => {
+  firebase.database().ref('users/').orderByChild('name').startAt(value1).endAt(value1+'\uf8ff').on('value', (snapshot) => {
+    var data = snapshot.val();
+    var keys = data ? Object.keys(data) : [];
+    var newItems = [];
+    firebase.database().ref('users/').orderByChild('surname').startAt(value2).endAt(value2+'\uf8ff').on('value', (snap) => {
+      var data2 = snap.val();
+      var keys = data2 ? Object.keys(data2) : [];
+      keys.forEach(key => {
+        if(key!=currentUser && data2[key].name==value1)
+        {
+          newItems.push({
+              "key" : key,
+              "name": data2[key].name+" "+data2[key].surname,
+              "image" : data2[key].image,
+              "token" : data2[key].token
+          })
+        }
+      });
+      newItems.length==0 ? dispatch({ type: USER_SEARCH_FAIL, payload: "Nessun utente trovato"}) :
+      dispatch({ type: USER_SEARCH_SUCCESS, payload: newItems})
+    });
+  });
 }
 
 /* Invia una notifica agli utenti aggiunti */

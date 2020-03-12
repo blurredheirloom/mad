@@ -33,9 +33,10 @@ class CustomHeader extends Component {
               <Button
                 transparent
                 onPress={this.props.linkBackward}
-                style={{width: 48, height: 48}}
+                disabled={this.props.noBack}
+                style={[!this.props.noBack ? styles.visible : styles.hidden, {width: 48, height: 48}]}
                 >
-                <Icon style={{color:'#fdfdfd', marginLeft: 0, fontSize: 32}} type="FontAwesome" name="chevron-circle-left" />
+                <Icon style={{color:'#fdfbfb', marginLeft: 0, fontSize: this.props.iconSize ? this.props.iconSize :32}} type="FontAwesome" name={this.props.iconBack ? this.props.iconBack : "chevron-circle-left"} />
               </Button>
               <View style={{flex: 1, justifyContent:'flex-start'}}>
                 {this.props.type=='info' ? 
@@ -51,7 +52,7 @@ class CustomHeader extends Component {
                 disabled={!this.props.forward}
                 style={[this.props.forward ? styles.visible : styles.hidden, {width: 48, height: 48}]}
                 >
-                <Icon style={{color:'#fdfdfd', marginRight: 0, fontSize: 32}} type="FontAwesome" name="chevron-circle-right" />
+                <Icon style={{color:'#fdfbfb', marginRight: 0, fontSize: this.props.iconSize ? this.props.iconSize :32}} type="FontAwesome" name={this.props.iconForward ? this.props.iconForward : "chevron-circle-right"} />
               </Button>
           </View>
         :

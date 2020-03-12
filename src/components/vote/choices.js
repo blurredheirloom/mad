@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Text,  Icon, Button} from 'native-base';
 import { StyleSheet, View } from 'react-native';
 import RadioGroup from './RadioButton/RadioGroup';
-import { questionsFetch } from '../../actions/SurveyActions';
 import { vote } from '../../actions/VoteActions';
 import { connect } from 'react-redux';
 import StepIndicator from '../survey/stepindicator';
@@ -17,12 +16,6 @@ class Choices extends Component {
         random: false
     }
 
-
-    componentDidMount() {
-        if(this.props.survey) {
-            this.props.questionsFetch(this.props.survey);
-        }
-    }
   
   
     getData(question, val){
@@ -39,18 +32,18 @@ class Choices extends Component {
         if(this.state.currQuestion<this.props.questions.length-1)
             this.setState({currQuestion: this.state.currQuestion+1});
         else
-            this.props.vote(this.props.survey, myVotes);
+            this.props.vote(this.props.survey, this.props.surveyTitle, myVotes);
     }
 
 
     render() {
-        if(this.props.questions.length==0)
+        if(!this.props.questions[this.state.currQuestion])
             return(
-                <Text style={styles.noContent}>Nessun elemento nella lista</Text>
+                <Text style={styles.noContent}>Questo sondaggio non esiste</Text>
             ); 
         return(
                 <View style={{flex: 1, padding: 20}}>
-                    <Text style={{color: '#fdfdfd', fontFamily:'Pacifico', fontSize: 18}}>{this.props.questions[this.state.currQuestion].questionTitle}</Text>
+                    <Text style={{color: '#fdfbfb', fontFamily:'Pacifico', fontSize: 18, textAlign: 'center'}}>{this.props.questions[this.state.currQuestion].questionTitle}</Text>
                     <View style={{flex: 1}}>
                         <RadioGroup disabled={this.state.random} radioGroupList={this.props.questions[this.state.currQuestion].answers} selected={this.state.selected} onChange={(selected) => this.getData(this.state.currQuestion, selected)} />
                     </View>
@@ -91,23 +84,24 @@ const indicatorStyles = {
     stepIndicatorFinishedColor: '#8e44ad',
     stepIndicatorUnFinishedColor: '#8e44ad',
     stepIndicatorCurrentColor: '#8e44ad',
-    stepIndicatorLabelCurrentColor: '#fdfdfd',
+    stepIndicatorLabelCurrentColor: '#fdfbfb',
     stepIndicatorLabelUnFinishedColor: '#8e44ad',
     stepIndicatorLabelFinishedColor: '#8e44ad',
   }
 
 const styles = StyleSheet.create({
     noContent: {
-        fontFamily: 'ColorTube',
+        fontFamily: 'Blogger',
         textAlign: 'center',
-        fontSize: 10,
-        color: '#ecf0f1',
+        fontSize: 16,
+        color: '#fdfbfb',
         paddingTop: 20,
         paddingBottom: 20
     },
     buttonText: {
-        fontFamily: 'ColorTube',
-        fontSize: 9
+        fontFamily: 'Blogger',
+        letterSpacing: 1,
+        fontSize: 16
     },
     enabled : {
         backgroundColor: '#ecf0f1',
@@ -127,6 +121,6 @@ const mapStateToProps = state => ({
     loading: state.vote.loading,
 });
 
-export default connect(mapStateToProps, { questionsFetch, vote } ) (Choices);
+export default connect(mapStateToProps, { vote } ) (Choices);
 
 

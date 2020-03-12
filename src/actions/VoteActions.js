@@ -3,7 +3,8 @@
 import {
   GET_AUTHOR_START, GET_AUTHOR_SUCCESS,
   GET_VOTE_START, GET_VOTE_SUCCESS,
-  HAS_TO_VOTE_START, HAS_TO_VOTE_SUCCESS,
+  GET_REACTIONS_START, GET_REACTIONS_SUCCESS,
+  SET_REACTION_START, SET_REACTION_SUCCESS,
   VOTING_START, VOTING_SUCCESS
 } from './types';
 
@@ -21,8 +22,43 @@ const getVote = (survey) => {
           return dispatch({ type: GET_VOTE_SUCCESS, payload: []})
         }
         var votes = Object.values(data)[0].votes;
-        dispatch({ type: GET_VOTE_SUCCESS, payload: votes});
+        var reaction = Object.values(data)[0].reaction;
+        dispatch({ type: GET_VOTE_SUCCESS, payload: {"votes": votes, "reaction": reaction}});
     });
+  }
+}
+
+
+const getReactions = (survey) => {
+  return (dispatch) => {
+    dispatch({ type: GET_REACTIONS_START });
+    firebase.database().ref("surveys/"+survey+"/reactions").on('value', snapshot => {
+        var data = snapshot.val();
+        if(!data)
+        {
+          return dispatch({ type: GET_REACTIONS_SUCCESS, payload: []})
+        }
+        dispatch({ type: GET_REACTIONS_SUCCESS, payload: data});
+    });
+  }
+}
+
+const setReactions = (survey, index) => {
+  return(dispatch) => {
+    dispatch({ type: SET_REACTION_START});
+    const currentUser =  firebase.auth().currentUser.uid;
+    let ref = firebase.database().ref("surveys/"+survey+'/members');
+    ref.orderByChild('id').equalTo(currentUser).limitToFirst(1).once('value', snapshot => {
+      if (snapshot.exists()){
+        ref.child(Object.keys(snapshot.val())[0]).update({
+          reaction: true,
+        });
+      }
+    });
+    firebase.database().ref("surveys/"+survey+"/reactions").child(index).transaction(function(currentData){
+      return currentData+1;
+    });
+    dispatch({ type: SET_REACTION_SUCCESS});
   }
 }
 
@@ -42,24 +78,10 @@ const getAuthor = (author) => {
   }
 }
 
-const hasToVote = (survey) => {
-  return (dispatch) => {
-    dispatch({type: HAS_TO_VOTE_START});
-    firebase.database().ref('surveys/'+survey).on('value', snapshot => {
-      var data = snapshot.val();
-      if(!data) return;
-      dispatch({type: HAS_TO_VOTE_SUCCESS, payload: data.hasToVote});
-    });
-  }
-}
 
-
-const vote = (survey, answers) => {
+const vote = (survey, title, answers) => {
   return (dispatch) => {
     dispatch({type: VOTING_START});
-    firebase.database().ref('surveys/'+survey).child('hasToVote').transaction(function(hasToVote) {        
-        return hasToVote - 1;
-    });
     for (let i=0; i<answers.length; i++)
     {
       firebase.database().ref("surveys/"+survey+'/questions/'+i+'/answers/'+answers[i]).child('votes').transaction(function(votes) {
@@ -75,12 +97,15 @@ const vote = (survey, answers) => {
           });
         }
     });
-    NotifySurveyCompleted(survey);        
+    firebase.database().ref('surveys/'+survey).child('hasToVote').transaction(function(hasToVote) {        
+      return hasToVote - 1;
+    });
+    NotifySurveyCompleted(survey, title);        
     dispatch({type: VOTING_SUCCESS});
   }
 }
 
-const NotifySurveyCompleted = (survey) => {
+const NotifySurveyCompleted = (survey, title) => {
   firebase.database().ref('surveys/'+survey).once('value', (snapshot) => {
     var data = snapshot.val();
     if (!data){
@@ -95,7 +120,7 @@ const NotifySurveyCompleted = (survey) => {
           if (!data2){
               return;
           }
-          registerForPushNotificationsAsync(data2.token, "Sondaggio completato", "Tutti i partecipanti hanno votato");
+          registerForPushNotificationsAsync(data2.token, "Sondaggio completato", "Tutti i partecipanti hanno votato", {"vote": true, "key": survey, "surveyTitle": title});
         });
       })
     }
@@ -103,4 +128,4 @@ const NotifySurveyCompleted = (survey) => {
 }
 
 
-export { getAuthor, vote, getVote, hasToVote, NotifySurveyCompleted }
+export { getAuthor, vote, getVote, getReactions, setReactions, NotifySurveyCompleted }

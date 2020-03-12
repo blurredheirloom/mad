@@ -10,12 +10,12 @@ import firebase from 'firebase';
 /*const addAvatars = () => {
   return async (dispatch) => {
     dispatch({type: GET_AVATARS_START });
-    var storageRef = firebase.storage().ref('avatars');
+    var storageRef = firebase.storage().ref('avatars/default');
     const fileUri = FileSystem.cacheDirectory+"avatars/";
     storageRef.listAll().then(result => {
       result.items.forEach(ref => {
         ref.getDownloadURL().then((url) => {
-            let name = url.replace(/\?.*$/,"").replace(/.*\//,"").replace("avatars%2F","")
+            let name = url.replace(/\?.*$/,"").replace(/.*\//,"").replace("avatars%2F","").replace("default%2F","")
             firebase.database().ref('avatars/').push({name: name, url: url});
         })
       })
@@ -25,9 +25,9 @@ import firebase from 'firebase';
 }*/
 
 const getAvatars = () => {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch({type: GET_AVATARS_START });
-    firebase.database().ref('avatars/').on('value', snapshot => {
+    firebase.database().ref('avatars/').once('value', snapshot => {
       var data = snapshot.val();
       if(!data)
       {
@@ -51,7 +51,7 @@ const setAvatar = (user, image, personal) => {
   if(personal===false)
   return (dispatch) => {
     dispatch({type: SET_AVATAR_START });
-      firebase.storage().ref('avatars').child(image).getDownloadURL().then(url => {
+      firebase.storage().ref('avatars/default').child(image).getDownloadURL().then(url => {
         firebase.database().ref('users/'+user).update({"image": url})
         dispatch({type: SET_AVATAR_SUCCESS });
       })
@@ -78,5 +78,16 @@ const defaultAvatar = () => {
   }
 }
 
+const setTutorial = () => {
+  return (dispatch) => {
+    dispatch({type: SET_AVATAR_START });
+    const currentUser =  firebase.auth().currentUser;
+    firebase.database().ref('users/'+currentUser.uid).update({
+      "tutorial" : false,
+    })
+    dispatch({type: SET_AVATAR_SUCCESS });
+  }
+}
 
-export {getAvatars, setAvatar, defaultAvatar}
+
+export {getAvatars, setAvatar, defaultAvatar, setTutorial}
