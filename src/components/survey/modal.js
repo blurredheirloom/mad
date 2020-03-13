@@ -3,7 +3,7 @@ import { StyleSheet, View, Modal } from "react-native";
 import { Text, Icon, Button } from "native-base";
 import Loading from '../loading';
 import { connect } from 'react-redux';
-
+import { localize } from '../../locales/i18n';
 
 class ConfirmModal extends Component {
 render() {
@@ -15,17 +15,17 @@ render() {
             visible={this.props.modalVisible}
             onRequestClose={this.props.cancel}>
                 <View style={{flex: 1, justifyContent:'center', alignItems: 'center', backgroundColor:'#e74c3c'}}>
-                    <Text style={styles.text}>Sei sicuro di voler eliminare tutti i sondaggi?</Text>
+                    <Text style={styles.text}>{localize("mySurveys.warning")}</Text>
                     <View style={{justifyContent:'space-around' }}>
                       <Button
                         iconLeft style={{backgroundColor: '#fdfbfb', height: 64, marginVertical: 15}} onPress={this.props.confirm}>
                           <Icon style={{color:'#e74c3c'}} type="FontAwesome" name="check" />
-                          <Text style={styles.textButton}>Conferma</Text>
+                          <Text style={styles.textButton}>{localize("mySurveys.confirm")}</Text>
                       </Button>
                       <Button
                         iconLeft style={{backgroundColor: '#fdfbfb', height: 64, marginVertical: 15}} onPress={this.props.cancel}>
                         <Icon style={{color:'#e74c3c'}} type="FontAwesome" name="times" />
-                        <Text style={styles.textButton}>Annulla</Text>
+                        <Text style={styles.textButton}>{localize("mySurveys.cancel")}</Text>
                       </Button>
                     </View>
                 </View>

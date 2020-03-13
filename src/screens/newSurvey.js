@@ -5,6 +5,7 @@ import Loading from '../components/loading';
 import CustomHeader from '../components/header';
 import { createSurvey } from '../actions/SurveyActions';
 import { connect } from 'react-redux';
+import { localize } from '../locales/i18n';
 
 
 class NewSurveyScreen extends Component {
@@ -26,12 +27,12 @@ class NewSurveyScreen extends Component {
       return (<Loading color='#2c3e50' />);
     return(
       <View style={{flex: 1, flexDirection:'column', backgroundColor: "#2c3e50"}}>
-        <CustomHeader color='#2c3e50' title="Nuovo sondaggio" type='back' 
+        <CustomHeader color='#2c3e50' title={localize("newSurvey.title")} type='back' 
         linkBackward={() => this.props.navigation.popToTop()} 
         forward={this.state.inputValue!=''} linkForward={() => this.makeSurvey(this.state.inputValue)}/>
         <View style={{paddingHorizontal: 15, paddingVertical: 20}}>
-          <Text style={styles.title}>Scegli un titolo per il tuo sondaggio</Text>
-          <Text style={styles.example}>Ad esempio: 'Pasqua {new Date().getFullYear()}', 'I miei 18 anni', 'Festa Mario', ...</Text>
+          <Text style={styles.title}>{localize("newSurvey.desc")}</Text>
+          <Text style={styles.example}>{localize("newSurvey.example", {year: new Date().getFullYear()})}</Text>
           <View style={{flexDirection:'row', justifyContent:'space-between', paddingHorizontal: 20}}>
             <Icon type="FontAwesome" style={styles.icon} name="quote-left" />
             <Item style={{flex:1}}>

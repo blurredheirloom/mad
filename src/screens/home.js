@@ -7,6 +7,7 @@ import UserPicture from '../components/userPicture';
 import CustomHeader from '../components/header';
 import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
+import { localize } from '../locales/i18n';
 
 class HomeScreen extends Component {
   state = {
@@ -48,12 +49,12 @@ class HomeScreen extends Component {
               </Animatable.View>
             </TouchableWithoutFeedback>
             <Text style={styles.welcome}>{this.props.user.displayName}</Text>
-            <Text uppercase={false} style={styles.logout} onPress={()=>this.props.logout()}>Esci</Text>
+            <Text uppercase={false} style={styles.logout} onPress={()=>this.props.logout()}>{localize("home.exit")}</Text>
           </View>
           <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
             <Button vertical style={styles.button} onPress={() => this.props.navigation.navigate("NewSurvey")}>
               <Icon style={{color: '#fdfbfb', fontSize: 32,  paddingVertical: 10}} type="FontAwesome" name='pencil' />
-              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16, color: '#fdfbfb', textAlign: 'center', textTransform: 'uppercase', paddingVertical: 10}}>Crea sondaggio</Text>
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16, color: '#fdfbfb', textAlign: 'center', textTransform: 'uppercase', paddingVertical: 10}}>{localize("home.makeSurvey")}</Text>
             </Button>
           </View>
         </Animatable.View>

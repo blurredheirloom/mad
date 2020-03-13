@@ -5,6 +5,7 @@ import CustomHeader from '../../components/header';
 import CustomModal from '../../components/survey/modal';
 import { createSurvey, deleteUserSurveys } from '../../actions/SurveyActions';
 import { connect } from 'react-redux';
+import { localize } from '../../locales/i18n';
 
 class SurveyListScreen extends Component {
   state = {
@@ -27,7 +28,7 @@ class SurveyListScreen extends Component {
   render() {
     return(
       <View style={{flex: 1, backgroundColor: '#fdfbfb'}}>
-        <CustomHeader color='#e67e22' title="I miei sondaggi" type='link' noBack={this.props.surveys.length===0} forward iconBack='trash' iconForward='pencil'
+        <CustomHeader color='#e67e22' title={localize("mySurveys.title")} type='link' noBack={this.props.surveys.length===0} forward iconBack='trash' iconForward='pencil'
          linkForward={() => this.props.navigation.navigate("NewSurvey")}
          linkBackward={() => this.setState({modalVisible: true})}
          iconSize={24}

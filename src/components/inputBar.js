@@ -18,7 +18,7 @@ class InputBar extends Component
     return (
         <View style={[styles.bar, {backgroundColor: this.props.color}]}>
           <TextInput style={[styles.input, this.props.full ? styles.disabled : styles.enabled]} editable = {!this.props.loading && !this.props.full}
-          placeholderTextColor={this.props.full ? this.props.color : "#bdc3c7"} placeholder={this.props.full ? "MAX 10 scelte a domanda" : this.props.placeholder} value={this.state.inputValue}
+          placeholderTextColor={this.props.full ? this.props.color : "#bdc3c7"} placeholder={this.props.full ? this.props.max : this.props.placeholder} value={this.state.inputValue}
           onChangeText={(inputValue) => this.setState({inputValue})}
           onSubmitEditing={() => this.onSubmit(this.state.inputValue)}
           underlineColorAndroid='transparent'

@@ -5,6 +5,7 @@ import InputBar from '../../components/inputBar';
 import UserList from '../../components/userlist';
 import { searchUser } from '../../actions/FriendActions';
 import { connect } from 'react-redux';
+import { localize } from '../../locales/i18n';
 
 
 class NewFriendScreen extends Component {
@@ -21,8 +22,8 @@ class NewFriendScreen extends Component {
   render() {
       return (
       <View style={{flex: 1, flexDirection:'column', backgroundColor: "#fdfbfb"}}>
-        <CustomHeader color='#3498db' title="Aggiungi amico" type='link' linkBackward={() => this.props.navigation.pop()}/>
-        <InputBar color='#3498db' loading={this.props.loading} placeholder='Cerca utente' icon='search' 
+        <CustomHeader color='#3498db' title={localize("newFriend.title")} type='link' linkBackward={() => this.props.navigation.pop()}/>
+        <InputBar color='#3498db' loading={this.props.loading} placeholder={localize("newFriend.placeholder")} icon='search' 
         onSubmit={(value)=>this.search(value)}/>
         <UserList navigation={this.props.navigation} />
       </View>

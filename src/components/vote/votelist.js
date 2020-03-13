@@ -7,6 +7,7 @@ import YourVote from './yourvote';
 import Winner from './winner';
 import { connect } from 'react-redux';
 import Loading from '../loading';
+import { localize } from '../../locales/i18n';
 
 
 class VoteList extends Component {
@@ -30,7 +31,7 @@ class VoteList extends Component {
         return (<Loading color='#9b59b6'/>);
       else if(!this.props.questions)
         return(
-            <Text style={styles.noContent}>Questo sondaggio non esiste</Text>
+            <Text style={styles.noContent}>{localize("vote.deleted")}</Text>
         ); 
       return (
         <View style={{flex: 1}}>

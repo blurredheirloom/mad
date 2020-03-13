@@ -5,6 +5,7 @@ import { resetPassword } from '../../actions/AuthActions';
 import { connect } from 'react-redux';
 import Loading from '../../components/loading';
 import CustomHeader from '../../components/header';
+import { localize } from '../../locales/i18n';
 
 class LostPassScreen extends Component {
   state = {
@@ -28,13 +29,11 @@ class LostPassScreen extends Component {
             <Button disabled={!this.state.email} block
             style={[styles.button, (this.state.email) ? {backgroundColor: '#1abc9c'} : {backgroundColor: '#bdc3c7'}]}
               onPress={() => this.props.resetPassword(this.state.email)}>
-              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>Recupera</Text>
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>{localize("auth.recoverButton")}</Text>
             </Button>
           </View>
           <View style={{flex:1, justifyContent:'flex-end'}}>
-            <Text style={styles.login} onPress={() => this.props.navigation.navigate("Login")}>
-              Accedi
-            </Text>
+            <Text style={styles.login} onPress={() => this.props.navigation.navigate("Login")}>{localize("auth.loginLabel")}</Text>
           </View>
         </View>
       </View>

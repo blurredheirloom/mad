@@ -1,0 +1,112 @@
+{
+    "tutorial": {
+        "title1" : "Add friends",
+        "desc1": "Search other users and add to your friendlist",
+        "title2" : "Make a survey",
+        "desc2" : "Give it a title, then add question and choices",
+        "title3" : "Share the survey",
+        "desc3" : "Send it to your friends",
+        "title4" : "Vote the survey",
+        "desc4" : "Vote, then wait other joiners vote to find out the winner",
+        "skip" : "Skip"
+    },
+    "auth" : {
+        "recoverButton": "Recover",
+        "registerButton": "Register",
+        "loginLabel": "Login",
+        "forgotPassword": "Lost password?",
+        "alternative": "login directly with",
+        "noAccount": "Need an account?",
+        "invalidEmail": "Email address not valid",
+        "accountNotFound": "We haven't found this account",
+        "wrongPassword": "Wrong password",
+        "weakPassword": "Too weak password",
+        "alreadyEmail": "Email address already in use",
+        "tooMany": "Too many failed requests. Try again later",
+        "error": "Error: {{code}}",
+        "sentLink": "A link to reset your password has been sent to your email"
+    },
+    "home" : {
+        "makeSurvey": "Make survey",
+        "exit": "Logout"
+    },
+    "info" : {
+        "description": "is an app to help people making decision together.\nA user makes a survey (example: \"Where are we going tonight?\"), add possible choices and share it with friends.\nEach friend who joins the survey can vote.",
+        "authorLabel": "Made by",
+        "authorName": "Matteo Stracquadanio",
+        "techLabel": "Made with"
+    },
+    "avatar" : {
+        "title": "Choose an avatar",
+        "default": "Default"
+    },
+    "camera": {
+        "title": "Choose a picture",
+        "uploading": "Uploading picture...",
+        "permission" : "No camera \npermission granted"
+    },
+    "newSurvey" : {
+        "title": "New survey",
+        "desc": "Choose a title for your survey",
+        "example": "Example: 'Christmas {{year}}', 'My 18 birthday', 'Matt's Party', ..."
+    },
+    "newQuestion" : {
+        "title": "Add question to",
+        "example": "Example: 'What movie shall we watch?', 'Who will buy birthday's gift?', 'What time shall we meet?', ..."
+    },
+    "addItems" : {
+        "title": "Add choices",
+        "placeholder": "Add choice",
+        "noContent": "No choices added",
+        "max": "MAX 10 choices per question",
+        "locked": "You can't edit the survey because someone already voted it"
+    },
+    "share": {
+        "title": "Share",
+        "with": "with"
+    },
+    "mySurveys": {
+        "title": "My surveys",
+        "noContent": "You haven't created any survey yet",
+        "warning": "This will delete all surveys. Are you sure?",
+        "confirm": "Yes",
+        "cancel": "No"
+    },
+    "sharedSurveys": {
+        "title": "Joined surveys",
+        "noContent": "You haven't joined any survey yet"
+    },
+    "friends": {
+        "title": "Friends",
+        "add": "Add friends",
+        "noContent": "You haven't added any friend yet"
+    },
+    "newFriend": {
+        "title": "Add friend",
+        "placeholder" : "Search user",
+        "noResult": "No user found",
+        "minLength": "Enter at least 3 character"
+    },
+    "vote": {
+        "title": "Vote",
+        "author": "created by",
+        "you": "you",
+        "deleted": "This survey doesn't exist",
+        "random": "Random",
+        "alreadyVoted": "Already voted",
+        "yourChoice": "Your choice",
+        "morePendings": "pending votes",
+        "onePending": "pending vote",
+        "results": "Winner"
+    },
+    "notification": {
+        "newFriendRequestTitle": "New friend request",
+        "newFriendRequestDesc": "{{name}} sent you a friend request",
+        "acceptRequestTitle": "Friend request accepted",
+        "acceptRequestDesc": "{{name}} accepted your friend request",
+        "newSurveyTitle": "New survey",
+        "newSurveyDesc": "{{name}} invited you to join a survey",
+        "surveyCompletedTitle": "Survey completed", 
+        "surveyCompletedDesc": "All players voted"
+    }
+}

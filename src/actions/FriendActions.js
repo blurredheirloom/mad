@@ -7,6 +7,7 @@ import {
 } from './types';
 import registerForPushNotificationsAsync from '../api/notifications';
 import firebase from 'firebase';
+import { localize } from '../locales/i18n';
 
 /* Carica la lista degli amici */
 const friendsFetch = () => {
@@ -44,7 +45,7 @@ const searchUser = (value) => {
   return (dispatch) => {
     dispatch({ type: USER_SEARCH_START });
     if(value.length<3)
-      return dispatch({ type: USER_SEARCH_FAIL, payload: "Inserire almeno 3 caratteri" });
+      return dispatch({ type: USER_SEARCH_FAIL, payload: localize("newFriend.minLength") });
     if(value.split(" ").length==1)
       searchBySingle(value, currentUser, dispatch);
     else
@@ -83,7 +84,7 @@ const searchBySingle = (value, currentUser, dispatch) => {
           })
         }
       });
-      newItems.length==0 ? dispatch({ type: USER_SEARCH_FAIL, payload: "Nessun utente trovato"}) :
+      newItems.length==0 ? dispatch({ type: USER_SEARCH_FAIL, payload: localize("newFriend.noResult")}) :
       dispatch({ type: USER_SEARCH_SUCCESS, payload: newItems})
     });
   });
@@ -108,7 +109,7 @@ const searchByMulti = (value1, value2, currentUser, dispatch) => {
           })
         }
       });
-      newItems.length==0 ? dispatch({ type: USER_SEARCH_FAIL, payload: "Nessun utente trovato"}) :
+      newItems.length==0 ? dispatch({ type: USER_SEARCH_FAIL, payload: localize("newFriend.noResult")}) :
       dispatch({ type: USER_SEARCH_SUCCESS, payload: newItems})
     });
   });
@@ -123,7 +124,7 @@ const NotifyNewFriend = (user) => {
     if (!data){
         return;
     }
-    registerForPushNotificationsAsync(data.token, "Nuova richiesta di amicizia",name+" ti ha inviato una richiesta di amicizia");
+    registerForPushNotificationsAsync(data.token, localize("notification.newFriendRequestTitle"), localize("notification.newFriendRequestDesc", {name: name}));
   });
 }
 
@@ -166,7 +167,7 @@ const NotifyAcceptFriend = (user) => {
     if (!data){
         return;
     }
-    registerForPushNotificationsAsync(data.token, "Richiesta di amicizia accettata", name+" ha accettato la tua richiesta di amicizia");
+    registerForPushNotificationsAsync(data.token,localize("notification.acceptRequestTitle"), localize("notification.acceptRequestDesc", {name: name}));
   });
 }
 

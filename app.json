@@ -30,7 +30,7 @@
     "android": {
       "package": "com.emme.mad",
       "googleServicesFile": "./src/api/google-services.json",
-      "versionCode": 8
+      "versionCode": 10
     }
   }
 }

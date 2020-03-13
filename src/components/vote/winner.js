@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Text, Icon } from 'native-base';
 import { StyleSheet, View, FlatList, Dimensions} from 'react-native';
 import { connect } from 'react-redux';
-import { questionsFetch } from '../../actions/SurveyActions';
 import { getReactions, setReactions } from '../../actions/VoteActions';
 import * as Animatable from 'react-native-animatable';
 import { AnimatedEmoji } from './Emoji/AnimatedEmoji';
 import Emoji from 'react-native-emoji';
 import StepIndicator from '../survey/stepindicator';
+import { localize } from '../../locales/i18n';
 
 
 class Winner extends Component {
@@ -160,7 +160,7 @@ class Winner extends Component {
           <View style={{flex:1, justifyContent:'space-between', padding: 20}}>
             <Animatable.View
             animation="tada" style={styles.card}>
-              <Text style={styles.title}>Risultati</Text>
+              <Text style={styles.title}>{localize("vote.results")}</Text>
               <FlatList
                 data={this.state.winner.filter(x => x.question===this.state.page)}
                 renderItem={this.renderItem}

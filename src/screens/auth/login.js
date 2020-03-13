@@ -7,6 +7,7 @@ import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
 import Loading from '../../components/loading';
 import CustomHeader from '../../components/header';
+import { localize } from '../../locales/i18n';
 
 class LoginScreen extends Component {
   state = {
@@ -89,12 +90,12 @@ class LoginScreen extends Component {
             <Button disabled={!this.state.email || !this.state.password} full
             style={[styles.button, (this.state.email && this.state.password) ? {backgroundColor: '#1abc9c'} : {backgroundColor: '#bdc3c7'}]}
               onPress={() => this.props.login({email: this.state.email, password: this.state.password})}>
-              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>Accedi</Text>
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>{localize("auth.loginLabel")}</Text>
             </Button>
             <Text style={[styles.label, {color: '#3498db'}]} onPress={() => this.props.navigation.navigate("LostPass")}>
-              Password dimenticata?
+              {localize("auth.forgotPassword")}
             </Text>
-            <Text style={styles.label}>oppure accedi con</Text>
+            <Text style={styles.label}>{localize("auth.alternative")}</Text>
           </View>
           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
             <Button iconLeft full style={[styles.button, {backgroundColor: '#3b5999'}]} onPress={() => this.loginWithFB()}>
@@ -107,9 +108,7 @@ class LoginScreen extends Component {
             </Button>
           </View>
           <View style={{flex:1, justifyContent:'flex-end'}}>
-            <Text style={[styles.label, {color: '#3498db'}]} onPress={() => this.props.navigation.navigate("Register")}>
-              Non hai un account?
-            </Text>
+            <Text style={[styles.label, {color: '#3498db'}]} onPress={() => this.props.navigation.navigate("Register")}>{localize("auth.noAccount")}</Text>
           </View>
         </View>
       </View>

@@ -8,6 +8,7 @@ import * as ImageManipulator from 'expo-image-manipulator';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { setAvatar } from '../actions/UserActions';
+import { localize } from '../locales/i18n';
 
 
 class CameraScreen extends Component {
@@ -60,7 +61,7 @@ class CameraScreen extends Component {
         var metadata = {
             contentType: 'image/png'
         };
-        const filename = this.props.user.uid+".png"; // Generate unique name
+        const filename = this.props.user.uid+".png";
         const uploadTask = firebase.storage().ref('avatars').child(this.props.user.uid+'/'+filename).put(blob, metadata)
         uploadTask.on(
             firebase.storage.TaskEvent.STATE_CHANGED,
@@ -106,7 +107,7 @@ class CameraScreen extends Component {
         } else if (hasCameraPermission === false) {
             return (
             <View style={{flex: 1, backgroundColor: '#111', justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontFamily: 'Quicksand', textAlign: 'center', fontSize: 18, color: '#fdfbfb'}}>Non è stato consentito{"\n"}l'accesso alla fotocamera</Text>
+                <Text style={{fontFamily: 'Quicksand', textAlign: 'center', fontSize: 18, color: '#fdfbfb'}}>{localize("camera.permission")}</Text>
                 <Button onPress={()=>Camera.requestPermissionsAsync()} style={{backgroundColor: '#fdfbfb', marginVertical: 30, padding: 10}}>
                     <Text style={{fontFamily: 'ColorTube', color: '#111', fontSize: 10}}>
                         Consenti
@@ -118,7 +119,7 @@ class CameraScreen extends Component {
         if(this.state.uploading)
             return (
                 <View style={{flex: 1}}>
-                <CustomHeader color='#2c3e50' title="Sto salvando la foto..." type='menu' />
+                <CustomHeader color='#2c3e50' title={localize("camera.uploading")} type='menu' />
                 <View style={{flex: 1, backgroundColor: '#2c3e50', padding: 10, justifyContent: 'center', alignItems: 'center'}}>
                     <View style={{flex:1, flexDirection:'row', alignItems: 'center'}}>    
                         <Text style={{fontFamily:'ColorTube', color:'#fdfbfb',fontSize: 48}}>{this.state.progress}</Text>
@@ -129,7 +130,7 @@ class CameraScreen extends Component {
             )
         return (
             <View style={{flex: 1}}>
-            <CustomHeader color='#111' title="Scegli una foto" type='link' linkBackward={() => this.props.navigation.pop()} />
+            <CustomHeader color='#111' title={localize("camera.title")} type='link' linkBackward={() => this.props.navigation.pop()} />
             <View style={{flex: 1, justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#111'}}>
                 <View style={{ borderColor: '#fdfbfb', borderWidth: 2, width: 240, height: 240, justifyContent: 'center', alignItems: 'center', borderRadius: 120, overflow: 'hidden' }}>
                     {this.state.source ? 

@@ -10,6 +10,7 @@ import {
 
 import firebase from 'firebase';
 import registerForPushNotificationsAsync from '../api/notifications';
+import { localize } from '../locales/i18n';
 
 const getVote = (survey) => {
   const currentUser =  firebase.auth().currentUser.uid;
@@ -70,7 +71,7 @@ const getAuthor = (author) => {
     firebase.database().ref('users/'+author).on('value', snap => {
       var data = snap.val();
       if(author==currentUser)
-        data.name="Te"
+        data.name=localize("vote.you")
       else
         data.name=(data.name+" "+data.surname).trim();
       dispatch({ type: GET_AUTHOR_SUCCESS, payload: data});
@@ -120,7 +121,7 @@ const NotifySurveyCompleted = (survey, title) => {
           if (!data2){
               return;
           }
-          registerForPushNotificationsAsync(data2.token, "Sondaggio completato", "Tutti i partecipanti hanno votato", {"vote": true, "key": survey, "surveyTitle": title});
+          registerForPushNotificationsAsync(data2.token, localize("notification.surveyCompletedTitle"), localize("notification.surveyCompletedDesc"), {"vote": true, "key": survey, "surveyTitle": title});
         });
       })
     }

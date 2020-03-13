@@ -4,21 +4,13 @@ import { Text } from 'native-base';
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import StepIndicator from '../survey/stepindicator';
+import { localize } from '../../locales/i18n';
 
 class YourVote extends Component {
   state = {
     page: 0
   }
 
-
-  renderItem = ({ item }) => {
-    return(
-      <View style={{flex:1, justifyContent:'space-between', alignItems:'stretch', marginVertical: 10}}>
-        <Text style={styles.question}>{this.props.questions[this.state.page].questionTitle}</Text>
-        <Text style={styles.item}>{this.props.questions[this.state.page].answers[item].value}</Text>
-      </View>
-    )
-  }
 
   _keyExtractor = (item, index) => index.toString();
 
@@ -29,14 +21,13 @@ class YourVote extends Component {
   render() {
     return(
       <View style={{flex: 1, justifyContent:'flex-start', paddingHorizontal: 20}}>
-        <Text style={styles.alreadyVoted}>Hai già votato</Text>
-        <Text style={styles.title}>La tua scelta</Text>
+        <Text style={styles.alreadyVoted}>{localize("vote.alreadyVoted")}</Text>
+        <Text style={styles.title}>{localize("vote.yourChoice")}</Text>
         <Animatable.View delay={500} animation="flipInY" style={styles.card}>
-          <FlatList
-            data={this.props.yourVotes.filter(x => this.props.yourVotes.indexOf(x)===this.state.page)}
-            renderItem={this.renderItem}
-            keyExtractor={this._keyExtractor}
-          />
+          <View style={{flex:1, justifyContent:'space-between', alignItems:'stretch', marginVertical: 10}}>
+            <Text style={styles.question}>{this.props.questions[this.state.page].questionTitle}</Text>
+            <Text style={styles.item}>{this.props.questions[this.state.page].answers[this.props.yourVotes[this.state.page]].value}</Text>
+          </View>
           {this.props.yourVotes.length> 1 ?
           <View style={{paddingVertical: 30}}>
           <StepIndicator
@@ -47,7 +38,7 @@ class YourVote extends Component {
           /></View>: null }
         </Animatable.View>
         <Text style={styles.alreadyVoted} >
-            {this.props.hasToVote} {this.props.hasToVote > 1 ? "altri utenti devono" : "altro utente deve"} ancora votare
+            {this.props.hasToVote} {this.props.hasToVote > 1 ? localize("vote.morePendings") : localize("vote.onePending")}
         </Text>
       </View>
     )

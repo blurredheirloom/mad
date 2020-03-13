@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { surveysFetch, deleteSurvey } from '../../actions/SurveyActions';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import * as Animatable from 'react-native-animatable';
-
+import { localize } from '../../locales/i18n';
 
 class SurveyList extends Component {
     componentDidMount()
@@ -49,7 +49,7 @@ class SurveyList extends Component {
             return <Loading color='#e67e22' /> 
         return (
             <View style={{flex:1, padding: 15, marginHorizontal: 5}}>
-                {this.props.surveys.length==0 ? <Text style={styles.noContent}>Non hai ancora creato un sondaggio</Text> :
+                {this.props.surveys.length==0 ? <Text style={styles.noContent}>{localize("mySurveys.noContent")}</Text> :
                     <FlatList
                         data={this.props.surveys}
                         renderItem={this.renderItem}

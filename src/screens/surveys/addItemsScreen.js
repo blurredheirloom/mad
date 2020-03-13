@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 import { SwipeRow } from 'react-native-swipe-list-view';
 import StepIndicator from '../../components/survey/stepindicator';
-
+import { localize } from '../../locales/i18n';
 
 class AddItemsScreen extends Component {
   
@@ -155,8 +155,8 @@ class AddItemsScreen extends Component {
     {
       return(
         <View style={{flex: 1, flexDirection:'column', backgroundColor: "#8e44ad"}}>
-          <CustomHeader color={this.state.modalVisible ? '#2980b9' : '#8e44ad'} title="Aggiungi scelte" type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} forward={this.state.ready} linkForward={() => this.share()} />
-          <InputBar full={this.state.items.length==10} color='#8e44ad' loading={this.props.loading} placeholder='Aggiungi scelta' icon='plus' 
+          <CustomHeader color={this.state.modalVisible ? '#2980b9' : '#8e44ad'} title={localize("addItems.title")} type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} forward={this.state.ready} linkForward={() => this.share()} />
+          <InputBar full={this.state.items.length===10} max={localize("addItems.max")} color='#8e44ad' loading={this.props.loading} placeholder={localize("addItems.placeholder")} icon='plus' 
           onSubmit={(value)=>this.addItem(value)}/>
           <Animatable.View style={{flex:1, padding: 10}} duration={1500} easing='ease-out-back' animation="flipInY">
             <Card style={{flex:1, borderRadius: 5, padding: 20, backgroundColor:'#fdfbfb'}}>
@@ -165,7 +165,7 @@ class AddItemsScreen extends Component {
                     <Icon style={{color: '#fdfbfb', fontSize: 14, marginLeft: 0, marginRight: 0}} type="FontAwesome" name="minus" />
                   </Button>
                   <Text style={[styles.title, {flex:1, fontSize: 22}]}>{this.props.navigation.state.params.surveyTitle}</Text>
-                  <Button disabled={!this.state.ready} style={[this.state.ready ? styles.enabled : styles.disabled,{width: 32, height: 32, borderRadius: 2, justifyContent: 'center', backgroundColor: '#8e44ad'}]} onPress={() => this.setState({modalVisible: true})}>
+                  <Button disabled={!this.state.ready || this.state.questions.length>4} style={[this.state.ready && this.state.questions.length<5 ? styles.enabled : styles.disabled,{width: 32, height: 32, borderRadius: 2, justifyContent: 'center', backgroundColor: '#8e44ad'}]} onPress={() => this.setState({modalVisible: true})}>
                     <Icon style={{color: '#fdfbfb', fontSize: 14, marginLeft: 0, marginRight: 0}} type="FontAwesome" name="plus" />
                   </Button>
                 </View>
@@ -175,7 +175,7 @@ class AddItemsScreen extends Component {
                       <Text style={[styles.title,{fontSize: 18, color: "#8e44ad", marginBottom: 10, padding: 0, textAlign:'left', borderBottomWidth:1, borderColor: "#8e44ad"}]}>
                         {this.state.questionTitle}</Text>
                       {
-                        this.state.items.length==0 ? <Text style={styles.noContent}>Aggiungi scelte al sondaggio</Text> :
+                        this.state.items.length==0 ? <Text style={styles.noContent}>{localize("addItems.noContent")}</Text> :
                         <FlatList
                             data={this.state.items}
                             renderItem={this.renderItem}
@@ -201,10 +201,10 @@ class AddItemsScreen extends Component {
               visible={this.state.modalVisible}
               onRequestClose={()=>this.setState({modalVisible: false})}>
               <View style={{flex: 1, marginTop: -25, justifyContent:'flex-start',  alignItems:'stretch', backgroundColor:'#2980b9'}}>
-                <CustomHeader color='#2980b9' title="Aggiungi domanda a" forward={this.state.inputValue!=''} type='link' linkForward={()=>this.addQuestion(this.state.inputValue)} linkBackward={() => {this.state.questions.length>0 ? this.setState({modalVisible: false}) : this.props.navigation.navigate("NewSurvey")}} />
+                <CustomHeader color='#2980b9' title={localize("newQuestion.title")} forward={this.state.inputValue!=''} type='link' linkForward={()=>this.addQuestion(this.state.inputValue)} linkBackward={() => {this.state.questions.length>0 ? this.setState({modalVisible: false}) : this.props.navigation.navigate("NewSurvey")}} />
                 <View style={{paddingHorizontal: 15}}>
                   <Text style={[styles.title, {color: '#fdfbfb'}]}>{this.props.navigation.state.params.surveyTitle}</Text>
-                  <Text style={styles.example}>Ad esempio: 'Che film guardiamo?', 'Chi compra il regalo?', 'A che ora ci incontriamo?', ...</Text>
+                  <Text style={styles.example}>{localize("newQuestion.example")}</Text>
                   <View style={{flexDirection:'row', justifyContent:'space-between', paddingHorizontal: 20}}>
                     <Icon type="FontAwesome" style={styles.icon} name="quote-left" />
                     <Input maxLength={48} style={{fontFamily: 'Quicksand', fontSize: 18, color: '#ecf0f1', borderBottomColor: '#ecf0f1', borderBottomWidth: 1}} disabled = {this.props.loading} placeholderTextColor="#fff"
@@ -221,8 +221,8 @@ class AddItemsScreen extends Component {
     else
       return(
         <View style={{flex: 1, flexDirection:'column', backgroundColor: "#8e44ad"}}>
-          <CustomHeader color='#8e44ad' title="Aggiungi scelte" type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} />
-          <Text style={{fontFamily: 'Quicksand', color: '#fdfbfb', padding: 20, textAlign: 'center'}}>Non puoi modificare il sondaggio perchè già votato da qualcuno</Text>
+          <CustomHeader color='#8e44ad' title={localize("addItems.title")} type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} />
+          <Text style={{fontFamily: 'Quicksand', color: '#fdfbfb', padding: 20, textAlign: 'center'}}>{localize("addItems.locked")}</Text>
           <Animatable.View style={{flex:1, padding: 10, justifyContent: 'center'}} duration={1500} easing='ease-out-back' animation="flipInY">
             <Card style={{flex:1, borderRadius: 5, padding: 20, backgroundColor:'#fdfbfb'}}>
               <Text style={[styles.title, {fontSize: 22}]}>{this.props.navigation.state.params.surveyTitle}</Text>
@@ -232,7 +232,7 @@ class AddItemsScreen extends Component {
                     <Text style={[styles.title,{fontSize: 18, color: "#8e44ad", marginBottom: 10, padding: 0, textAlign:'left', borderBottomWidth:1, borderColor: "#8e44ad"}]}>
                       {this.state.questionTitle}</Text>
                     {
-                      this.state.items.length==0 ? <Text style={styles.noContent}>Aggiungi scelte al sondaggio</Text> :
+                      this.state.items.length==0 ? <Text style={styles.noContent}>{localize("addItems.noContent")}</Text> :
                       <FlatList
                           data={this.state.items}
                           renderItem={this.renderItem}

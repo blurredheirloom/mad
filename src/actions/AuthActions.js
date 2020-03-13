@@ -9,25 +9,26 @@ import {
 import firebase from 'firebase';
 import { Toast } from 'native-base';
 import { Notifications } from 'expo';
+import { localize } from '../locales/i18n';
 
 const printErrorByCode = (code) => {
   if(code)
     code = code.split('/')[1];
   switch (code) {
     case 'invalid-email' :
-      return "Indirizzo email non valido";
+      return localize("auth.invalidEmail");
     case 'user-not-found' :
-      return "Account non trovato";
+      return localize("auth.accountNotFound");
     case 'wrong-password' :
-      return "Password errata";
+      return localize("auth.wrongPassword");
     case 'weak-password' :
-      return "Password troppo debole";
+      return localize("auth.weakPassword");
     case 'email-already-in-use' :
-      return "Indirizzo email già esistente";
+      return localize("alreadyEmail");
     case 'too-many-requests' :
-      return "Troppi tentativi falliti. Attendi un attimo e riprova";
+      return localize("tooMany");
     default:
-      return "Errore: "+code;
+      return localize("Error: ", {code: code});
   }
 }
 
@@ -39,7 +40,6 @@ const login = ({ email, password }) => {
       .then(user => {
         firebase.database().ref('users/'+user.user.uid).once('value', snapshot => {
           var data = snapshot.val();
-          console.log(data)
           var out = {
             "uid" : user.user.uid,
             "displayName" : (data.name+" "+data.surname).trim(),
@@ -159,7 +159,7 @@ const resetPassword = (email) => {
     dispatch({type: RESET_PASSWORD_START });
     firebase.auth().sendPasswordResetEmail(email.trim()).then(() => {
       Toast.show({
-        text: "E' stato inviato un link per reimpostare la password",
+        text: localize("auth.sentLink"),
         position: 'bottom',
         type: 'success',
         duration: 2000,

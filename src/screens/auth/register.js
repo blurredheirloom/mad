@@ -5,6 +5,7 @@ import { register } from '../../actions/AuthActions';
 import Loading from '../../components/loading';
 import { connect } from 'react-redux';
 import CustomHeader from '../../components/header';
+import { localize } from '../../locales/i18n';
 
 class RegisterScreen extends Component {
   state = {
@@ -42,13 +43,11 @@ class RegisterScreen extends Component {
                 email: this.state.email,
                 password: this.state.password,
               })}>
-              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>Registrati</Text>
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>{localize("auth.registerButton")}</Text>
             </Button>
           </View>
           <View style={{flex:1, justifyContent:'flex-end'}}>
-            <Text style={styles.login} onPress={() => this.props.navigation.navigate("Login")}>
-              Accedi
-            </Text>
+            <Text style={styles.login} onPress={() => this.props.navigation.navigate("Login")}>{localize("auth.loginLabel")}</Text>
           </View>
         </View>
       </View>

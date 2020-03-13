@@ -1,0 +1,112 @@
+{
+    "tutorial": {
+        "title1" : "Aggiungi amici",
+        "desc1": "Cerca altri utenti e aggiungili alla tua lista amici",
+        "title2" : "Crea un sondaggio",
+        "desc2" : "Dagli un titolo, poi aggiungi domande e possibili scelte",
+        "title3" : "Condividi il sondaggio",
+        "desc3" : "Invia il sondaggio ai tuoi amici",
+        "title4" : "Vota il sondaggio",
+        "desc4" : "Vota il sondaggio e attendi che tutti i partecipanti abbiano votato per vedere i risultati",
+        "skip" : "Salta"
+    },
+    "auth" : {
+        "recoverButton": "Recupera",
+        "registerButton": "Registrati",
+        "loginLabel": "Accedi",
+        "forgotPassword": "Password dimenticata?",
+        "alternative": "oppure accedi con",
+        "noAccount": "Non hai un account?",
+        "invalidEmail": "Indirizzo email non valido",
+        "accountNotFound": "Account non trovato",
+        "wrongPassword": "Password errata",
+        "weakPassword": "Password troppo debole",
+        "alreadyEmail": "Indirizzo email già esistente",
+        "tooMany": "Troppi tentativi falliti. Attendi un attimo e riprova",
+        "error": "Errore: {{code}}",
+        "sentLink": "E' stato inviato un link per reimpostare la password"
+    },
+    "home" : {
+        "makeSurvey": "Crea sondaggio",
+        "exit": "Esci"
+    },
+    "info" : {
+        "description": "è un'app che aiuta a prendere decisioni insieme ad altre persone.\nUn utente può creare un sondaggio (ad es. \"Dove andiamo stasera?\"), aggiungere le scelte possibili e condividerlo con gli amici.\nOgni utente invitato a partecipare al sondaggio può esprimere la propria preferenza, votando.",
+        "authorLabel": "Realizzato da",
+        "authorName": "Matteo Stracquadanio",
+        "techLabel": "Realizzato con"
+    },
+    "avatar" : {
+        "title": "Scegli il tuo avatar",
+        "default": "Ripristina"
+    },
+    "camera": {
+        "title": "Scegli una foto",
+        "permission" : "Non è stato consentito \nl'accesso alla fotocamera",
+        "uploading": "Sto salvando la foto..."
+    },
+    "newSurvey" : {
+        "title": "Nuovo sondaggio",
+        "desc": "Scegli un titolo per il tuo sondaggio",
+        "example": "Ad esempio: 'Pasqua {{year}}', 'I miei 18 anni', 'Festa Mario', ..."
+    },
+    "newQuestion" : {
+        "title": "Aggiungi domanda a",
+        "example": "Ad esempio: 'Che film guardiamo?', 'Chi compra il regalo?', 'A che ora ci incontriamo?', ..."
+    },
+    "addItems" : {
+        "title": "Aggiungi scelte",
+        "placeholder": "Aggiungi scelta",
+        "noContent": "Aggiungi scelte al sondaggio",
+        "max": "MAX 10 scelte a domanda",
+        "locked": "Non puoi modificare il sondaggio perchè già votato da qualcuno"
+    },
+    "share": {
+        "title": "Condividi",
+        "with": "con"
+    },
+    "mySurveys": {
+        "title": "I miei sondaggi",
+        "noContent": "Non hai ancora creato un sondaggio",
+        "warning": "Sei sicuro di voler eliminare tutti i sondaggi?",
+        "confirm": "Conferma",
+        "cancel": "Annulla"
+    },
+    "sharedSurveys": {
+        "title": "Sondaggi a cui partecipo",
+        "noContent": "Non stai partecipando a sondaggi"
+    },
+    "friends": {
+        "title": "Amici",
+        "add": "Aggiungi amici",
+        "noContent": "Non hai aggiunto amici"
+    },
+    "newFriend": {
+        "title": "Aggiungi amico",
+        "placeholder" : "Cerca utente",
+        "noResult": "Nessun utente trovato",
+        "minLength": "Inserire almeno 3 caratteri"
+    },
+    "vote": {
+        "title": "Vota",
+        "author": "creato da",
+        "you": "te",
+        "deleted": "Questo sondaggio non esiste",
+        "random": "Causale",
+        "alreadyVoted": "Hai già votato",
+        "yourChoice": "La tua scelta",
+        "morePendings": "altri utenti devono ancora votare",
+        "onePending": "altro utente deve ancora votare",
+        "results": "Risultati"
+    },
+    "notification": {
+        "newFriendRequestTitle": "Nuova richiesta di amicizia",
+        "newFriendRequestDesc": "{{name}} ti ha inviato una richiesta di amicizia",
+        "acceptRequestTitle": "Richiesta di amicizia accettata",
+        "acceptRequestDesc": "{{name}} ha accettato la tua richiesta di amicizia",
+        "newSurveyTitle": "Nuovo sondaggio",
+        "newSurveyDesc": "{{name}} ti ha invitato a partecipare ad un sondaggio",
+        "surveyCompletedTitle": "Sondaggio completato", 
+        "surveyCompletedDesc": "Tutti i partecipanti hanno votato"
+    }
+}

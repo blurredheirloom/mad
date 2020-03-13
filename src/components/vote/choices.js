@@ -5,6 +5,7 @@ import RadioGroup from './RadioButton/RadioGroup';
 import { vote } from '../../actions/VoteActions';
 import { connect } from 'react-redux';
 import StepIndicator from '../survey/stepindicator';
+import { localize } from '../../locales/i18n';
 
 
 class Choices extends Component {
@@ -39,7 +40,7 @@ class Choices extends Component {
     render() {
         if(!this.props.questions[this.state.currQuestion])
             return(
-                <Text style={styles.noContent}>Questo sondaggio non esiste</Text>
+                <Text style={styles.noContent}>{localize("vote.deleted")}</Text>
             ); 
         return(
                 <View style={{flex: 1, padding: 20}}>
@@ -59,11 +60,11 @@ class Choices extends Component {
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <Button onPress={()=>this.setState({random: !this.state.random})} style={this.state.random ? styles.enabled : styles.disabled}>
                             <Icon style={this.state.random ? styles.enabled : styles.disabled} type="FontAwesome5" name='dice'  />
-                            <Text style={[this.state.random ? styles.enabled : styles.disabled, styles.buttonText]}>Casuale</Text>
+                            <Text style={[this.state.random ? styles.enabled : styles.disabled, styles.buttonText]}>{localize("vote.random")}</Text>
                         </Button>
                         <Button onPress={()=>this.vote()} disabled={!Number.isInteger(this.state.selected) && !this.state.random} style={Number.isInteger(this.state.selected) || this.state.random ? styles.enabled : styles.disabled}>
                             <Icon style={Number.isInteger(this.state.selected) || this.state.random ? styles.enabled : styles.disabled} type="FontAwesome" name='thumbs-up'  />
-                            <Text style={[Number.isInteger(this.state.selected) || this.state.random ? styles.enabled : styles.disabled, styles.buttonText]}>Vota</Text>
+                            <Text style={[Number.isInteger(this.state.selected) || this.state.random ? styles.enabled : styles.disabled, styles.buttonText]}>{localize("vote.title")}</Text>
                         </Button>
                     </View>
                 </View>

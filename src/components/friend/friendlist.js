@@ -5,6 +5,7 @@ import Friend from './friend';
 import Loading from '../loading';
 import { friendsFetch, acceptFriend, deleteFriend } from '../../actions/FriendActions';
 import { connect } from 'react-redux';
+import { localize } from '../../locales/i18n';
 
 class FriendList extends Component {
     
@@ -69,10 +70,10 @@ class FriendList extends Component {
                    <View style={{flex: 1, paddingVertical: 15, paddingHorizontal: 20}}>
                         {this.props.friends.length==0 ? 
                             <View style={{flex:1, alignItems: 'center', justifyContent: 'space-evenly'}}>
-                                <Text style={[styles.noContent, {color: '#fdfbfb'}]}>Non hai aggiunto amici</Text>
+                                <Text style={[styles.noContent, {color: '#fdfbfb'}]}>{localize("friends.noContent")}</Text>
                                 <Button style={{backgroundColor: '#fdfbfb'}} onPress={() => this.props.navigation.navigate("NewFriend")}>
                                     <Icon style={{color: '#3498db'}} type="FontAwesome" name='user-plus' />
-                                    <Text style={{fontFamily: 'Blogger', textTransform: 'uppercase', color: '#3498db', fontSize: 16, letterSpacing: 1, textAlign: 'center'}}>Aggiungi amici</Text>
+                                    <Text style={{fontFamily: 'Blogger', textTransform: 'uppercase', color: '#3498db', fontSize: 16, letterSpacing: 1, textAlign: 'center'}}>{localize("friends.add")}</Text>
                                 </Button>
                             </View>
                         :
@@ -87,8 +88,8 @@ class FriendList extends Component {
             else
             {
                 return (
-                    <View style={{flex: 1, justifyContent: 'center', paddingVertical: 15, paddingHorizontal: 20}}>
-                        {this.props.friends.length==0 ? <Text style={styles.noContent}>Non hai aggiunto amici</Text> :
+                    <View style={{flex: 1, paddingVertical: 15, paddingHorizontal: 20}}>
+                        {this.props.friends.length==0 ? <Text style={styles.noContent}>{localize("friends.noContent")}</Text> :
                             <FlatList
                                 data={this.props.friends}
                                 renderItem={this.renderItem}

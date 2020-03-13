@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from "react-native";
 import { Text, Thumbnail } from 'native-base';
 import CustomHeader from '../components/header';
+import { localize } from '../locales/i18n';
 
 
 class InfoScreen extends Component {
@@ -12,25 +13,20 @@ class InfoScreen extends Component {
           <CustomHeader type="info" color="#1abc9c" linkBackward={() => this.props.navigation.pop()} />
           <View style={{flex:1, paddingVertical: 15, paddingHorizontal: 20, justifyContent:'space-between'}}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
-              <Text style={{fontFamily: 'ColorTube', fontSize: 10, color: '#ecf0f1'}}>mad </Text>
+              <Text style={{fontFamily: 'ColorTube', fontSize: 10, color: '#ecf0f1', paddingRight: 10}}>mad</Text>
               <Text style={styles.text}>(</Text>
               <Text style={{fontFamily: 'Pacifico', fontSize: 13, color: '#34495e'}}>make a decision</Text>
               <Text style={styles.text}>)</Text>
             </View>
-            <Text style={styles.text}>
-                è un’app che aiuta a prendere decisioni insieme ad altre persone.{"\n"}
-                Un utente può creare un sondaggio (ad es. "Dove mangiamo stasera?"),
-                aggiungere le scelte possibili e condividerlo con gli amici.{"\n"}
-                Ogni utente invitato a partecipare al sondaggio può esprimere la propria preferenza, votando.
-            </Text>
+            <Text style={styles.text}>{localize("info.description")}</Text>
             <View style={styles.description}>
-              <Text style={{fontFamily: 'Blogger', color: '#34495e', fontSize: 14}}>Realizzato da</Text>
-              <Text style={[styles.text, {flex:1, textAlign: 'right'}]}>Matteo Stracquadanio</Text>
+              <Text style={{fontFamily: 'Blogger', color: '#34495e', fontSize: 14}}>{localize("info.authorLabel")}</Text>
+              <Text style={[styles.text, {flex:1, textAlign: 'right'}]}>{localize("info.authorName")}</Text>
             </View>
           </View>
       </View>
       <View style={{flex:1, backgroundColor: '#fdfbfb', justifyContent:'space-between', paddingHorizontal: 20, paddingVertical: 15}}> 
-        <Text style={{fontFamily: 'Blogger', color: '#34495e', fontSize: 14}}>Realizzato con</Text>
+        <Text style={{fontFamily: 'Blogger', color: '#34495e', fontSize: 14}}>{localize("info.techLabel")}</Text>
         <View style={{flex:1, justifyContent:'space-evenly'}}>
           <View style={styles.row}>
             <View style={{flexDirection:'row', alignItems:'center'}}>

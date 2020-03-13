@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Text, Thumbnail } from 'native-base';
 import { connect } from 'react-redux';
 import { getAuthor } from '../../actions/VoteActions';
+import { localize } from '../../locales/i18n';
 
 
 class Author extends Component {
@@ -16,7 +17,7 @@ class Author extends Component {
         return(
           <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginHorizontal: 40, borderBottomWidth: 1, borderBottomColor: '#8e44ad'}}>
             <View style={{flex: 0.3, flexDirection : 'row', justifyContent: 'center', alignItems: 'center', paddingVertical: 10}}>
-              <Text style={styles.owner}>creato da</Text>
+              <Text style={styles.owner}>{localize("vote.author")}</Text>
               <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start'}}>
                   {this.props.author.image ? <Thumbnail style={{backgroundColor: '#fdfbfb', borderWidth: 1, borderColor: '#fdfbfb'}} small source={{ uri: this.props.author.image }} />
                   : <Thumbnail style={{backgroundColor: '#fdfbfb', borderWidth: 1, borderColor: '#fdfbfb'}} small source={require('../../assets/images/user.png')} />}

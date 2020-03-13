@@ -20,8 +20,6 @@ import Badge from '../components/badge';
 import AddAvatarScreen from '../screens/addAvatarScreen';
 import CameraScreen from '../screens/camera';
 
-
-
 const MainNavigation = createBottomTabNavigator(
   {
     Home: {

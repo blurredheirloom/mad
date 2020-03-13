@@ -4,6 +4,7 @@ import { StyleSheet, View, Text } from 'react-native';
 import { setTutorial } from './actions/UserActions';
 import { connect } from 'react-redux';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import { localize } from './locales/i18n';
 
 class TutorialScreen extends Component {
   state = {
@@ -57,7 +58,7 @@ class TutorialScreen extends Component {
   _renderSkipButton = () => {
     return (
       <Button transparent onPress={() => this.onDone()} style={{paddingLeft: 10, paddingBottom: 0}}>
-        <Text style={{fontSize: 16, color: this.state.current===0 ? '#2c3e50' : '#fdfbfb', fontFamily: 'Blogger', letterSpacing: 1, textTransform: 'uppercase'}}>Salta</Text>
+        <Text style={{fontSize: 16, color: this.state.current===0 ? '#2c3e50' : '#fdfbfb', fontFamily: 'Blogger', letterSpacing: 1, textTransform: 'uppercase'}}>{localize("tutorial.skip")}</Text>
       </Button>
     );
   };
@@ -106,8 +107,8 @@ const slides = [
   },
   {
     key: '1',
-    title: 'Aggiungi amici',
-    text: 'Cerca altri utenti e aggiungili alla tua lista amici',
+    title: localize("tutorial.title1"),
+    text: localize("tutorial.desc1"),
     icon: 'users',
     titleStyle: styles.title,
     textStyle: styles.text,
@@ -115,8 +116,8 @@ const slides = [
   },
   {
     key: '2',
-    title: 'Crea un sondaggio',
-    text: 'Dagli un titolo, poi aggiungi domande e possibili scelte',
+    title: localize("tutorial.title2"),
+    text: localize("tutorial.desc2"),
     icon: 'pencil',
     titleStyle: styles.title,
     textStyle: styles.text,
@@ -124,8 +125,8 @@ const slides = [
   },
   {
     key: '3',
-    title: 'Condividi il sondaggio',
-    text: 'Invia il sondaggio ai tuoi amici',
+    title: localize("tutorial.title3"),
+    text: localize("tutorial.desc3"),
     icon: 'comment',
     titleStyle: styles.title,
     textStyle: styles.text,
@@ -133,8 +134,8 @@ const slides = [
   },
   {
     key: '4',
-    title: 'Vota il sondaggio',
-    text: 'Vota il sondaggio e attendi che tutti i partecipanti abbiano votato per vedere i risultati',
+    title: localize("tutorial.title4"),
+    text: localize("tutorial.desc4"),
     icon: 'thumbs-up',
     titleStyle: styles.title,
     textStyle: styles.text,

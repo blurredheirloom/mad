@@ -4,6 +4,7 @@ import SharedSurvey from './sharedsurvey';
 import Loading from '../loading';
 import { sharedSurveysFetch } from '../../actions/ShareActions';
 import { connect } from 'react-redux';
+import { localize } from '../../locales/i18n';
 
 class SharedList extends Component {
 
@@ -29,7 +30,7 @@ class SharedList extends Component {
         return <Loading color='#2ecc71' /> 
       return ( 
         <View style={{flex:1, padding: 15, marginHorizontal: 5}}>
-          {this.props.sharedsurveys.length==0 ? <Text style={styles.noContent}>Non stai partecipando a sondaggi</Text> :
+          {this.props.sharedsurveys.length==0 ? <Text style={styles.noContent}>{localize("sharedSurveys.noContent")}</Text> :
             <FlatList 
               data={this.props.sharedsurveys}
               renderItem={this.renderItem}

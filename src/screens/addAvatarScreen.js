@@ -6,6 +6,7 @@ import CustomHeader from '../components/header';
 import { connect } from 'react-redux';
 import { getAvatars, setAvatar, defaultAvatar } from '../actions/UserActions';
 import StepIndicator from '../components/survey/stepindicator';
+import { localize } from '../locales/i18n';
 
 class AddAvatarScreen extends Component {
   
@@ -51,7 +52,7 @@ class AddAvatarScreen extends Component {
   render() {
     return(
         <View style={{flex: 1, flexDirection:'column', backgroundColor: "#1abc9c"}}>
-            <CustomHeader color='#1abc9c' title="Scegli il tuo avatar" type='link' linkBackward={() => this.props.navigation.pop()} forward={this.state.selected!=null} linkForward={() => this.changeAvatar()}/>
+            <CustomHeader color='#1abc9c' title={localize("avatar.title")} type='link' linkBackward={() => this.props.navigation.pop()} forward={this.state.selected!=null} linkForward={() => this.changeAvatar()}/>
             <View style={{flex: 1, padding: 10}}>
                 <Card style={{flex:1, borderRadius: 5, paddingHorizontal: 15, backgroundColor:'#fdfbfb'}}>
                 {this.props.loading ? <Loading color='#1abc9c'/> :
@@ -79,7 +80,7 @@ class AddAvatarScreen extends Component {
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10}}>
                   <Button vertical onPress={() => this.defaultAvatar()} style={{backgroundColor: 'transparent', elevation: 0, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 5}}>
                     <Icon type="FontAwesome" name="user-circle" style={{color: '#fdfbfb'}}/>
-                    <Text style={{fontFamily: 'Blogger', fontSize: 16, letterSpacing: 1, color: '#fdfbfb', paddingTop: 5}}>Ripristina</Text>
+                    <Text style={{fontFamily: 'Blogger', fontSize: 16, letterSpacing: 1, color: '#fdfbfb', paddingTop: 5}}>{localize("avatar.default")}</Text>
                   </Button>
                   <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingHorizontal: 5}}>
                     <Button onPress={() => this.props.navigation.navigate("Camera", {gallery: true})} style={{backgroundColor: '#2c3e50', marginLeft: 25, borderRadius: 50, width: 64, height: 64, justifyContent: 'center', alignItems: 'center'}}>

@@ -9,6 +9,7 @@ import {
 } from './types';
 import firebase from 'firebase';
 import registerForPushNotificationsAsync from '../api/notifications';
+import { localize } from '../locales/i18n';
 
 
 /* Carica i sondaggi creati dall'utente corrente */
@@ -66,7 +67,7 @@ const createSurvey = (value, questions, friends) => {
         if (!data){
             return;
         }
-        registerForPushNotificationsAsync(data.token, "Nuovo sondaggio", name+" ti ha invitato a partecipare ad un sondaggio", {"vote": true, "key": survey, "surveyTitle": value, "owner": currentUser.uid});
+        registerForPushNotificationsAsync(data.token, localize("notification.newSurveyTitle"), localize("notification.newSurveyDesc", {name: name}), {"vote": true, "key": survey, "surveyTitle": value, "owner": currentUser.uid});
       });
     });
     dispatch({ type: CREATE_SURVEY_SUCCESS, payload: survey});
