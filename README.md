@@ -39,6 +39,7 @@ Realizzato da:      __Matteo Stracquadanio__
     <img src="screenshots/3.png" width=128 alt="screen3" />
     <img src="screenshots/4.png" width=128 alt="screen4" />
     <img src="screenshots/5.png" width=128 alt="screen5" />
+    <img src="screenshots/6.png" width=128 alt="screen6" />
 </div>
 
 
