@@ -9,8 +9,6 @@ import {
 const initialState = {
     surveys: [],
     questions: [],
-    numMembers: 0,
-    hasToVote: 0,
     id: null,
     loading: false,
 }
@@ -30,13 +28,13 @@ export default function surveyReducer(state = initialState, action) {
     case UPDATE_SURVEY_SUCCESS:
         return {...state, loading: false}
     case ITEMS_FETCH_START:
-        return {...state, loading: true}
+        return {...state, loading: true, questions: []}
     case ITEMS_FETCH_SUCCESS:
-        return {...state, loading: false, questions: action.payload.questions, hasToVote: action.payload.hasToVote, numMembers: action.payload.numMembers }
+        return {...state, loading: false, questions: action.payload}
     case DELETE_USER_SURVEYS_START:
         return {...state, loading: true}
     case DELETE_USER_SURVEYS_SUCCESS:
-        return {...state, loading: false, surveys: [], questions: []}
+        return {...state, loading: false, surveys: []}
     default:
       return state;
   }

@@ -6,7 +6,7 @@ import {
   SENDING_REQUEST, SENT_REQUEST, GET_PENDING_REQUESTS
 } from './types';
 import registerForPushNotificationsAsync from '../api/notifications';
-import firebase from 'firebase';
+import firebase from '../api/firebase';
 import { localize } from '../locales/i18n';
 
 /* Carica la lista degli amici */

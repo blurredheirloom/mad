@@ -1,91 +1,38 @@
 import React, { Component } from 'react';
-import { getVote } from '../../actions/VoteActions';
-import { questionsFetch } from '../../actions/SurveyActions';
-import { StyleSheet, View, Text } from 'react-native';
-import Choices from './choices';
+import { remainingVotes, getVote } from '../../actions/VoteActions';
 import YourVote from './yourvote';
 import Winner from './winner';
 import { connect } from 'react-redux';
 import Loading from '../loading';
-import { localize } from '../../locales/i18n';
+import Choices from './choices';
 
 
 class VoteList extends Component {
-  
+
   componentDidMount() {
-    if(this.props.survey)
-    {
-      this.props.getVote(this.props.survey.key);
-      this.props.questionsFetch(this.props.survey.key);
-    }
+    this.props.getVote(this.props.survey)
+    this.props.remainingVotes(this.props.survey);
   }
 
-  componentDidUpdate(prevProps)
-  {
-      if(this.props.survey!=prevProps.survey)
-          this.props.questionsFetch(this.props.survey.key);
-  }
 
   render() {
       if(this.props.loading)
         return (<Loading color='#9b59b6'/>);
-      else if(!this.props.questions)
-        return(
-            <Text style={styles.noContent}>{localize("vote.deleted")}</Text>
-        ); 
-      return (
-        <View style={{flex: 1}}>
-          {!this.props.yourVotes ? 
-            <Choices survey={this.props.survey.key} surveyTitle={this.props.survey.surveyTitle} />
-            :
-            this.props.hasToVote==0 ?
-            <Winner survey={this.props.survey.key} yourReaction={this.props.yourReaction} />
-            :
-            <YourVote survey={this.props.survey.key} yourVotes={this.props.yourVotes} />
-          }
-        </View>
-      );      
+      if(!this.props.yourVotes)
+        return <Choices survey={this.props.survey} surveyTitle={this.props.surveyTitle} questions={this.props.questions} />
+      return this.props.hasToVote==0 ? <Winner survey={this.props.survey} numMembers={this.props.numMembers} questions={this.props.questions} yourReaction={this.props.yourReaction} /> 
+      : <YourVote surveyTitle={this.props.surveyTitle} survey={this.props.survey} yourVotes={this.props.yourVotes} questions={this.props.questions} />
   }
 }
 
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 5,
-    borderColor: '#ecf0f1'
-  },
-  noContent: {
-    fontFamily: 'Pacifico',
-    fontSize: 18,
-    color: '#fdfbfb',
-    paddingTop: 50,
-    textAlign: 'center'
-  },
-  owner: {
-    fontFamily: 'Quicksand',
-    padding: 10,
-    fontSize: 12,
-    color: '#ecf0f1',
-  },
-  alreadyVoted: {
-    fontFamily: 'Quicksand',
-    padding: 10,
-    paddingBottom: 30,
-    fontSize: 14,
-    color: '#ecf0f1',
-    textAlign: 'center'
-  },
-  
-});
 
 const mapStateToProps = state => ({
-  loading: state.survey.loading || state.vote.loading,
-  questions: state.survey.questions,
-  hasToVote: state.survey.hasToVote,
-  numMembers: state.survey.numMembers,
   yourVotes: state.vote.yourVotes,
-  yourReaction: state.vote.yourReaction
+  yourReaction: state.vote.yourReaction,
+  loading: state.vote.loading,
+  hasToVote: state.vote.hasToVote,
 });
 
-export default connect(mapStateToProps, { getVote, questionsFetch } ) (VoteList);
+export default connect(mapStateToProps, { remainingVotes, getVote } ) (VoteList);
 
 

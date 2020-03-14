@@ -63,8 +63,9 @@ class Winner extends Component {
 
   componentDidMount()
   {
-    //this.props.questionsFetch(this.props.survey);
     this.props.getReactions(this.props.survey);
+    console.log(this.props.yourReaction);
+    this.getWinner();
   }
 
   componentDidUpdate(prevProps)
@@ -239,8 +240,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  questions: state.survey.questions,
-  numMembers: state.survey.numMembers,
   reactions: state.vote.reactions,
   loading: state.survey.loading,
 });

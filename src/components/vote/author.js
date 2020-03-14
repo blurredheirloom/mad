@@ -13,6 +13,14 @@ class Author extends Component {
             this.props.getAuthor(this.props.owner);
     }
 
+    componentDidUpdate(prevProps)
+  {
+      if(this.props.owner!=prevProps.owner)
+      {
+          this.props.getAuthor(this.props.owner);
+      }
+  }
+
     render() {
         return(
           <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginHorizontal: 40, borderBottomWidth: 1, borderBottomColor: '#8e44ad'}}>

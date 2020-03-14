@@ -16,7 +16,6 @@ class Choices extends Component {
         myVotes: [],
         random: false
     }
-
   
   
     getData(question, val){
@@ -38,10 +37,6 @@ class Choices extends Component {
 
 
     render() {
-        if(!this.props.questions[this.state.currQuestion])
-            return(
-                <Text style={styles.noContent}>{localize("vote.deleted")}</Text>
-            ); 
         return(
                 <View style={{flex: 1, padding: 20}}>
                     <Text style={{color: '#fdfbfb', fontFamily:'Pacifico', fontSize: 18, textAlign: 'center'}}>{this.props.questions[this.state.currQuestion].questionTitle}</Text>
@@ -118,7 +113,6 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = state => ({
-    questions: state.survey.questions,
     loading: state.vote.loading,
 });
 

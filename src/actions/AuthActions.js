@@ -6,7 +6,7 @@ import {
   REGISTER_USER_START, REGISTER_USER_SUCCESS, REGISTER_USER_FAIL,
   RESET_PASSWORD_START, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAIL,
 } from './types';
-import firebase from 'firebase';
+import firebase from '../api/firebase';
 import { Toast } from 'native-base';
 import { Notifications } from 'expo';
 import { localize } from '../locales/i18n';

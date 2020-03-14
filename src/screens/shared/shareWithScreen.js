@@ -52,7 +52,7 @@ class ShareWithScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  loading: state.share.loading && state.survey.loading,
+  loading: state.share.loading || state.survey.loading,
   surveyId: state.survey.id,
 });
 

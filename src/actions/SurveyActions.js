@@ -7,7 +7,7 @@ import {
   DELETE_SURVEY, DELETE_USER_SURVEYS_START, DELETE_USER_SURVEYS_SUCCESS,
   ITEMS_FETCH_START, ITEMS_FETCH_SUCCESS
 } from './types';
-import firebase from 'firebase';
+import firebase from '../api/firebase';
 import registerForPushNotificationsAsync from '../api/notifications';
 import { localize } from '../locales/i18n';
 
@@ -42,13 +42,13 @@ const surveysFetch = () => {
 const questionsFetch = (survey) => {
   return (dispatch) => {
     dispatch({ type: ITEMS_FETCH_START });
-    firebase.database().ref('surveys/'+survey).on('value', snapshot => {
+    firebase.database().ref('surveys/'+survey+'/questions').on('value', snapshot => {
       var data = snapshot.val();
       if(!data)
       {
         return dispatch({ type: ITEMS_FETCH_SUCCESS, payload: []});
-      }    
-      dispatch({ type: ITEMS_FETCH_SUCCESS, payload: {questions: data.questions, numMembers: data.numMembers, hasToVote: data.hasToVote}});
+      }
+      dispatch({ type: ITEMS_FETCH_SUCCESS, payload: data});
     });
   }
 }
@@ -67,7 +67,7 @@ const createSurvey = (value, questions, friends) => {
         if (!data){
             return;
         }
-        registerForPushNotificationsAsync(data.token, localize("notification.newSurveyTitle"), localize("notification.newSurveyDesc", {name: name}), {"vote": true, "key": survey, "surveyTitle": value, "owner": currentUser.uid});
+        registerForPushNotificationsAsync(data.token, localize("notification.newSurveyTitle"), localize("notification.newSurveyDesc", {name: name}), {"vote": true, "key": survey, "surveyTitle": value, "owner": currentUser.uid, "numMembers": members.length});
       });
     });
     dispatch({ type: CREATE_SURVEY_SUCCESS, payload: survey});
@@ -104,9 +104,9 @@ const deleteSurvey = (key) => {
 
 /* Elimina tutti i sondaggi dell'utente corrente*/
 const deleteUserSurveys = () => {
-  const currentUser =  firebase.auth().currentUser.uid;
   return (dispatch) => {
     dispatch({ type: DELETE_USER_SURVEYS_START })
+    const currentUser =  firebase.auth().currentUser.uid;
     firebase.database().ref('surveys/').orderByChild('owner').equalTo(currentUser).once('value', snapshot => {
       snapshot.forEach(function(child) {
         child.ref.remove();

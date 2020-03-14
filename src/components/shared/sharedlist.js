@@ -17,7 +17,7 @@ class SharedList extends Component {
       return(
         <SharedSurvey 
             data={item}
-            onPress={() => this.props.navigation.navigate("SurveyVote", {survey : item})}
+            onPress={() => this.props.navigation.navigate("SurveyVote", {survey : item.key, surveyTitle: item.surveyTitle, owner: item.owner, numMembers: item.numMembers})}
         />
       )
     }

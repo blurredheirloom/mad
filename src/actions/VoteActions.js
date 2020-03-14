@@ -5,12 +5,29 @@ import {
   GET_VOTE_START, GET_VOTE_SUCCESS,
   GET_REACTIONS_START, GET_REACTIONS_SUCCESS,
   SET_REACTION_START, SET_REACTION_SUCCESS,
-  VOTING_START, VOTING_SUCCESS
+  HAS_TO_VOTE_START, HAS_TO_VOTE_SUCCESS,
+  VOTING_START, VOTING_SUCCESS,
+  QUESTIONS_FETCH_START, QUESTIONS_FETCH_SUCCESS
 } from './types';
 
 import firebase from 'firebase';
 import registerForPushNotificationsAsync from '../api/notifications';
 import { localize } from '../locales/i18n';
+
+/* Carica domande di un sondaggio */
+const questionsFetch = (survey) => {
+  return (dispatch) => {
+    dispatch({ type: QUESTIONS_FETCH_START });
+    firebase.database().ref('surveys/'+survey+'/questions').on('value', snapshot => {
+      var data = snapshot.val();
+      if(!data)
+      {
+        return dispatch({ type: QUESTIONS_FETCH_SUCCESS, payload: []});
+      }
+      dispatch({ type: QUESTIONS_FETCH_SUCCESS, payload: data});
+    });
+  }
+}
 
 const getVote = (survey) => {
   const currentUser =  firebase.auth().currentUser.uid;
@@ -20,11 +37,26 @@ const getVote = (survey) => {
         var data = snapshot.val();
         if(!data)
         {
-          return dispatch({ type: GET_VOTE_SUCCESS, payload: []})
+          return dispatch({ type: GET_VOTE_SUCCESS, payload: {"votes": false, "reaction":false}})
         }
         var votes = Object.values(data)[0].votes;
         var reaction = Object.values(data)[0].reaction;
         dispatch({ type: GET_VOTE_SUCCESS, payload: {"votes": votes, "reaction": reaction}});
+    });
+  }
+}
+
+const remainingVotes = (survey) => {
+  const currentUser =  firebase.auth().currentUser.uid;
+  return (dispatch) => {
+    dispatch({ type: HAS_TO_VOTE_START });
+    firebase.database().ref("surveys/"+survey+'/hasToVote').on('value', snapshot => {
+        var data = snapshot.val();
+        if(!data)
+        {
+          return dispatch({ type: HAS_TO_VOTE_SUCCESS, payload: 0})
+        }
+        dispatch({ type: HAS_TO_VOTE_SUCCESS, payload: data});
     });
   }
 }
@@ -121,7 +153,7 @@ const NotifySurveyCompleted = (survey, title) => {
           if (!data2){
               return;
           }
-          registerForPushNotificationsAsync(data2.token, localize("notification.surveyCompletedTitle"), localize("notification.surveyCompletedDesc"), {"vote": true, "key": survey, "surveyTitle": title});
+          registerForPushNotificationsAsync(data2.token, localize("notification.surveyCompletedTitle"), localize("notification.surveyCompletedDesc"), {"vote": true, "key": survey, "surveyTitle": title, "owner": data.owner, "numMembers": data.numMembers});
         });
       })
     }
@@ -129,4 +161,4 @@ const NotifySurveyCompleted = (survey, title) => {
 }
 
 
-export { getAuthor, vote, getVote, getReactions, setReactions, NotifySurveyCompleted }
+export { getAuthor, vote, remainingVotes, getVote, questionsFetch, getReactions, setReactions, NotifySurveyCompleted }

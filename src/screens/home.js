@@ -29,7 +29,7 @@ class HomeScreen extends Component {
    this.setState({ notification: notification });
    console.log(notification)
    if(notification.origin==='selected')
-   notification.data.vote ? this.props.navigation.navigate("SurveyVote", {survey: notification.data})
+   notification.data.vote ? this.props.navigation.navigate("SurveyVote", {survey: notification.data.key, surveyTitle: notification.data.surveyTitle, owner: notification.data.owner, numMembers: notification.data.numMembers})
     : this.props.navigation.navigate("Friends");
      
  };

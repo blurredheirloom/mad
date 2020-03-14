@@ -10,7 +10,7 @@ export default class Friend extends Component
         {
             return(
                 <TouchableNativeFeedback onPress={this.props.onCheck}>
-                    <View style={{flex: 1, paddingVertical: 15, borderBottomWidth: 0.5, borderBottomColor: '#fdfbfb', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+                    <View style={{flex: 1, paddingHorizontal: 5, paddingVertical: 15, borderBottomWidth: 0.5, borderBottomColor: '#fdfbfb', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                         <View style={{flex: 1, flexDirection:'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                             {this.props.data.image && <Thumbnail style={{borderColor: '#fdfbfb', borderWidth: 1}} small source={{ uri: this.props.data.image }} />}
                             {!this.props.data.image && <Thumbnail sstyle={{borderColor: '#fdfbfb', borderWidth: 1}} mall source={require('../../assets/images/user.png')} />}
@@ -44,7 +44,7 @@ export default class Friend extends Component
                             <Icon type="FontAwesome" active name="times" style={{fontSize: 16}}/>
                         </Button>
                     </View>
-                    <View style={{height: 64, borderBottomColor: '#eee', borderBottomWidth: 1, flex:1,
+                    <View style={{height: 64, paddingHorizontal: 5, borderBottomColor: '#eee', borderBottomWidth: 1, flex:1,
                         backgroundColor: "#fdfbfb", flexDirection: 'row', alignItems:'center', justifyContent:'space-between'}}>
                         <View style={{flex: 1, flexDirection:'row', alignItems:'center'}}>
                             {this.props.data.image && <Thumbnail style={{borderColor: '#3498db', borderWidth: 1}} small source={{ uri: this.props.data.image }} />}

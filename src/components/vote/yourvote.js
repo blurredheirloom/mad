@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, FlatList} from 'react-native';
+import { StyleSheet, View} from 'react-native';
 import { Text } from 'native-base';
 import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
@@ -11,9 +11,6 @@ class YourVote extends Component {
     page: 0
   }
 
-
-  _keyExtractor = (item, index) => index.toString();
-
   goToPage = (page) => {
     this.setState({page: page});
   }
@@ -24,12 +21,12 @@ class YourVote extends Component {
         <Text style={styles.alreadyVoted}>{localize("vote.alreadyVoted")}</Text>
         <Text style={styles.title}>{localize("vote.yourChoice")}</Text>
         <Animatable.View delay={500} animation="flipInY" style={styles.card}>
-          <View style={{flex:1, justifyContent:'space-between', alignItems:'stretch', marginVertical: 10}}>
+          <View style={{flex:1, justifyContent:'flex-start', marginVertical: 10}}>
             <Text style={styles.question}>{this.props.questions[this.state.page].questionTitle}</Text>
             <Text style={styles.item}>{this.props.questions[this.state.page].answers[this.props.yourVotes[this.state.page]].value}</Text>
           </View>
           {this.props.yourVotes.length> 1 ?
-          <View style={{paddingVertical: 30}}>
+          <View style={{paddingVertical: 10}}>
           <StepIndicator
             customStyles={indicatorStyles}
             currentPosition={this.state.page}
@@ -75,7 +72,7 @@ const styles = StyleSheet.create({
   question: {
     fontFamily: 'Pacifico',
     fontSize: 18,
-    lineHeight: 24,
+    lineHeight: 36,
     color: '#9b59b6',
     paddingBottom: 10,
   },
@@ -102,10 +99,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  questions: state.survey.questions,
-  hasToVote: state.survey.hasToVote,
-  numMembers: state.survey.numMembers,
   loading: state.vote.loading,
+  hasToVote: state.vote.hasToVote,
 });
 
 export default connect(mapStateToProps) (YourVote);

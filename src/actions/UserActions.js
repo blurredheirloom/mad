@@ -4,7 +4,7 @@ import {
   GET_AVATARS_START, GET_AVATARS_SUCCESS,
   SET_AVATAR_START, SET_AVATAR_SUCCESS
 } from './types';
-import firebase from 'firebase';
+import firebase from '../api/firebase';
 //import * as FileSystem from 'expo-file-system';
 
 /*const addAvatars = () => {

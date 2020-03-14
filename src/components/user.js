@@ -10,7 +10,7 @@ export default class User extends Component {
         return (
             <Animatable.View animation='fadeIn' duration={500} style={{flex:1}}>
             <ListItem style={{backgroundColor: "#fdfbfb", borderRadius: 10, padding: 5, marginLeft:0}}>
-              <View style={{flex: 1, flexDirection: 'row'}}>
+              <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 5}}>
                 {this.props.data.image && <Thumbnail small style={{borderColor: '#3498db', borderWidth: 1}} source={{ uri: this.props.data.image }} />}
                 {!this.props.data.image && <Thumbnail small source={require('../assets/images/user.png')} />}
                 <Text style={styles.item}>{this.props.data.name}</Text>

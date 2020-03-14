@@ -1,12 +1,12 @@
 //Azioni per i sondaggi a cui si partecipa
 
 import {
-  SHARE_SURVEY_START,
-  SHARE_SURVEY_SUCCESS,
   SHARED_SURVEYLIST_FETCH_START,  
   SHARED_SURVEYLIST_FETCH_SUCCESS,
 } from './types';
-import firebase from 'firebase';
+
+import firebase from '../api/firebase';
+
 
 const sharedSurveysFetch = () => {
   const currentUser =  firebase.auth().currentUser ? firebase.auth().currentUser.uid : null ;
