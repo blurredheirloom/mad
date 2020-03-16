@@ -64,7 +64,6 @@ class Winner extends Component {
   componentDidMount()
   {
     this.props.getReactions(this.props.survey);
-    console.log(this.props.yourReaction);
     this.getWinner();
   }
 
@@ -158,7 +157,7 @@ class Winner extends Component {
       });
 
       return(
-          <View style={{flex:1, justifyContent:'space-between', padding: 20}}>
+          <View style={{flex:1, justifyContent:'space-between', paddingHorizontal: 25, paddingVertical:20}}>
             <Animatable.View
             animation="tada" style={styles.card}>
               <Text style={styles.title}>{localize("vote.results")}</Text>
@@ -168,13 +167,14 @@ class Winner extends Component {
                 keyExtractor={this._keyExtractor}
               />
               {this.state.winner.length> 1 ?
-              <View style={{paddingVertical: 30}}>
-              <StepIndicator
-                customStyles={indicatorStyles}
-                currentPosition={this.state.page}
-                stepCount={this.state.winner.length}
-                onPress={this.goToPage}
-              /></View>: null }
+              <View style={{paddingVertical: 20}}>
+                <StepIndicator
+                  customStyles={indicatorStyles}
+                  currentPosition={this.state.page}
+                  stepCount={this.state.winner.length}
+                  onPress={this.goToPage}
+                />
+              </View>: null }
               <View style={{flexDirection: 'row', paddingTop: 25, borderTopColor:'#eee', borderTopWidth: 1, justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#fdfbfb'}}>
               {emojiSelector}
               </View>
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 5,
-    borderColor: '#ecf0f1'
+    borderColor: '#fdfbfb'
   },
   question: {
     fontFamily: 'Pacifico',
@@ -241,7 +241,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   reactions: state.vote.reactions,
-  loading: state.survey.loading,
+  yourReaction: state.vote.yourReaction,
+  loading: state.vote.loading,
 });
 
 export default connect(mapStateToProps, { getReactions, setReactions } ) (Winner);

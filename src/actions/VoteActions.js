@@ -18,16 +18,19 @@ import { localize } from '../locales/i18n';
 const questionsFetch = (survey) => {
   return (dispatch) => {
     dispatch({ type: QUESTIONS_FETCH_START });
-    firebase.database().ref('surveys/'+survey+'/questions').on('value', snapshot => {
+    firebase.database().ref('surveys/'+survey).once('value', snapshot => {
       var data = snapshot.val();
       if(!data)
       {
         return dispatch({ type: QUESTIONS_FETCH_SUCCESS, payload: []});
       }
+      data.id = survey;
       dispatch({ type: QUESTIONS_FETCH_SUCCESS, payload: data});
     });
   }
 }
+
+
 
 const getVote = (survey) => {
   const currentUser =  firebase.auth().currentUser.uid;
@@ -47,16 +50,11 @@ const getVote = (survey) => {
 }
 
 const remainingVotes = (survey) => {
-  const currentUser =  firebase.auth().currentUser.uid;
   return (dispatch) => {
     dispatch({ type: HAS_TO_VOTE_START });
-    firebase.database().ref("surveys/"+survey+'/hasToVote').on('value', snapshot => {
+    firebase.database().ref("surveys/"+survey+"/hasToVote").on('value', snapshot => {
         var data = snapshot.val();
-        if(!data)
-        {
-          return dispatch({ type: HAS_TO_VOTE_SUCCESS, payload: 0})
-        }
-        dispatch({ type: HAS_TO_VOTE_SUCCESS, payload: data});
+        dispatch({ type: HAS_TO_VOTE_SUCCESS, payload: {"hasToVote" : data, "id" : survey}});
     });
   }
 }
@@ -100,7 +98,7 @@ const getAuthor = (author) => {
   const currentUser =  firebase.auth().currentUser.uid;
   return (dispatch) => {
     dispatch({ type: GET_AUTHOR_START });
-    firebase.database().ref('users/'+author).on('value', snap => {
+    firebase.database().ref('users/'+author).once('value', snap => {
       var data = snap.val();
       if(author==currentUser)
         data.name=localize("vote.you")
@@ -153,7 +151,7 @@ const NotifySurveyCompleted = (survey, title) => {
           if (!data2){
               return;
           }
-          registerForPushNotificationsAsync(data2.token, localize("notification.surveyCompletedTitle"), localize("notification.surveyCompletedDesc"), {"vote": true, "key": survey, "surveyTitle": title, "owner": data.owner, "numMembers": data.numMembers});
+          registerForPushNotificationsAsync(data2.token, localize("notification.surveyCompletedTitle"), localize("notification.surveyCompletedDesc"), {"vote": true, "key": survey, "surveyTitle": title, "owner": data.owner,"hasToVote": 0, "numMembers": data.numMembers});
         });
       })
     }

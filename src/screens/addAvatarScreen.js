@@ -16,7 +16,6 @@ class AddAvatarScreen extends Component {
     page: 0
   };
 
-
   componentDidMount()
   {
     this.props.getAvatars();
@@ -36,6 +35,7 @@ class AddAvatarScreen extends Component {
   }
 
   goToPage = (page) => {
+    this.flatListRef.scrollToIndex({ animated: true, index: 0 });
     this.setState({selected: null});
     this.setState({avatar: null});
     this.setState({page: page});
@@ -44,7 +44,7 @@ class AddAvatarScreen extends Component {
   renderItem = ({item, index}) => {
       return(
         <TouchableWithoutFeedback onPress={() => this.setState({selected: index, avatar: item.name})}>
-          <Thumbnail style={[this.state.selected===index ? styles.enabled :  null, {marginHorizontal: 5}]}  square source={{uri: item.url}}/>
+          <Thumbnail style={[this.state.selected===index ? styles.enabled :  null, {width: 48, height: 48, marginHorizontal: 5}]} square source={{uri: item.url}}/>
         </TouchableWithoutFeedback>
       )
     }
@@ -53,11 +53,12 @@ class AddAvatarScreen extends Component {
     return(
         <View style={{flex: 1, flexDirection:'column', backgroundColor: "#1abc9c"}}>
             <CustomHeader color='#1abc9c' title={localize("avatar.title")} type='link' linkBackward={() => this.props.navigation.pop()} forward={this.state.selected!=null} linkForward={() => this.changeAvatar()}/>
-            <View style={{flex: 1, padding: 10}}>
-                <Card style={{flex:1, borderRadius: 5, paddingHorizontal: 15, backgroundColor:'#fdfbfb'}}>
+            <View style={{flex: 1, paddingVertical:10, paddingHorizontal:20 }}>
+                <Card style={{flex:1, borderRadius: 5, paddingHorizontal: 10, backgroundColor:'#fdfbfb'}}>
                 {this.props.loading ? <Loading color='#1abc9c'/> :
                   <View style={{flex: 1, paddingVertical: 25}}>
                     <FlatList
+                        ref={(ref) => { this.flatListRef = ref; }}
                         columnWrapperStyle={{justifyContent: 'space-evenly', alignItems: 'center', marginVertical: 20}}
                         numColumns={5}
                         initialNumToRender={16}
@@ -76,17 +77,17 @@ class AddAvatarScreen extends Component {
                   </View>                     
                 }
                 </Card>
-                <Text style={{fontFamily: 'Blogger', color: '#fdfbfb', fontSize: 10, textAlign: 'center'}}>Avatars made by Freepik from www.flaticon.com</Text>
+                <Text style={{fontFamily: 'Quicksand', color: '#fdfbfb', fontSize: 10, textAlign: 'center'}}>Avatars made by Freepik from www.flaticon.com</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10}}>
-                  <Button vertical onPress={() => this.defaultAvatar()} style={{backgroundColor: 'transparent', elevation: 0, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 5}}>
-                    <Icon type="FontAwesome" name="user-circle" style={{color: '#fdfbfb'}}/>
-                    <Text style={{fontFamily: 'Blogger', fontSize: 16, letterSpacing: 1, color: '#fdfbfb', paddingTop: 5}}>{localize("avatar.default")}</Text>
+                  <Button iconLeft onPress={() => this.defaultAvatar()} style={{backgroundColor: '#2c3e50', borderRadius: 5, height: 64}}>
+                    <Icon type="FontAwesome" name="user-circle" style={{marginRight: 0, color: '#fdfbfb'}}/>
+                    <Text style={{fontFamily: 'Blogger', letterSpacing: 1, color: '#fdfbfb'}}>{localize("avatar.default")}</Text>
                   </Button>
-                  <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', paddingHorizontal: 5}}>
-                    <Button onPress={() => this.props.navigation.navigate("Camera", {gallery: true})} style={{backgroundColor: '#2c3e50', marginLeft: 25, borderRadius: 50, width: 64, height: 64, justifyContent: 'center', alignItems: 'center'}}>
+                  <View style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center'}}>
+                    <Button onPress={() => this.props.navigation.navigate("Camera", {gallery: true})} style={{backgroundColor: '#2c3e50', marginLeft: 20, borderRadius: 32, width: 64, height: 64, justifyContent: 'center', alignItems: 'center'}}>
                       <Icon type="FontAwesome" name="image" style={{color: '#fdfbfb'}}/>
                     </Button>
-                    <Button onPress={() => this.props.navigation.navigate("Camera", {gallery: false})} style={{backgroundColor: '#2c3e50', marginLeft: 25, borderRadius: 50, width: 64, height: 64, justifyContent: 'center', alignItems: 'center'}}>
+                    <Button onPress={() => this.props.navigation.navigate("Camera", {gallery: false})} style={{backgroundColor: '#2c3e50', marginLeft: 20, borderRadius: 32, width: 64, height: 64, justifyContent: 'center', alignItems: 'center'}}>
                     <Icon type="FontAwesome" name="camera" style={{color: '#fdfbfb'}}/>
                     </Button>
                   </View>
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontFamily: 'ColorTube' ,
     fontSize: 12,
-    color: '#ecf0f1', 
+    color: '#fdfbfb', 
     textAlign: 'center',
   },
   example: {
@@ -132,13 +133,13 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 40,
     fontSize: 14,
-    color: '#ecf0f1',
+    color: '#fdfbfb',
     lineHeight: 25,
     textAlign: 'justify'
   },
   icon: {
     fontSize: 18,
-    color:'#ecf0f1',
+    color:'#fdfbfb',
     textAlign:'center'
   },
   enabled: {

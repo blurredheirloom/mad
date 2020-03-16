@@ -158,13 +158,13 @@ class AddItemsScreen extends Component {
           <CustomHeader color={this.state.modalVisible ? '#2980b9' : '#8e44ad'} title={localize("addItems.title")} type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} forward={this.state.ready} linkForward={() => this.share()} />
           <InputBar full={this.state.items.length===10} max={localize("addItems.max")} color='#8e44ad' loading={this.props.loading} placeholder={localize("addItems.placeholder")} icon='plus' 
           onSubmit={(value)=>this.addItem(value)}/>
-          <Animatable.View style={{flex:1, padding: 10}} duration={1500} easing='ease-out-back' animation="flipInY">
+          <Animatable.View style={{flex:1, paddingVertical: 10, paddingHorizontal: 20}} duration={1500} easing='ease-out-back' animation="flipInY">
             <Card style={{flex:1, borderRadius: 5, padding: 20, backgroundColor:'#fdfbfb'}}>
                 <View style={{flexDirection:'row', marginBottom: 10, justifyContent: 'space-between', alignItems:'center'}}>
                   <Button disabled={this.state.questions.length<2} style={[this.state.questions.length<2 ? styles.disabled : styles.enabled, {width: 32, height: 32, borderRadius: 2, justifyContent: 'center', backgroundColor: '#8e44ad'}]} onPress={() => this.removeQuestion(this.state.currQuestion)}>
                     <Icon style={{color: '#fdfbfb', fontSize: 14, marginLeft: 0, marginRight: 0}} type="FontAwesome" name="minus" />
                   </Button>
-                  <Text style={[styles.title, {flex:1, fontSize: 22}]}>{this.props.navigation.state.params.surveyTitle}</Text>
+                  <Text style={[styles.title, {paddingHorizontal: 10, lineHeight: 32, flex:1, fontSize: 22}]}>{this.props.navigation.state.params.surveyTitle}</Text>
                   <Button disabled={!this.state.ready || this.state.questions.length>4} style={[this.state.ready && this.state.questions.length<5 ? styles.enabled : styles.disabled,{width: 32, height: 32, borderRadius: 2, justifyContent: 'center', backgroundColor: '#8e44ad'}]} onPress={() => this.setState({modalVisible: true})}>
                     <Icon style={{color: '#fdfbfb', fontSize: 14, marginLeft: 0, marginRight: 0}} type="FontAwesome" name="plus" />
                   </Button>
@@ -172,7 +172,7 @@ class AddItemsScreen extends Component {
                 {this.props.loading ? <Loading color='#8e44ad'/> :
                   <View style={{flex: 1}}>
                     <View style={{flex:1, justifyContent:'flex-start'}}>
-                      <Text style={[styles.title,{fontSize: 18, color: "#8e44ad", marginBottom: 10, padding: 0, textAlign:'left', borderBottomWidth:1, borderColor: "#8e44ad"}]}>
+                      <Text style={[styles.title,{fontSize: 18, color: "#8e44ad", marginBottom: 10, padding: 0, textAlign:'left', borderBottomWidth:1, borderColor: "#b075c9"}]}>
                         {this.state.questionTitle}</Text>
                       {
                         this.state.items.length==0 ? <Text style={styles.noContent}>{localize("addItems.noContent")}</Text> :
@@ -184,12 +184,14 @@ class AddItemsScreen extends Component {
                       }
                     </View>
                     {this.state.questions.length>1 &&
+                    <View style={{paddingTop: 20}}>
                       <StepIndicator
                         customStyles={indicatorStyles}
                         currentPosition={this.state.currQuestion}
                         stepCount={this.state.questions.length}
                         onPress={this.goToQuestion}
                       />
+                    </View>
                     }
                   </View>
                 }
@@ -199,7 +201,7 @@ class AddItemsScreen extends Component {
               animationType="none"
               transparent={true}
               visible={this.state.modalVisible}
-              onRequestClose={()=>this.setState({modalVisible: false})}>
+              onRequestClose={() => this.state.questions.length>0 ? this.setState({modalVisible: false}) : this.props.navigation.pop()}>
               <View style={{flex: 1, marginTop: -25, justifyContent:'flex-start',  alignItems:'stretch', backgroundColor:'#2980b9'}}>
                 <CustomHeader color='#2980b9' title={localize("newQuestion.title")} forward={this.state.inputValue!=''} type='link' linkForward={()=>this.addQuestion(this.state.inputValue)} linkBackward={() => {this.state.questions.length>0 ? this.setState({modalVisible: false}) : this.props.navigation.navigate("NewSurvey")}} />
                 <View style={{paddingHorizontal: 15}}>
@@ -207,7 +209,7 @@ class AddItemsScreen extends Component {
                   <Text style={styles.example}>{localize("newQuestion.example")}</Text>
                   <View style={{flexDirection:'row', justifyContent:'space-between', paddingHorizontal: 20}}>
                     <Icon type="FontAwesome" style={styles.icon} name="quote-left" />
-                    <Input maxLength={48} style={{fontFamily: 'Quicksand', fontSize: 18, color: '#ecf0f1', borderBottomColor: '#ecf0f1', borderBottomWidth: 1}} disabled = {this.props.loading} placeholderTextColor="#fff"
+                    <Input maxLength={48} style={{fontFamily: 'Blogger', fontSize: 18, color: '#fdfbfb', borderBottomColor: '#fdfbfb', borderBottomWidth: 2}} disabled = {this.props.loading} placeholderTextColor="#fdfbfb"
                     value={this.state.inputValue} onChangeText={(inputValue) => this.setState({inputValue})} onSubmitEditing={() => this.addQuestion(this.state.inputValue)}
                     />
                     <Icon type="FontAwesome" style={styles.icon} name="quote-right" />
@@ -223,13 +225,13 @@ class AddItemsScreen extends Component {
         <View style={{flex: 1, flexDirection:'column', backgroundColor: "#8e44ad"}}>
           <CustomHeader color='#8e44ad' title={localize("addItems.title")} type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} />
           <Text style={{fontFamily: 'Quicksand', color: '#fdfbfb', padding: 20, textAlign: 'center'}}>{localize("addItems.locked")}</Text>
-          <Animatable.View style={{flex:1, padding: 10, justifyContent: 'center'}} duration={1500} easing='ease-out-back' animation="flipInY">
+          <Animatable.View style={{flex:1, paddingVertical: 10, paddingHorizontal:20, justifyContent: 'center'}} duration={1500} easing='ease-out-back' animation="flipInY">
             <Card style={{flex:1, borderRadius: 5, padding: 20, backgroundColor:'#fdfbfb'}}>
-              <Text style={[styles.title, {fontSize: 22}]}>{this.props.navigation.state.params.surveyTitle}</Text>
+              <Text style={[styles.title, {paddingHorizontal: 10, lineHeight: 32, fontSize: 22}]}>{this.props.navigation.state.params.surveyTitle}</Text>
               {this.props.loading ? <Loading color='#8e44ad'/> :
                 <View style={{flex: 1}}>
                   <View style={{flex:1, justifyContent:'flex-start'}}>
-                    <Text style={[styles.title,{fontSize: 18, color: "#8e44ad", marginBottom: 10, padding: 0, textAlign:'left', borderBottomWidth:1, borderColor: "#8e44ad"}]}>
+                    <Text style={[styles.title,{fontSize: 18, color: "#8e44ad", marginBottom: 10, padding: 0, textAlign:'left', borderBottomWidth:1, borderColor: "#b075c9"}]}>
                       {this.state.questionTitle}</Text>
                     {
                       this.state.items.length==0 ? <Text style={styles.noContent}>{localize("addItems.noContent")}</Text> :
@@ -241,12 +243,14 @@ class AddItemsScreen extends Component {
                     }
                   </View>
                   {this.state.questions.length>1 &&
+                   <View style={{paddingTop: 20}}>
                     <StepIndicator
                       customStyles={indicatorStyles}
                       currentPosition={this.state.currQuestion}
                       stepCount={this.state.questions.length}
                       onPress={this.goToQuestion}
                     />
+                    </View>
                   }
                 </View>
               }
@@ -286,7 +290,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingBottom: 48,
     fontSize: 16,
-    color: '#ecf0f1',
+    color: '#fdfbfb',
     lineHeight: 25,
     textAlign: 'justify'
   },
@@ -297,7 +301,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 18,
-    color:'#ecf0f1',
+    color:'#fdfbfb',
     textAlign:'center'
   },
   noContent: {

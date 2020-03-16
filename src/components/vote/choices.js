@@ -16,6 +16,7 @@ class Choices extends Component {
         myVotes: [],
         random: false
     }
+
   
   
     getData(question, val){
@@ -38,7 +39,7 @@ class Choices extends Component {
 
     render() {
         return(
-                <View style={{flex: 1, padding: 20}}>
+                <View style={{flex: 1, padding: 25}}>
                     <Text style={{color: '#fdfbfb', fontFamily:'Pacifico', fontSize: 18, textAlign: 'center'}}>{this.props.questions[this.state.currQuestion].questionTitle}</Text>
                     <View style={{flex: 1}}>
                         <RadioGroup disabled={this.state.random} radioGroupList={this.props.questions[this.state.currQuestion].answers} selected={this.state.selected} onChange={(selected) => this.getData(this.state.currQuestion, selected)} />
@@ -87,12 +88,11 @@ const indicatorStyles = {
 
 const styles = StyleSheet.create({
     noContent: {
-        fontFamily: 'Blogger',
-        textAlign: 'center',
-        fontSize: 16,
+        fontFamily: 'Pacifico',
+        fontSize: 18,
         color: '#fdfbfb',
-        paddingTop: 20,
-        paddingBottom: 20
+        paddingTop: 50,
+        textAlign: 'center'
     },
     buttonText: {
         fontFamily: 'Blogger',
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     enabled : {
-        backgroundColor: '#ecf0f1',
+        backgroundColor: '#fdfbfb',
         color: "#8e44ad",
         borderRadius: 5,
     },

@@ -5,17 +5,17 @@ import LoginScreen from './navigation/login';
 import Loading from './components/loading';
 import { loadingUser } from './actions/AuthActions';
 import { connect } from 'react-redux';
-import TutorialScreen from './tutorial';
+import TutorialScreen from './screens/tutorial';
 
 class RootContainer extends Component {
   state = {
     loadingFonts: true,
   }
 
-  componentDidMount()
+  async componentDidMount()
   {
     this.props.loadingUser();
-    Expo.Font.loadAsync({
+    await Expo.Font.loadAsync({
       FontAwesome: require('native-base/Fonts/FontAwesome.ttf'),
       Ionicons: require('native-base/Fonts/Ionicons.ttf'),
       Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -34,7 +34,7 @@ class RootContainer extends Component {
           <Loading color='#1abc9c'/>
         :
          (this.props.user ? 
-            this.props.user.tutorial ? <TutorialScreen  /> : <HomeScreen /> 
+            this.props.user.tutorial ? <TutorialScreen login /> : <HomeScreen /> 
           : 
         <Root><LoginScreen /></Root>)
     )

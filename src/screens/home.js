@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Notifications } from 'expo';
-import { StyleSheet, TouchableHighlight, View, Text, TouchableWithoutFeedback} from 'react-native';
-import { Button, Icon} from 'native-base';
+import { StyleSheet, View, Text, TouchableWithoutFeedback} from 'react-native';
+import { Button, Icon } from 'native-base';
 import { logout } from '../actions/AuthActions';
 import UserPicture from '../components/userPicture';
 import CustomHeader from '../components/header';
@@ -12,6 +12,7 @@ import { localize } from '../locales/i18n';
 class HomeScreen extends Component {
   state = {
     notification: {},
+    settings: false
   }
 
   componentDidMount() {
@@ -27,36 +28,65 @@ class HomeScreen extends Component {
 
  _handleNotification = (notification) => {
    this.setState({ notification: notification });
-   console.log(notification)
    if(notification.origin==='selected')
-   notification.data.vote ? this.props.navigation.navigate("SurveyVote", {survey: notification.data.key, surveyTitle: notification.data.surveyTitle, owner: notification.data.owner, numMembers: notification.data.numMembers})
+   notification.data.vote ? this.props.navigation.navigate("SurveyVote", {survey: notification.data.key, surveyTitle: notification.data.surveyTitle, hasToVote: notification.data.hasToVote, owner: notification.data.owner, numMembers: notification.data.numMembers})
     : this.props.navigation.navigate("Friends");
-     
  };
+
+ change = () => {
+  this.viewRef.flipInY(500); 
+  this.setState({settings: !this.state.settings})
+ }
  
 
  
   render() {
     return(
         <Animatable.View animation='bounceInDown' duration={500} style={{justifyContent: 'center', flex: 1, backgroundColor:'#fdfbfb' }}>
-          <TouchableHighlight onPress={() => this.props.navigation.navigate("Info")}>
-            <CustomHeader type="home" color="#1abc9c" />
-          </TouchableHighlight>
-          <View style={{flex: 1, alignItems: 'center', justifyContent: 'space-around', backgroundColor:'#1abc9c'}}>
+          <CustomHeader type="home" linkBackward={() => this.change()} iconBack={this.state.settings ? 'chevron-circle-left' :'gear'} color="#1abc9c" />
+          <View style={{flex: 1, padding: 30, alignItems: 'center', justifyContent: 'flex-start', backgroundColor:'#1abc9c'}}>
             <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("Avatar")}>
-              <Animatable.View animation="pulse" duration={800} iterationCount="infinite" iterationDelay={5000}>
-                <UserPicture style={{width: 110, height: 110, borderRadius: 55, borderWidth: 3}} large color='#ecf0f1' />
+              <Animatable.View  animation="pulse" duration={800} iterationCount="infinite" iterationDelay={5000}>
+                <UserPicture image={this.props.user.image} uid={this.props.user.uid} name={this.props.user.displayName} style={{width: 110, height: 110, borderRadius: 55, borderWidth: 3}} large color='#fdfbfb' />
               </Animatable.View>
             </TouchableWithoutFeedback>
-            <Text style={styles.welcome}>{this.props.user.displayName}</Text>
-            <Text uppercase={false} style={styles.logout} onPress={()=>this.props.logout()}>{localize("home.exit")}</Text>
+            <View style={{flex: 1, padding: 20}}>
+              <Text style={styles.welcome}>{this.props.user.displayName.split(" ")[0]}</Text>
+              <Text style={styles.welcome}>{this.props.user.displayName.split(" ")[1]}</Text>
+            </View>
           </View>
-          <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-            <Button vertical style={styles.button} onPress={() => this.props.navigation.navigate("NewSurvey")}>
-              <Icon style={{color: '#fdfbfb', fontSize: 32,  paddingVertical: 10}} type="FontAwesome" name='pencil' />
+          <Animatable.View ref={(ref) => this.viewRef = ref} style={{flex:1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 25}}>
+            {this.state.settings ?
+            <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'space-between', borderColor: '#fdfbfb'}}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'stretch'}}>
+                <Button vertical style={[styles.button, {flex: 1, height: 96, margin: 5}]} onPress={() => this.props.navigation.navigate("Avatar")}>
+                  <Icon style={{color: '#fdfbfb', fontSize: 32,  paddingVertical: 10}} type="FontAwesome" name='user-circle' />
+                  <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16, color: '#fdfbfb', textTransform: 'uppercase', paddingVertical: 10}}>{localize("home.avatar")}</Text>
+                </Button>
+                <Button vertical style={[styles.button, {flex: 1, height: 96, margin: 5}]} onPress={() => this.props.navigation.navigate("Info")}>
+                  <Icon style={{color: '#fdfbfb', fontSize: 32,  paddingVertical: 10}} type="FontAwesome" name='info-circle' />
+                  <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16, color: '#fdfbfb', textTransform: 'uppercase', paddingVertical: 10}}>{localize("home.info")}</Text>
+                </Button>
+              </View>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'stretch'}}>
+                <Button vertical style={[styles.button, {flex: 1, height: 96, margin: 5}]} onPress={() => this.props.navigation.navigate("Tutorial")}>
+                  <Icon style={{color: '#fdfbfb', fontSize: 32,  paddingVertical: 10}} type="FontAwesome" name='question-circle' />
+                  <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16, color: '#fdfbfb', textTransform: 'uppercase', paddingVertical: 10}}>{localize("home.help")}</Text>
+                </Button>
+                <Button vertical style={[styles.button, {backgroundColor: '#e74c3c', flex: 1, height: 96, margin: 5}]} onPress={() => this.props.logout()}>
+                  <Icon style={{color: '#fdfbfb', fontSize: 32,  paddingVertical: 10}} type="FontAwesome" name='sign-out' />
+                  <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16, color: '#fdfbfb', textTransform: 'uppercase', paddingVertical: 10}}>{localize("home.exit")}</Text>
+                </Button>
+              </View>
+              
+            </View>
+            : 
+            <Button iconLeft style={styles.button} onPress={() => this.props.navigation.navigate("NewSurvey")}>
+              <Icon style={{color: '#fdfbfb', fontSize: 32,  paddingVertical: 10, marginLeft:0}} type="FontAwesome" name='pencil' />
               <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16, color: '#fdfbfb', textAlign: 'center', textTransform: 'uppercase', paddingVertical: 10}}>{localize("home.makeSurvey")}</Text>
             </Button>
-          </View>
+            }
+          </Animatable.View>
         </Animatable.View>
     );
   }
@@ -64,23 +94,23 @@ class HomeScreen extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 5,
+    borderRadius: 2,
     backgroundColor: '#1abc9c',
     padding: 20,
+    height: 64
   },
   welcome: {
-    color: '#ecf0f1',
-    fontSize: 20,
+    color: '#fdfbfb',
+    fontSize: 24,
     textAlign:'center',
     fontFamily: 'Blogger',
-    paddingHorizontal: 10
   },
   logout: {
     fontFamily: 'Quicksand',
-    textDecorationLine: 'underline',
-    color: '#ecf0f1',
-    fontSize: 18,
-    padding: 10
+    color: '#fdfbfb',
+    fontSize: 14,
+    textTransform: 'uppercase',
+    letterSpacing: 1,
   },
 });
 

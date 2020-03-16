@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TouchableNativeFeedback } from 'react-native';
-import { Icon, Button, Text, Thumbnail, CheckBox } from 'native-base';
+import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
+import { Icon, Button, Text, CheckBox } from 'native-base';
 import { SwipeRow } from 'react-native-swipe-list-view';
+import UserPicture from '../userPicture';
 
 export default class Friend extends Component
 {
@@ -9,20 +10,19 @@ export default class Friend extends Component
         if(this.props.share)
         {
             return(
-                <TouchableNativeFeedback onPress={this.props.onCheck}>
+                <TouchableWithoutFeedback onPress={this.props.onCheck}>
                     <View style={{flex: 1, paddingHorizontal: 5, paddingVertical: 15, borderBottomWidth: 0.5, borderBottomColor: '#fdfbfb', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
                         <View style={{flex: 1, flexDirection:'row', justifyContent: 'flex-start', alignItems: 'center'}}>
-                            {this.props.data.image && <Thumbnail style={{borderColor: '#fdfbfb', borderWidth: 1}} small source={{ uri: this.props.data.image }} />}
-                            {!this.props.data.image && <Thumbnail sstyle={{borderColor: '#fdfbfb', borderWidth: 1}} mall source={require('../../assets/images/user.png')} />}
-                            <Text style={[styles.item, {color: '#ecf0f1'}]}>{this.props.data.name}</Text>
+                            <UserPicture image={this.props.data.image} style={{borderWidth: 1.5}} uid={this.props.data.key} name={this.props.data.name} small color='#fdfbfb' />
+                            <Text style={[styles.item, {flex:1, color: '#fdfbfb'}]}>{this.props.data.name}</Text>
                         </View>
                         <CheckBox
-                            style={{borderColor: '#ecf0f1', borderRadius: 1, left: 0}}
+                            style={{borderColor: '#fdfbfb', borderRadius: 1, left:0, marginRight: 10}}
                             checked={this.props.data.checked}
                             onPress={this.props.onCheck}
                         />
                     </View>
-                </TouchableNativeFeedback>
+                </TouchableWithoutFeedback>
             )
         }
         else
@@ -47,8 +47,7 @@ export default class Friend extends Component
                     <View style={{height: 64, paddingHorizontal: 5, borderBottomColor: '#eee', borderBottomWidth: 1, flex:1,
                         backgroundColor: "#fdfbfb", flexDirection: 'row', alignItems:'center', justifyContent:'space-between'}}>
                         <View style={{flex: 1, flexDirection:'row', alignItems:'center'}}>
-                            {this.props.data.image && <Thumbnail style={{borderColor: '#3498db', borderWidth: 1}} small source={{ uri: this.props.data.image }} />}
-                            {!this.props.data.image && <Thumbnail style={{borderColor: '#3498db', borderWidth: 1}} small source={require('../../assets/images/user.png')} />}
+                            <UserPicture image={this.props.data.image} style={{borderWidth: 1.5}} uid={this.props.data.key} name={this.props.data.name} small color='#3498db' />
                             <Text style={styles.item}>{this.props.data.name}</Text>
                         </View>
                         {this.props.data.state === "sent" &&

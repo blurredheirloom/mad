@@ -11,9 +11,9 @@ class InfoScreen extends Component {
       <View style={{flex: 1}}>
       <View style={{flex: 2,  backgroundColor: '#1abc9c'}}>
           <CustomHeader type="info" color="#1abc9c" linkBackward={() => this.props.navigation.pop()} />
-          <View style={{flex:1, paddingVertical: 15, paddingHorizontal: 20, justifyContent:'space-between'}}>
+          <View style={{flex:1, paddingVertical: 15, paddingHorizontal: 30, justifyContent:'space-between'}}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
-              <Text style={{fontFamily: 'ColorTube', fontSize: 10, color: '#ecf0f1', paddingRight: 10}}>mad</Text>
+              <Text style={{fontFamily: 'ColorTube', fontSize: 10, color: '#fdfbfb', paddingRight: 10}}>mad</Text>
               <Text style={styles.text}>(</Text>
               <Text style={{fontFamily: 'Pacifico', fontSize: 13, color: '#34495e'}}>make a decision</Text>
               <Text style={styles.text}>)</Text>
@@ -25,7 +25,7 @@ class InfoScreen extends Component {
             </View>
           </View>
       </View>
-      <View style={{flex:1, backgroundColor: '#fdfbfb', justifyContent:'space-between', paddingHorizontal: 20, paddingVertical: 15}}> 
+      <View style={{flex:1, backgroundColor: '#fdfbfb', justifyContent:'space-between', paddingHorizontal: 30, paddingVertical: 15}}> 
         <Text style={{fontFamily: 'Blogger', color: '#34495e', fontSize: 14}}>{localize("info.techLabel")}</Text>
         <View style={{flex:1, justifyContent:'space-evenly'}}>
           <View style={styles.row}>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     text: {
       fontFamily: 'Quicksand',
       fontSize: 14,
-      color: '#ecf0f1',
+      color: '#fdfbfb',
       lineHeight: 20,
     }
   });

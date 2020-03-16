@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Icon, Button} from 'native-base';
 import { StyleSheet, View, Text } from 'react-native';
-import { setTutorial } from './actions/UserActions';
+import { setTutorial } from '../actions/UserActions';
 import { connect } from 'react-redux';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import { localize } from './locales/i18n';
+import { localize } from '../locales/i18n';
 
 class TutorialScreen extends Component {
   state = {
@@ -12,7 +12,10 @@ class TutorialScreen extends Component {
   }
 
   onDone = () => {
-    this.props.setTutorial();
+    if(this.props.login)
+      this.props.setTutorial();
+    else
+      this.props.navigation.pop();
   };
  
   onNext = (index) => {
@@ -24,11 +27,11 @@ class TutorialScreen extends Component {
     item.key=='0' ?
       <View style={{flex: 1, paddingVertical: 20, paddingHorizontal: 20, backgroundColor: item.backgroundColor, justifyContent: 'center', alignItems: 'center'}}>
         <View style={{flexDirection:'row', justifyContent:'center'}}>
-          <Text style={{fontSize: 60, fontFamily: 'ColorTube', color: '#1abc9c'}}>m</Text>
-          <Text style={{fontSize: 60, fontFamily: 'ColorTube', color: '#e67e22'}}>a</Text>
-          <Text style={{fontSize: 60, fontFamily: 'ColorTube', color: '#3498db'}}>d</Text>
+          <Text style={{fontSize: 64, fontFamily: 'ColorTube', color: '#1abc9c'}}>m</Text>
+          <Text style={{fontSize: 64, fontFamily: 'ColorTube', color: '#e67e22'}}>a</Text>
+          <Text style={{fontSize: 64, fontFamily: 'ColorTube', color: '#3498db'}}>d</Text>
         </View>
-        <Text style={{color: '#2c3e50', fontFamily: 'Pacifico', fontSize: 40, textAlign: 'center', marginTop: -48}}>{item.text}</Text>
+        <Text style={{color: '#2c3e50', fontFamily: 'Pacifico', fontSize: 36, textAlign: 'center', marginTop: -48}}>{item.text}</Text>
       </View>
     :
       <View style={{flex: 1, paddingVertical: 20, paddingHorizontal: 20, backgroundColor: item.backgroundColor, justifyContent: 'space-around', alignItems: 'center'}}>
@@ -58,7 +61,7 @@ class TutorialScreen extends Component {
   _renderSkipButton = () => {
     return (
       <Button transparent onPress={() => this.onDone()} style={{paddingLeft: 10, paddingBottom: 0}}>
-        <Text style={{fontSize: 16, color: this.state.current===0 ? '#2c3e50' : '#fdfbfb', fontFamily: 'Blogger', letterSpacing: 1, textTransform: 'uppercase'}}>{localize("tutorial.skip")}</Text>
+        <Text style={{fontSize: 16, color: this.state.current===0 ? '#2c3e50' : '#fdfbfb', fontFamily: 'Blogger', letterSpacing: 1, textTransform: 'uppercase'}}>{this.props.login ? localize("tutorial.skip") : localize("tutorial.close")}</Text>
       </Button>
     );
   };
@@ -69,17 +72,17 @@ class TutorialScreen extends Component {
 
   render() {
     return (
-      <AppIntroSlider
-        ref={ref => this.AppIntroSlider = ref}
-        slides={slides}
-        renderItem={this._renderItem}
-        renderDoneButton={this._renderDoneButton}
-        renderSkipButton={this._renderSkipButton}
-        renderNextButton={this._renderNextButton}
-        showSkipButton={true}
-        onSlideChange={this._onSlideChange}
-        activeDotStyle={{backgroundColor: this.state.current===0 ? '#2c3e50' : 'rgba(255,255,255,.9)'}}
-      /> 
+        <AppIntroSlider
+          ref={ref => this.AppIntroSlider = ref}
+          slides={slides}
+          renderItem={this._renderItem}
+          renderDoneButton={this._renderDoneButton}
+          renderSkipButton={this._renderSkipButton}
+          renderNextButton={this._renderNextButton}
+          showSkipButton={true}
+          onSlideChange={this._onSlideChange}
+          activeDotStyle={{backgroundColor: this.state.current===0 ? '#2c3e50' : 'rgba(255,255,255,.9)'}}
+        /> 
     )
   }
 }

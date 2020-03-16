@@ -19,9 +19,29 @@ class CustomHeader extends Component {
     {
       return (
         <View style={[styles.header, {alignItems: 'center', flexDirection:'row', backgroundColor: this.props.color}]}>
-            <View style={{flex:0.6, alignItems:'stretch', flexDirection:'column'}}>
-              <Text style={styles.titleHome}>mad</Text>
-              <Text style={styles.subtitleHome}>make a decision</Text>
+            <View style={{flex:1, flexDirection: 'row', justifyContent:'space-between', alignItems:'center'}}>
+              <Button
+                  transparent
+                  onPress={this.props.linkBackward}
+                  disabled={this.props.noBack}
+                  style={[!this.props.noBack ? styles.visible : styles.hidden, {width: 48, height: 48}]}
+                  >
+                  <Icon style={{color: '#fdfbfb' , marginLeft: 0, fontSize: this.props.iconSize ? this.props.iconSize :32}} type="FontAwesome" name={this.props.iconBack ? this.props.iconBack : "chevron-circle-left"} />
+              </Button>
+              <View style={{flex: 1, justifyContent:'flex-start'}}>
+                <View style={{alignItems:'stretch', flexDirection:'column'}}>
+                  <Text style={styles.titleHome}>mad</Text>
+                  <Text style={styles.subtitleHome}>make a decision</Text>
+                </View>
+              </View>
+              <Button
+                transparent
+                onPress={this.props.linkForward}
+                disabled={!this.props.forward}
+                style={[this.props.forward ? styles.visible : styles.hidden, {width: 48, height: 48}]}
+                >
+                <Icon style={{color:'#fdfbfb', marginRight: 0, fontSize: this.props.iconSize ? this.props.iconSize :32}} type="FontAwesome" name={this.props.iconForward ? this.props.iconForward : "chevron-circle-right"} />
+              </Button>
             </View>
         </View>
       )
@@ -36,7 +56,7 @@ class CustomHeader extends Component {
                 disabled={this.props.noBack}
                 style={[!this.props.noBack ? styles.visible : styles.hidden, {width: 48, height: 48}]}
                 >
-                <Icon style={{color:'#fdfbfb', marginLeft: 0, fontSize: this.props.iconSize ? this.props.iconSize :32}} type="FontAwesome" name={this.props.iconBack ? this.props.iconBack : "chevron-circle-left"} />
+                <Icon style={{color: this.props.iconColor ? this.props.iconColor : '#fdfbfb', marginLeft: 0, fontSize: this.props.iconSize ? this.props.iconSize :32}} type="FontAwesome" name={this.props.iconBack ? this.props.iconBack : "chevron-circle-left"} />
               </Button>
               <View style={{flex: 1, justifyContent:'flex-start'}}>
                 {this.props.type=='info' ? 
@@ -52,7 +72,7 @@ class CustomHeader extends Component {
                 disabled={!this.props.forward}
                 style={[this.props.forward ? styles.visible : styles.hidden, {width: 48, height: 48}]}
                 >
-                <Icon style={{color:'#fdfbfb', marginRight: 0, fontSize: this.props.iconSize ? this.props.iconSize :32}} type="FontAwesome" name={this.props.iconForward ? this.props.iconForward : "chevron-circle-right"} />
+                <Icon style={{color: this.props.iconColor ? this.props.iconColor : '#fdfbfb', marginRight: 0, fontSize: this.props.iconSize ? this.props.iconSize :32}} type="FontAwesome" name={this.props.iconForward ? this.props.iconForward : "chevron-circle-right"} />
               </Button>
           </View>
         :
@@ -67,25 +87,26 @@ const styles = StyleSheet.create({
   header: {
     paddingTop: 40,
     paddingBottom: 20,
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
     borderBottomWidth: 0,
     height: 100,
     justifyContent: 'center',
   },
   titleLogged: {
-    color: '#ecf0f1',
+    color: '#fdfbfb',
     fontFamily: 'Pacifico',
     fontSize: 22,
     textAlign: 'center',
   },
   title: {
     marginTop: 80,
-    marginBottom: -40,
-    fontSize: 48,
+    marginBottom: -38,
+    fontSize: 51,
     fontFamily: 'ColorTube'
   },
   subtitle: {
-    fontSize: 32,
+    fontSize: 26,
+    letterSpacing: 1,
     color: '#34495e',
     fontFamily: 'Pacifico',
     textAlign: 'center'
@@ -93,7 +114,7 @@ const styles = StyleSheet.create({
   titleHome: {
     marginBottom: -24,
     fontSize: 32,
-    color: '#ecf0f1',
+    color: '#fdfbfb',
     fontFamily: 'ColorTube',
     textAlign: 'center',
   },

@@ -9,11 +9,11 @@ import {
 
 const initialState = {
     author: {},
-    questions: [],
+    surveyDetails: [],
     loading: false,
     yourVotes: false,
     yourReaction: false,
-    hasToVote: 0,
+    hasToVote: {id: null, hasToVote: null},
     reactions: []
   }
 
@@ -40,9 +40,9 @@ export default function voteReducer(state = initialState, action) {
     case HAS_TO_VOTE_SUCCESS:
       return {...state, loading: false, hasToVote: action.payload}
     case QUESTIONS_FETCH_START:
-        return {...state, loading: true, questions: []}
+        return {...state, loading: true}
     case QUESTIONS_FETCH_SUCCESS:
-        return {...state, loading: false, questions: action.payload}
+        return {...state, loading: false, surveyDetails: action.payload}
     default:
       return state;
   }

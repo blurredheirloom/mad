@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, FlatList, View, Modal} from 'react-native';
-import { Button , Icon, Text, Thumbnail} from 'native-base';
+import { Button , Icon, Text } from 'native-base';
+import UserPicture from '../userPicture';
 import Friend from './friend';
 import Loading from '../loading';
 import { friendsFetch, acceptFriend, deleteFriend } from '../../actions/FriendActions';
@@ -107,7 +108,7 @@ class FriendList extends Component {
                                         <Button full transparent style={{justifyContent:'flex-end'}} >
                                             <Icon type="FontAwesome" name="times" style={{color: '#fdfbfb'}} onPress={()=>this.setState({modalVisible: false})} />
                                         </Button>
-                                        <Thumbnail large source={{uri: this.state.currentItem.image}} style={{width: 110, height: 110, borderRadius: 55, borderWidth: 3, borderColor: '#fdfbfb'}} />
+                                        <UserPicture image={this.state.currentItem.image} style={{borderWidth: 1.5}} uid={this.state.currentItem.key} name={this.state.currentItem.name} style={{width: 110, height: 110, borderRadius: 55, borderWidth: 3}} large color='#fdfbfb' />
                                         <Text style={styles.welcome}>{this.state.currentItem.name}</Text>
                                         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                                             {this.state.currentItem.state==='received' &&

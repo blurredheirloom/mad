@@ -42,7 +42,7 @@ const surveysFetch = () => {
 const questionsFetch = (survey) => {
   return (dispatch) => {
     dispatch({ type: ITEMS_FETCH_START });
-    firebase.database().ref('surveys/'+survey+'/questions').on('value', snapshot => {
+    firebase.database().ref('surveys/'+survey+'/questions').once('value', snapshot => {
       var data = snapshot.val();
       if(!data)
       {

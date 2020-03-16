@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Blogger',
     fontSize: 22,
-    color: '#ecf0f1',
+    color: '#fdfbfb',
     padding: 24,
     textAlign: 'center',
     lineHeight: 40

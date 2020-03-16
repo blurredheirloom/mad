@@ -46,6 +46,7 @@ class ShareWithScreen extends Component {
             <Text style={{fontFamily: 'Blogger' , fontSize: 16, color: '#fdfbfb', textAlign: 'center'}}>{localize("share.with")}</Text>
           </View>
           <FriendList share="true" navigation={this.props.navigation} sendData={(val) => this.getData(val)} />
+          <Text style={{height: 32, fontFamily: 'Quicksand', color: '#fdfbfb', textAlign: 'center', fontSize: 16, marginBottom: 10}}>{this.state.selected.length > 0 ? this.state.selected.length>1 ? localize("share.moreSelected", {selected: this.state.selected.length}) : localize("share.oneSelected", {selected: this.state.selected.length}) : null}</Text>
         </View>
     );
   }

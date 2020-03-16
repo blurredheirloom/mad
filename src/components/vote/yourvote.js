@@ -10,14 +10,16 @@ class YourVote extends Component {
   state = {
     page: 0
   }
-
+  
   goToPage = (page) => {
     this.setState({page: page});
   }
 
+  
+
   render() {
     return(
-      <View style={{flex: 1, justifyContent:'flex-start', paddingHorizontal: 20}}>
+      <View style={{flex: 1, justifyContent:'flex-start', paddingHorizontal: 25}}>
         <Text style={styles.alreadyVoted}>{localize("vote.alreadyVoted")}</Text>
         <Text style={styles.title}>{localize("vote.yourChoice")}</Text>
         <Animatable.View delay={500} animation="flipInY" style={styles.card}>
@@ -26,13 +28,14 @@ class YourVote extends Component {
             <Text style={styles.item}>{this.props.questions[this.state.page].answers[this.props.yourVotes[this.state.page]].value}</Text>
           </View>
           {this.props.yourVotes.length> 1 ?
-          <View style={{paddingVertical: 10}}>
-          <StepIndicator
-            customStyles={indicatorStyles}
-            currentPosition={this.state.page}
-            stepCount={this.props.yourVotes.length}
-            onPress={this.goToPage}
-          /></View>: null }
+            <View style={{paddingVertical: 10}}>
+              <StepIndicator
+                customStyles={indicatorStyles}
+                currentPosition={this.state.page}
+                stepCount={this.props.yourVotes.length}
+                onPress={this.goToPage}
+              />
+            </View>: null }
         </Animatable.View>
         <Text style={styles.alreadyVoted} >
             {this.props.hasToVote} {this.props.hasToVote > 1 ? localize("vote.morePendings") : localize("vote.onePending")}
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     fontSize: 14,
     textTransform: 'uppercase',
-    color: '#ecf0f1',
+    color: '#fdfbfb',
     textAlign: 'center'
   },
   card : {
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   loading: state.vote.loading,
-  hasToVote: state.vote.hasToVote,
+  yourVotes: state.vote.yourVotes,
 });
 
 export default connect(mapStateToProps) (YourVote);

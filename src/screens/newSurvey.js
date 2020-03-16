@@ -35,12 +35,11 @@ class NewSurveyScreen extends Component {
           <Text style={styles.example}>{localize("newSurvey.example", {year: new Date().getFullYear()})}</Text>
           <View style={{flexDirection:'row', justifyContent:'space-between', paddingHorizontal: 20}}>
             <Icon type="FontAwesome" style={styles.icon} name="quote-left" />
-            <Item style={{flex:1}}>
-              <Input maxLength={36} style={styles.input} disabled = {this.props.loading} placeholderTextColor="#fff"
+            
+              <Input maxLength={36} style={styles.input} disabled = {this.props.loading} placeholderTextColor="#fdfbfb"
               value={this.state.inputValue} onChangeText={(inputValue) => this.setState({inputValue})}
               onSubmitEditing={()=>this.makeSurvey(this.state.inputValue)}
               />
-            </Item>
             <Icon type="FontAwesome" style={styles.icon} name="quote-right" />
           </View>
         </View>
@@ -53,26 +52,28 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'Blogger' ,
     fontSize: 24,
-    color: '#ecf0f1',
+    color: '#fdfbfb',
     textAlign: 'center',
     lineHeight: 32
   },
   icon: {
     fontSize: 18,
-    color:'#ecf0f1',
+    color:'#fdfbfb',
     textAlign:'center'
   },
   input: {
-    fontFamily: 'Quicksand',
+    fontFamily: 'Blogger',
     fontSize: 18,
-    color: '#ecf0f1'
+    color: '#fdfbfb',
+    borderBottomColor: '#fdfbfb',
+    borderBottomWidth: 2
   },
   example: {
     fontFamily: 'Quicksand',
     padding: 20,
     paddingBottom: 48,
     fontSize: 16,
-    color: '#ecf0f1',
+    color: '#fdfbfb',
     lineHeight: 25,
     textAlign: 'justify'
   }

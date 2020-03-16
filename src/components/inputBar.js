@@ -36,8 +36,8 @@ class InputBar extends Component
 
 const styles = StyleSheet.create({
   bar: {
-    padding: 10,
-    paddingBottom: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     height: 48,
     fontFamily: 'Blogger',
     fontSize: 18,
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#fdfbfb',
     color: '#34495e',
     borderRadius: 50,
     elevation: 1,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1'
+    backgroundColor: '#fdfbfb'
   },
   enabled: {
     backgroundColor: 'rgba(236, 240, 241, 1)',

@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Icon } from 'native-base';
 import HomeScreen from '../screens/home';
+import TutorialScreen from '../screens/tutorial';
 import InfoScreen from '../screens/info';
 import NewSurveyScreen from '../screens/newSurvey';
 import SurveyListScreen from '../screens/surveys/surveyListScreen';
@@ -40,17 +41,17 @@ const MainNavigation = createBottomTabNavigator(
               headerMode: 'none',
               initialRouteName: 'AvatarChoose',
             })
-          }
+          },
+          Tutorial: { screen: TutorialScreen }
         },
         {
           headerMode: 'none',
           initialRouteName: 'Home',
-         
           navigationOptions: { 
             tabBarIcon: ({ focused }) => {
               if(!focused)
                 return (
-                    <UserPicture style={{borderWidth: 1}} small color='#bdc3c7' />
+                    <UserPicture tab style={{borderWidth: 1.5}} small color='#bdc3c7' />
                 );
               else {
                 return (

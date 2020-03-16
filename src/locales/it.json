@@ -8,7 +8,8 @@
         "desc3" : "Invia il sondaggio ai tuoi amici",
         "title4" : "Vota il sondaggio",
         "desc4" : "Vota il sondaggio e attendi che tutti i partecipanti abbiano votato per vedere i risultati",
-        "skip" : "Salta"
+        "skip" : "Salta",
+        "close": "Chiudi"
     },
     "auth" : {
         "recoverButton": "Recupera",
@@ -28,7 +29,10 @@
     },
     "home" : {
         "makeSurvey": "Crea sondaggio",
-        "exit": "Esci"
+        "exit": "Esci",
+        "info": "Info",
+        "help": "Aiuto",
+        "avatar": "Avatar"
     },
     "info" : {
         "description": "è un'app che aiuta a prendere decisioni insieme ad altre persone.\nUn utente può creare un sondaggio (ad es. \"Dove andiamo stasera?\"), aggiungere le scelte possibili e condividerlo con gli amici.\nOgni utente invitato a partecipare al sondaggio può esprimere la propria preferenza, votando.",
@@ -63,7 +67,9 @@
     },
     "share": {
         "title": "Condividi",
-        "with": "con"
+        "with": "con",
+        "oneSelected": "{{selected}} selezionato",
+        "moreSelected": "{{selected}} selezionati"
     },
     "mySurveys": {
         "title": "I miei sondaggi",

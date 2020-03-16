@@ -8,7 +8,8 @@
         "desc3" : "Send it to your friends",
         "title4" : "Vote the survey",
         "desc4" : "Vote, then wait other joiners vote to find out the winner",
-        "skip" : "Skip"
+        "skip" : "Skip",
+        "close": "Close"
     },
     "auth" : {
         "recoverButton": "Recover",
@@ -28,7 +29,10 @@
     },
     "home" : {
         "makeSurvey": "Make survey",
-        "exit": "Logout"
+        "exit": "Logout",
+        "info": "Info",
+        "help": "Help",
+        "avatar": "Avatar"
     },
     "info" : {
         "description": "is an app to help people making decision together.\nA user makes a survey (example: \"Where are we going tonight?\"), add possible choices and share it with friends.\nEach friend who joins the survey can vote.",
@@ -63,7 +67,9 @@
     },
     "share": {
         "title": "Share",
-        "with": "with"
+        "with": "with",
+        "oneSelected": "{{selected}} selected",
+        "moreSelected": "{{selected}} selected"
     },
     "mySurveys": {
         "title": "My surveys",
