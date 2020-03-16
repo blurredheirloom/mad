@@ -57,7 +57,7 @@ const login = ({ email, password }) => {
             type: 'danger',
             duration: 2000,
             style: { backgroundColor: "#e74c3c" },
-            textStyle: { fontFamily: "Quicksand", fontSize: 14, textAlign:'center' }
+            textStyle: { fontFamily: "Blogger", fontSize: 16, textAlign:'center' }
           });
           dispatch({ type: LOGIN_USER_FAIL, payload: error });
         });
@@ -164,7 +164,7 @@ const resetPassword = (email) => {
         type: 'success',
         duration: 2000,
         style: { backgroundColor: "#1abc9c" },
-        textStyle: { fontFamily: "Quicksand", fontSize: 14, textAlign:'center' }
+        textStyle: { fontFamily: "Blogger", fontSize: 16, textAlign:'center' }
       });
       dispatch({type: RESET_PASSWORD_SUCCESS });
     }).catch(function(error) {
@@ -174,7 +174,7 @@ const resetPassword = (email) => {
         type: 'danger',
         duration: 2000,
         style: { backgroundColor: "#e74c3c" },
-        textStyle: { fontFamily: "Quicksand", fontSize: 14, textAlign:'center' }
+        textStyle: { fontFamily: "Blogger", fontSize: 16, textAlign:'center' }
       });
       dispatch({type: RESET_PASSWORD_FAIL, payload: error });
     });
@@ -197,7 +197,7 @@ const register = ({ email, password }) => {
         type: 'danger',
         duration: 2000,
         style: { backgroundColor: "#e74c3c" },
-        textStyle: { fontFamily: "Quicksand", fontSize: 14, textAlign:'center' }
+        textStyle: { fontFamily: "Blogger", fontSize: 16, textAlign:'center' }
       })
       dispatch({ type: REGISTER_USER_FAIL, payload: error })
     })

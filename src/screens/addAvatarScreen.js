@@ -79,7 +79,7 @@ class AddAvatarScreen extends Component {
                 </Card>
                 <Text style={{fontFamily: 'Quicksand', color: '#fdfbfb', fontSize: 10, textAlign: 'center'}}>Avatars made by Freepik from www.flaticon.com</Text>
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 10}}>
-                  <Button iconLeft onPress={() => this.defaultAvatar()} style={{backgroundColor: '#2c3e50', borderRadius: 5, height: 64}}>
+                  <Button iconLeft onPress={() => this.defaultAvatar()} style={{backgroundColor: '#2c3e50', borderRadius: 2, height: 64}}>
                     <Icon type="FontAwesome" name="user-circle" style={{marginRight: 0, color: '#fdfbfb'}}/>
                     <Text style={{fontFamily: 'Blogger', letterSpacing: 1, color: '#fdfbfb'}}>{localize("avatar.default")}</Text>
                   </Button>

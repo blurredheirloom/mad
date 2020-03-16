@@ -214,10 +214,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: 10
   },
-  button: {
-    borderRadius: 5,
-    borderColor: '#fdfbfb'
-  },
   question: {
     fontFamily: 'Pacifico',
     fontSize: 18,

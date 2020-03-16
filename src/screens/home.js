@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: '#1abc9c',
     padding: 20,
-    height: 64
+    height: 64,
   },
   welcome: {
     color: '#fdfbfb',

@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
     enabled : {
         backgroundColor: '#fdfbfb',
         color: "#8e44ad",
-        borderRadius: 5,
+        borderRadius: 2,
     },
     disabled: {
         backgroundColor: '#b075c9',
         color: "#8e44ad",
-        borderRadius: 5,
+        borderRadius: 2,
     }
 });
 

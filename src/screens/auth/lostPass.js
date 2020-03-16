@@ -27,9 +27,9 @@ class LostPassScreen extends Component {
               <Icon style={styles.text} active name='mail' />
             </Item>
             <Button disabled={!this.state.email} block
-            style={[styles.button, (this.state.email) ? {backgroundColor: '#1abc9c'} : {backgroundColor: '#bdc3c7'}]}
+            style={[styles.button, (this.state.email) ? {backgroundColor: '#1abc9c'} : {backgroundColor: '#40bca3'}]}
               onPress={() => this.props.resetPassword(this.state.email)}>
-              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>{localize("auth.recoverButton")}</Text>
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16, color: (this.state.email ) ? '#fdfbfb' : '#00a082'}}>{localize("auth.recoverButton")}</Text>
             </Button>
           </View>
           <View style={{flex:1, justifyContent:'flex-end'}}>
@@ -48,22 +48,21 @@ const styles = StyleSheet.create({
     flex: 1
   },
   button: {
-    marginTop: 25,
-    borderRadius: 5,
-    elevation:0,
-    height: 50
+    marginTop: 20,
+    borderRadius: 2,
+    height: 48
   },
   text: {
     color: '#34495e',
-    fontFamily: 'Quicksand'
+    fontFamily: 'Blogger'
   },
   login: {
     textAlign:'center',
     paddingTop: 15,
     paddingBottom: 10,
     color: '#3498db',
-    fontSize: 14,
-    fontFamily: "Quicksand"
+    fontSize: 16,
+    fontFamily: "Blogger"
   }
 });
 

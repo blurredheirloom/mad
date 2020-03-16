@@ -88,14 +88,14 @@ class LoginScreen extends Component {
               </TouchableWithoutFeedback>
             </Item>
             <Button disabled={!this.state.email || !this.state.password} full
-            style={[styles.button, (this.state.email && this.state.password) ? {backgroundColor: '#1abc9c'} : {backgroundColor: '#bdc3c7'}]}
+            style={[styles.button, (this.state.email && this.state.password) ? {backgroundColor: '#1abc9c'} : {backgroundColor: '#40bca3'}]}
               onPress={() => this.props.login({email: this.state.email, password: this.state.password})}>
-              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16}}>{localize("auth.loginLabel")}</Text>
+              <Text style={{fontFamily: "Blogger", letterSpacing: 1, fontSize: 16, color: (this.state.email && this.state.password) ? '#fdfbfb' : '#00a082'}}>{localize("auth.loginLabel")}</Text>
             </Button>
             <Text style={[styles.label, {color: '#3498db'}]} onPress={() => this.props.navigation.navigate("LostPass")}>
               {localize("auth.forgotPassword")}
             </Text>
-            <Text style={styles.label}>{localize("auth.alternative")}</Text>
+            <Text style={[styles.label, {fontFamily: 'Quicksand', fontSize: 14}]}>{localize("auth.alternative")}</Text>
           </View>
           <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
             <Button iconLeft full style={[styles.button, {backgroundColor: '#3b5999'}]} onPress={() => this.loginWithFB()}>
@@ -123,21 +123,20 @@ const styles = StyleSheet.create({
     flex: 1
   },
   button: {
-    marginTop: 25,
-    borderRadius: 5,
-    elevation:0,
-    height: 50
+    marginTop: 20,
+    borderRadius: 2,
+    height: 48
   },
   text: {
     color: '#34495e',
-    fontFamily: "Quicksand"
+    fontFamily: "Blogger",
   },
   label: {
     textAlign:'center',
     padding: 10,
     color: '#34495e',
-    fontSize: 14,
-    fontFamily: "Quicksand"
+    fontSize: 16,
+    fontFamily: "Blogger"
   }
 });
 
