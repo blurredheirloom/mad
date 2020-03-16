@@ -42,11 +42,11 @@ class HomeScreen extends Component {
  
   render() {
     return(
-        <Animatable.View animation='bounceInDown' duration={500} style={{justifyContent: 'center', flex: 1, backgroundColor:'#fdfbfb' }}>
+        <Animatable.View useNativeDriver animation='bounceInDown' duration={500} style={{justifyContent: 'center', flex: 1, backgroundColor:'#fdfbfb' }}>
           <CustomHeader type="home" linkBackward={() => this.change()} iconBack={this.state.settings ? 'chevron-circle-left' :'gear'} color="#1abc9c" />
           <View style={{flex: 1, padding: 30, alignItems: 'center', justifyContent: 'flex-start', backgroundColor:'#1abc9c'}}>
             <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate("Avatar")}>
-              <Animatable.View  animation="pulse" duration={800} iterationCount="infinite" iterationDelay={5000}>
+              <Animatable.View useNativeDriver animation="pulse" duration={800} iterationCount="infinite" iterationDelay={5000}>
                 <UserPicture image={this.props.user.image} uid={this.props.user.uid} name={this.props.user.displayName} style={{width: 110, height: 110, borderRadius: 55, borderWidth: 3}} large color='#fdfbfb' />
               </Animatable.View>
             </TouchableWithoutFeedback>
@@ -55,7 +55,7 @@ class HomeScreen extends Component {
               <Text style={styles.welcome}>{this.props.user.displayName.split(" ")[1]}</Text>
             </View>
           </View>
-          <Animatable.View ref={(ref) => this.viewRef = ref} style={{flex:1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 25}}>
+          <Animatable.View useNativeDriver ref={(ref) => this.viewRef = ref} style={{flex:1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', padding: 25}}>
             {this.state.settings ?
             <View style={{flex: 1, alignItems: 'stretch', justifyContent: 'space-between', borderColor: '#fdfbfb'}}>
               <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'stretch'}}>

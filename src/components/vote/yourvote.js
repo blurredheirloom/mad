@@ -22,7 +22,7 @@ class YourVote extends Component {
       <View style={{flex: 1, justifyContent:'flex-start', paddingHorizontal: 25}}>
         <Text style={styles.alreadyVoted}>{localize("vote.alreadyVoted")}</Text>
         <Text style={styles.title}>{localize("vote.yourChoice")}</Text>
-        <Animatable.View delay={500} animation="flipInY" style={styles.card}>
+        <Animatable.View useNativeDriver delay={500} animation="flipInY" style={styles.card}>
           <View style={{flex:1, justifyContent:'flex-start', marginVertical: 10}}>
             <Text style={styles.question}>{this.props.questions[this.state.page].questionTitle}</Text>
             <Text style={styles.item}>{this.props.questions[this.state.page].answers[this.props.yourVotes[this.state.page]].value}</Text>

@@ -8,7 +8,7 @@ export default class User extends Component {
 
     render() {
         return (
-            <Animatable.View animation='fadeIn' duration={500} style={{flex: 1, marginHorizontal: 10, paddingVertical: 15, borderBottomWidth: 0.5, borderBottomColor: '#eee', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+            <Animatable.View useNativeDriver animation='fadeIn' duration={500} style={{flex: 1, marginHorizontal: 10, paddingVertical: 15, borderBottomWidth: 0.5, borderBottomColor: '#eee', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
               <View style={{flex: 1, flexDirection: 'row', paddingHorizontal: 5, alignItems: 'center'}}>
                 <UserPicture image={this.props.data.image} uid={this.props.data.key} name={this.props.data.name} style={{borderWidth: 1.5}} small color='#3498db' />
                 <Text style={styles.item}>{this.props.data.name}</Text>

@@ -158,7 +158,7 @@ class AddItemsScreen extends Component {
           <CustomHeader color={this.state.modalVisible ? '#2980b9' : '#8e44ad'} title={localize("addItems.title")} type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} forward={this.state.ready} linkForward={() => this.share()} />
           <InputBar full={this.state.items.length===10} max={localize("addItems.max")} color='#8e44ad' loading={this.props.loading} placeholder={localize("addItems.placeholder")} icon='plus' 
           onSubmit={(value)=>this.addItem(value)}/>
-          <Animatable.View style={{flex:1, paddingVertical: 10, paddingHorizontal: 20}} duration={1500} easing='ease-out-back' animation="flipInY">
+          <Animatable.View useNativeDriver style={{flex:1, paddingVertical: 10, paddingHorizontal: 20}} duration={1500} easing='ease-out-back' animation="flipInY">
             <Card style={{flex:1, borderRadius: 5, padding: 20, backgroundColor:'#fdfbfb'}}>
                 <View style={{flexDirection:'row', marginBottom: 10, justifyContent: 'space-between', alignItems:'center'}}>
                   <Button disabled={this.state.questions.length<2} style={[this.state.questions.length<2 ? styles.disabled : styles.enabled, {width: 32, height: 32, borderRadius: 2, justifyContent: 'center', backgroundColor: '#8e44ad'}]} onPress={() => this.removeQuestion(this.state.currQuestion)}>

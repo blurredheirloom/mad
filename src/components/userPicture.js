@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Thumbnail } from 'native-base';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { View } from 'react-native-animatable';
 import hashColor from 'hash-color-material';
 
 const hexToRgb = (hex) => {

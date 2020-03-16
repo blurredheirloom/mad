@@ -54,13 +54,13 @@ class Choices extends Component {
                     }
                     </View>
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                        <Button onPress={()=>this.setState({random: !this.state.random})} style={this.state.random ? styles.enabled : styles.disabled}>
-                            <Icon style={this.state.random ? styles.enabled : styles.disabled} type="FontAwesome5" name='dice'  />
-                            <Text style={[this.state.random ? styles.enabled : styles.disabled, styles.buttonText]}>{localize("vote.random")}</Text>
+                        <Button iconLeft onPress={()=>this.setState({random: !this.state.random})} style={this.state.random ? styles.enabled : styles.disabled}>
+                            <Icon style={{color: '#8e44ad', marginRight: 0}} type="FontAwesome5" name='dice'  />
+                            <Text style={styles.buttonText}>{localize("vote.random")}</Text>
                         </Button>
                         <Button onPress={()=>this.vote()} disabled={!Number.isInteger(this.state.selected) && !this.state.random} style={Number.isInteger(this.state.selected) || this.state.random ? styles.enabled : styles.disabled}>
-                            <Icon style={Number.isInteger(this.state.selected) || this.state.random ? styles.enabled : styles.disabled} type="FontAwesome" name='thumbs-up'  />
-                            <Text style={[Number.isInteger(this.state.selected) || this.state.random ? styles.enabled : styles.disabled, styles.buttonText]}>{localize("vote.title")}</Text>
+                            <Icon style={{color: '#8e44ad', marginRight: 0}} type="FontAwesome" name='thumbs-up'  />
+                            <Text style={styles.buttonText}>{localize("vote.title")}</Text>
                         </Button>
                     </View>
                 </View>
@@ -97,17 +97,16 @@ const styles = StyleSheet.create({
     buttonText: {
         fontFamily: 'Blogger',
         letterSpacing: 1,
-        fontSize: 16
+        fontSize: 16, 
+        color: '#8e44ad'
     },
     enabled : {
         backgroundColor: '#fdfbfb',
-        color: "#8e44ad",
-        borderRadius: 2,
+        borderRadius: 3,
     },
     disabled: {
         backgroundColor: '#b075c9',
-        color: "#8e44ad",
-        borderRadius: 2,
+        borderRadius: 3,
     }
 });
 

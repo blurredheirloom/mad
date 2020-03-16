@@ -101,7 +101,7 @@ class Winner extends Component {
           <View style={{flex: 0.5, justifyContent:'flex-end', paddingRight: 10}}>
             <Text style={styles.item}>{item.answer}</Text>
           </View>
-          <Animatable.View delay={1500} animation="zoomIn" 
+          <Animatable.View useNativeDriver delay={1500} animation="zoomIn" 
           style={{flex: 0.5, flexDirection:'row', alignItems: 'center', justifyContent:'flex-end', backgroundColor:'#f1b37e', borderRadius: 3}}>
             <Icon type="FontAwesome" style={{color:'#fdfbfb', position: 'absolute', left: 0, elevation: 1, fontSize: 16, paddingHorizontal: 10}} name="trophy" />
             <View style={{flex: (item.votes/this.props.numMembers), flexDirection: 'row', backgroundColor: '#e67e22', justifyContent: 'flex-end', alignItems:'center', borderBottomLeftRadius: (item.votes/this.props.numMembers)*3 | 0, borderTopLeftRadius: (item.votes/this.props.numMembers)*3 | 0, borderBottomRightRadius: 3, borderTopRightRadius: 3,paddingVertical: 10}}>
@@ -149,7 +149,7 @@ class Winner extends Component {
 
       let emojiSelector = this.state.defaultEmojis.map((emoji) => {
         return (
-          <Animatable.View animation={this.props.yourReaction ? "tada": null} duration={1000} iterationCount="infinite" iterationDelay={1000+(Math.random()*2000+1000)}  key={emoji.key}>
+          <Animatable.View useNativeDriver animation={this.props.yourReaction ? "tada": null} duration={1000} iterationCount="infinite" iterationDelay={1000+(Math.random()*2000+1000)}  key={emoji.key}>
             <Emoji onPress={() => !this.props.yourReaction ? this.voteReaction(emoji.key) : null} name={emoji.name} style={{fontSize: 36}} />
             {this.props.yourReaction && <Text style={{position: 'absolute', elevation: 9999, backgroundColor: '#e67e22', borderRadius: 8, width: 16, height: 16, textAlign: 'center', textAlignVertical:'center', fontSize: 10, color: '#fdfbfb', bottom: 0, right:0}}>{this.props.reactions[emoji.key] ? this.props.reactions[emoji.key] : 0}</Text>}
           </Animatable.View>
@@ -159,6 +159,7 @@ class Winner extends Component {
       return(
           <View style={{flex:1, justifyContent:'space-between', paddingHorizontal: 25, paddingVertical:20}}>
             <Animatable.View
+            useNativeDriver
             animation="tada" style={styles.card}>
               <Text style={styles.title}>{localize("vote.results")}</Text>
               <FlatList
