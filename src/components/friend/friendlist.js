@@ -62,7 +62,7 @@ class FriendList extends Component {
     render()
     {
         if(this.props.loading) 
-            return <Loading negative={this.props.share} color='#3498db' />
+            return <Loading color={this.props.share ? '#2c3e50' : '#fafafa'} />
         else
         {
             if(this.props.share)

@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import firebase from 'firebase';
 import { setAvatar } from '../actions/UserActions';
 import { localize } from '../locales/i18n';
-
+import Loading from '../components/loading';
 
 class CameraScreen extends Component {
 
@@ -120,12 +120,7 @@ class CameraScreen extends Component {
             return (
                 <View style={{flex: 1}}>
                 <CustomHeader color='#2c3e50' title={localize("camera.uploading")} type='menu' />
-                <View style={{flex: 1, backgroundColor: '#2c3e50', padding: 10, justifyContent: 'center', alignItems: 'center'}}>
-                    <View style={{flex:1, flexDirection:'row', alignItems: 'center'}}>    
-                        <Text style={{fontFamily:'ColorTube', color:'#fdfbfb',fontSize: 48}}>{this.state.progress}</Text>
-                        <Icon type="FontAwesome5" name="percentage" style={{fontSize: 48, color:'#fdfbfb', paddingLeft: 10}}/>
-                    </View>
-                </View>
+                <Loading color='#2c3e50' percent={this.state.progress} />
                 </View>
             )
         return (

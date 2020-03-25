@@ -16,7 +16,7 @@ class RegisterScreen extends Component {
 
   render() {
     if(this.props.loading)
-      return (<Loading />);
+      return (<Loading large />);
     return(
       <View style={{flex:1, backgroundColor: '#fdfbfb', flexDirection:'column'}}>
         <CustomHeader type="login" />
