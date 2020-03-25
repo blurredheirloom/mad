@@ -24,11 +24,11 @@ const printErrorByCode = (code) => {
     case 'weak-password' :
       return localize("auth.weakPassword");
     case 'email-already-in-use' :
-      return localize("alreadyEmail");
+      return localize("auth.alreadyEmail");
     case 'too-many-requests' :
-      return localize("tooMany");
+      return localize("auth.tooMany");
     default:
-      return localize("Error: ", {code: code});
+      return localize("auth.error", {code: code});
   }
 }
 

@@ -155,7 +155,7 @@ class AddItemsScreen extends Component {
     {
       return(
         <View style={{flex: 1, flexDirection:'column', backgroundColor: "#8e44ad"}}>
-          <CustomHeader color={this.state.modalVisible ? '#2980b9' : '#8e44ad'} title={localize("addItems.title")} type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} forward={this.state.ready} linkForward={() => this.share()} />
+          <CustomHeader color='#8e44ad' title={localize("addItems.title")} type='link' linkBackward={() => this.state.currQuestion>0 ? this.goToQuestion(this.state.currQuestion-1) : this.props.navigation.pop()} forward={this.state.ready} linkForward={() => this.share()} />
           <InputBar full={this.state.items.length===10} max={localize("addItems.max")} color='#8e44ad' loading={this.props.loading} placeholder={localize("addItems.placeholder")} icon='plus' 
           onSubmit={(value)=>this.addItem(value)}/>
           <Animatable.View useNativeDriver style={{flex:1, paddingVertical: 10, paddingHorizontal: 20}} duration={1500} easing='ease-out-back' animation="flipInY">
@@ -169,7 +169,7 @@ class AddItemsScreen extends Component {
                     <Icon style={{color: '#fdfbfb', fontSize: 14, marginLeft: 0, marginRight: 0}} type="FontAwesome" name="plus" />
                   </Button>
                 </View>
-                {this.props.loading ? <Loading color='#8e44ad'/> :
+                {this.props.loading ? <Loading /> :
                   <View style={{flex: 1}}>
                     <View style={{flex:1, justifyContent:'flex-start'}}>
                       <Text style={[styles.title,{fontSize: 18, color: "#8e44ad", marginBottom: 10, padding: 0, textAlign:'left', borderBottomWidth:1, borderColor: "#b075c9"}]}>
@@ -202,8 +202,8 @@ class AddItemsScreen extends Component {
               transparent={true}
               visible={this.state.modalVisible}
               onRequestClose={() => this.state.questions.length>0 ? this.setState({modalVisible: false}) : this.props.navigation.pop()}>
-              <View style={{flex: 1, marginTop: -25, justifyContent:'flex-start',  alignItems:'stretch', backgroundColor:'#2980b9'}}>
-                <CustomHeader color='#2980b9' title={localize("newQuestion.title")} forward={this.state.inputValue!=''} type='link' linkForward={()=>this.addQuestion(this.state.inputValue)} linkBackward={() => {this.state.questions.length>0 ? this.setState({modalVisible: false}) : this.props.navigation.navigate("NewSurvey")}} />
+              <View style={{flex: 1, marginTop: -25, justifyContent:'flex-start',  alignItems:'stretch', backgroundColor:'#8e44ad'}}>
+                <CustomHeader color='#8e44ad' title={localize("newQuestion.title")} forward={this.state.inputValue!=''} type='link' linkForward={()=>this.addQuestion(this.state.inputValue)} linkBackward={() => {this.state.questions.length>0 ? this.setState({modalVisible: false}) : this.props.navigation.navigate("NewSurvey")}} />
                 <View style={{paddingHorizontal: 15}}>
                   <Text style={[styles.title, {color: '#fdfbfb'}]}>{this.props.navigation.state.params.surveyTitle}</Text>
                   <Text style={styles.example}>{localize("newQuestion.example")}</Text>
@@ -228,7 +228,7 @@ class AddItemsScreen extends Component {
           <Animatable.View style={{flex:1, paddingVertical: 10, paddingHorizontal:20, justifyContent: 'center'}} duration={1500} easing='ease-out-back' animation="flipInY">
             <Card style={{flex:1, borderRadius: 5, padding: 20, backgroundColor:'#fdfbfb'}}>
               <Text style={[styles.title, {paddingHorizontal: 10, lineHeight: 32, fontSize: 22}]}>{this.props.navigation.state.params.surveyTitle}</Text>
-              {this.props.loading ? <Loading color='#8e44ad'/> :
+              {this.props.loading ? <Loading /> :
                 <View style={{flex: 1}}>
                   <View style={{flex:1, justifyContent:'flex-start'}}>
                     <Text style={[styles.title,{fontSize: 18, color: "#8e44ad", marginBottom: 10, padding: 0, textAlign:'left', borderBottomWidth:1, borderColor: "#b075c9"}]}>

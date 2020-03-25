@@ -103,13 +103,16 @@ class FriendList extends Component {
                             transparent={true}
                             visible={this.state.modalVisible}
                             onRequestClose={() => this.setState({modalVisible: false})}>
-                                <View style={{flex: 1, margin: 15, justifyContent: 'center'}}>
-                                    <View style={{borderRadius: 5, padding: 20, elevation: 1, justifyContent:'space-between', alignItems: 'center', backgroundColor:'#3498db'}}>
+                                <View style={{flex: 1, marginHorizontal: 15, justifyContent: 'center'}}>
+                                    <View style={{borderRadius: 5, padding: 10, elevation: 1, justifyContent:'flex-start', alignItems: 'center', backgroundColor:'#3498db'}}>
                                         <Button full transparent style={{justifyContent:'flex-end'}} >
                                             <Icon type="FontAwesome" name="times" style={{color: '#fdfbfb'}} onPress={()=>this.setState({modalVisible: false})} />
                                         </Button>
                                         <UserPicture image={this.state.currentItem.image} style={{borderWidth: 1.5}} uid={this.state.currentItem.key} name={this.state.currentItem.name} style={{width: 110, height: 110, borderRadius: 55, borderWidth: 3}} large color='#fdfbfb' />
-                                        <Text style={styles.welcome}>{this.state.currentItem.name}</Text>
+                                        <View style={{padding: 20}}>
+                                            <Text style={styles.welcome}>{this.state.currentItem.name.split(" ")[0]}</Text>
+                                            <Text style={styles.welcome}>{this.state.currentItem.name.split(" ")[1]}</Text>
+                                        </View>
                                         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                                             {this.state.currentItem.state==='received' &&
                                             <Button transparent style={{flex: 1, justifyContent: 'flex-start'}}>
@@ -142,12 +145,12 @@ const styles = StyleSheet.create({
     },
     welcome: {
         color: '#fdfbfb',
-        fontSize: 20,
+        fontSize: 22,
         textAlign:'center',
-        padding: 20, 
         textTransform: 'uppercase', 
         fontFamily: 'Blogger',
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        lineHeight: 36
       },
 });
 

@@ -46,7 +46,7 @@ class SurveyList extends Component {
     render()
     {
         if(this.props.loading) 
-            return <Loading color='#e67e22' /> 
+            return <Loading /> 
         return (
             <View style={{flex:1, padding: 15, marginHorizontal: 5}}>
                 {this.props.surveys.length==0 ? <Text style={styles.noContent}>{localize("mySurveys.noContent")}</Text> :

@@ -36,10 +36,10 @@ class ShareWithScreen extends Component {
   
   render() {
       if(this.props.loading)
-        return <Loading color='#3498db'/>;
+        return <Loading />;
       return (
-        <View style={{flex: 1, flexDirection:'column', backgroundColor: "#3498db"}}>
-          <CustomHeader color='#3498db' title={localize("share.title")} type='link'
+        <View style={{flex: 1, flexDirection:'column', backgroundColor: "#2c3e50"}}>
+          <CustomHeader color='#2c3e50' title={localize("share.title")} type='link'
           linkBackward={() => this.props.navigation.pop()} forward={this.state.selected.length>0} linkForward={() => this.shareWithUsers()}/>
           <View style={{paddingHorizontal: 10}}>
             <Text style={{fontFamily: 'Pacifico' , fontSize: 24, lineHeight: 36, color: '#fdfbfb', textAlign: 'center'}}>{this.props.navigation.state.params.title}</Text>

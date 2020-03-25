@@ -31,7 +31,7 @@ class RootContainer extends Component {
   render() {
     return (
         (this.props.loading || this.state.loadingFonts) ?
-          <Loading color='#1abc9c'/>
+          <Loading />
         :
          (this.props.user ? 
             this.props.user.tutorial ? <TutorialScreen login /> : <HomeScreen /> 

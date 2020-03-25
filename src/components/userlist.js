@@ -32,7 +32,7 @@ class UserList extends Component {
 
   render() {
         if(this.props.loading) 
-            return <Loading color='#3498db' />
+            return <Loading />
         return (
             <View style={{padding: 10, flex:1}}>
                 {this.props.error != '' ?

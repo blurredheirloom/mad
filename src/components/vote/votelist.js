@@ -27,7 +27,7 @@ class VoteList extends Component {
 
   render() {
       if(this.props.loading)
-        return (<Loading color='#9b59b6'/>);
+        return (<Loading />);
       if(this.props.questions===undefined)
         return <Text style={styles.noContent}>{localize("vote.deleted")}</Text>
       if(!this.props.yourVotes)

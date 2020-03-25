@@ -55,7 +55,7 @@ class AddAvatarScreen extends Component {
             <CustomHeader color='#1abc9c' title={localize("avatar.title")} type='link' linkBackward={() => this.props.navigation.pop()} forward={this.state.selected!=null} linkForward={() => this.changeAvatar()}/>
             <View style={{flex: 1, paddingVertical:10, paddingHorizontal:20 }}>
                 <Card style={{flex:1, borderRadius: 5, paddingHorizontal: 10, backgroundColor:'#fdfbfb'}}>
-                {this.props.loading ? <Loading color='#1abc9c'/> :
+                {this.props.loading ? <Loading /> :
                   <View style={{flex: 1, paddingVertical: 25}}>
                     <FlatList
                         ref={(ref) => { this.flatListRef = ref; }}

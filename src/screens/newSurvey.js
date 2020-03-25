@@ -24,10 +24,10 @@ class NewSurveyScreen extends Component {
 
   render() {
     if(this.props.loading)
-      return (<Loading color='#2c3e50' />);
+      return (<Loading />);
     return(
-      <View style={{flex: 1, flexDirection:'column', backgroundColor: "#2c3e50"}}>
-        <CustomHeader color='#2c3e50' title={localize("newSurvey.title")} type='back' 
+      <View style={{flex: 1, flexDirection:'column', backgroundColor: "#16a085"}}>
+        <CustomHeader color='#16a085' title={localize("newSurvey.title")} type='back' 
         linkBackward={() => this.props.navigation.popToTop()} 
         forward={this.state.inputValue!=''} linkForward={() => this.makeSurvey(this.state.inputValue)}/>
         <View style={{paddingHorizontal: 15, paddingVertical: 20}}>

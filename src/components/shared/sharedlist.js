@@ -27,7 +27,7 @@ class SharedList extends Component {
   
     render() {
       if(this.props.loading) 
-        return <Loading color='#2ecc71' /> 
+        return <Loading /> 
       return ( 
         <View style={{flex:1, padding: 15, marginHorizontal: 5}}>
           {this.props.sharedsurveys.length==0 ? <Text style={styles.noContent}>{localize("sharedSurveys.noContent")}</Text> :

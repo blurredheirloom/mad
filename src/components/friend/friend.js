@@ -17,7 +17,7 @@ export default class Friend extends Component
                             <Text style={[styles.item, {flex:1, color: '#fdfbfb'}]}>{this.props.data.name}</Text>
                         </View>
                         <CheckBox
-                            style={{borderColor: '#fdfbfb', borderRadius: 1, left:0, marginRight: 10}}
+                            style={{borderColor: '#fdfbfb', backgroundColor: 'transparent', borderRadius: 1, left:0, marginRight: 10}}
                             checked={this.props.data.checked}
                             onPress={this.props.onCheck}
                         />

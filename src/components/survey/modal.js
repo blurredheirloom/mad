@@ -8,7 +8,7 @@ import { localize } from '../../locales/i18n';
 class ConfirmModal extends Component {
 render() {
     if(this.props.loading)
-      return <Loading color='#e74c3c' /> 
+      return <Loading /> 
     return(
         <Modal
             animationType="slide"
